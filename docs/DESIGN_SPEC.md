@@ -5,8 +5,8 @@
 | Field | Value |
 |-------|-------|
 | Owner | Kishor Kumar |
-| Version | 0.5 |
-| Document status | **Draft.** Approved decisions D1–D16 are binding. Everything marked *Proposed* needs owner approval. |
+| Version | 0.6 |
+| Document status | **Draft.** Approved decisions D1–D17 are binding. Everything marked *Proposed* needs owner approval. |
 | Last updated | 2026-11-02 |
 
 **Status labels**
@@ -134,7 +134,7 @@ To stand out from generic templates without gimmicks:
 | `--color-on-accent` | `#FFFFFF` | Text on `accent-strong` fills | 5.17:1 / 6.70:1 |
 | `--color-border-strong` | `#64748B` | Form-input borders and other meaningful UI boundaries | `#263449` is below the 3:1 non-text minimum |
 
-**Status colors** (success, warning, error) are **Open (OD-4)**. Define them with the contact form and validate them with the same method.
+**Status colors** (success, warning, error) are **Open (OD-4)**. v1 has no contact form (D17), so they are needed only if a future feature requires them. Validate them with the same method.
 
 ### 5.3 Measured contrast ratios (WCAG 2.x relative luminance)
 | Foreground | on `bg` | on `surface` | on `surface-elevated` | Verdict |
@@ -318,8 +318,12 @@ Each section is a `<section>` with an `id`, an `h2` (except the hero), and a mon
 - Every item links to evidence where possible. Do not list certifications or publications that don't exist.
 
 ### 9.8 Contact (`#contact`)
-- Short invitation (1–2 sentences), an email button (`mailto:`), and GitHub / LinkedIn links.
-- **Contact form: Open (OD-10).** If added, it needs labeled fields, inline validation, spam protection, a server-side handler, and success/error states (see `.claude/rules/security.md`).
+**Approved (D17): email only for v1.** No contact form, and no backend or API route.
+- Short invitation (1–2 sentences).
+- Email address displayed as visible text, plus a `mailto:` link.
+- GitHub and LinkedIn links.
+- Optional: a "Copy email" button.
+- **Future contact form:** not part of v1. Adding one requires a new owner decision on OD-10 that supersedes D17 (see `.claude/rules/architecture.md`). If added, it needs labeled fields, inline validation, spam protection, a server-side handler, and success/error states (see `.claude/rules/security.md`).
 
 ---
 
@@ -583,7 +587,7 @@ Exact package versions are pinned at initialization (npm records them in `packag
 | `/projects/[slug]` | Case study per project | Static (pre-generated) |
 | `/resume.pdf` | Resume file (static asset) | Static |
 | 404 | Not-found page | Static |
-| `/api/contact` | Only if a contact form is approved (OD-10) | Serverless function |
+| `/api/contact` | Not in v1 (D17). Only if a future decision on OD-10 supersedes D17 | Serverless function |
 
 ### 16.2 Proposed folder structure
 ```
@@ -625,7 +629,7 @@ ESLint (Next.js config), TypeScript `strict`, Prettier, Vitest + Testing Library
 ### 16.6 Deployment
 - Vercel with preview deployments per branch and production on the main branch.
 - Security headers (CSP, HSTS, etc.) per `.claude/rules/security.md`.
-- Environment variables only if needed (e.g. the contact form); never exposed to the client unless non-sensitive.
+- Environment variables only if needed; none are needed for contact in v1 (email only, D17). Never exposed to the client unless non-sensitive.
 
 ---
 
@@ -730,17 +734,17 @@ A release is complete only when every item below passes.
 | D14 | Color palette: **approve the proposed palette** in §5.1 and §5.2 as specified in v0.2, including `accent-strong`, `accent-strong-hover`, `on-accent`, and `border-strong`. Values unchanged. Accessibility contrast validation (§5.5) is still required before implementation (resolves OD-1) | 2026-11-02 | Kishor Kumar |
 | D15 | Typography: **Geist Sans + Geist Mono** (resolves OD-2) | 2026-11-02 | Kishor Kumar |
 | D16 | Theme: **dark only for v1**; no light/dark toggle in the initial release (resolves OD-3) | 2026-11-02 | Kishor Kumar |
+| D17 | Contact: **email only for v1**. No contact form, no backend or API route. Email shown as visible text with a `mailto:` link, plus GitHub and LinkedIn links; a copy-email button is optional (resolves OD-10) | 2026-11-02 | Kishor Kumar |
 
 ### 19.3 Open decisions
 | ID | Decision needed | Section | Current proposal |
 |----|-----------------|---------|------------------|
-| OD-4 | Status colors (success, warning, error) | §5.2 | Define with the contact form |
+| OD-4 | Status colors (success, warning, error) | §5.2 | Not needed in v1 (no contact form, D17); define if a future feature requires them |
 | OD-5 | Featured projects and their order | §9.4 | Owner to provide |
 | OD-6 | Logo / monogram | §2.4 | "KK" wordmark in Geist Sans |
 | OD-7 | Availability line in the hero | §9.1 | Include only if true; wording from owner |
 | OD-8 | Professional photo | §9.1 | Optional |
 | OD-9 | Experience section when there is no professional experience | §9.5 | Hide until real entries exist |
-| OD-10 | Contact form vs. email only | §9.8 | Email only for v1 |
 | OD-11 | Production domain | §14 | Owner to provide |
 | OD-12 | Analytics and Speed Insights | §15 | Vercel Speed Insights only, privacy-friendly |
 | OD-13 | MDX for case study content | §16.3 | Use MDX for case studies; typed data for everything else |
@@ -752,6 +756,7 @@ A release is complete only when every item below passes.
 | OD-2 | Typefaces | **Resolved by D15.** Geist Sans + Geist Mono | 2026-11-02 |
 | OD-3 | Light theme | **Resolved by D16.** Dark only for v1; no theme toggle | 2026-11-02 |
 | OD-15 | Exact package manager and versions | **Resolved by D13.** npm. Exact versions are pinned at initialization and recorded in §19 | 2026-11-02 |
+| OD-10 | Contact form vs. email only | **Resolved by D17.** Email only for v1; no contact form, backend or API route | 2026-11-02 |
 
 ### 19.4 Change log
 | Version | Date | Change | Author | Status |
@@ -761,3 +766,4 @@ A release is complete only when every item below passes.
 | 0.3 | 2026-11-02 | Recorded owner approvals: D13 npm (OD-15), D14 color palette (OD-1), D15 Geist Sans + Geist Mono (OD-2), D16 dark only for v1 (OD-3). Updated §1.3, §5 intro, §5.1, §5.2, §5.5, §6, §16, §19.2, §19.3 and §19.3a. No palette values changed. Contrast validation still required before implementation. Conflicts with `.claude/rules/` not yet resolved | Claude | Draft; D13–D16 approved by owner |
 | 0.4 | 2026-11-02 | Resolved spacing conflict 3 (owner-approved): added 112px to the §7.1 spacing scale (now 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 112, 128), matching the existing desktop section spacing. Clarified §7.4 "Between sections" Desktop+ value from "112–128px" to "112px (desktop) / 128px (large desktop)". §12.1 unchanged. No spacing values changed. `.claude/rules/design-system.md` spacing rule aligned to §7.1 | Claude | Draft; change approved by owner |
 | 0.5 | 2026-11-02 | Completed conflict 3 cleanup (owner-approved): §10.5 tag padding changed from 4×10px to 4×8px so it uses the spacing scale. §7.1 now states the scale applies to layout spacing (margins, padding, gaps), not to component dimensions, typography offsets, borders, focus-ring offsets or animation distances. Unchanged: 72px desktop header height and its `scroll-margin-top`, 2px focus-ring offset, 3px underline offset, 2px hover lift, 44px button height. Spacing scale values unchanged | Claude | Draft; change approved by owner |
+| 0.6 | 2026-11-02 | Resolved conflict 5 (owner-approved): recorded D17, email-only contact for v1 (resolves OD-10). Updated §9.8 Contact, the §16.1 `/api/contact` row, the §16.6 environment-variable note, the §5.2 status-color note and the OD-4 proposal to reflect that v1 has no contact form. `.claude/rules/architecture.md` now states v1 is frontend-only and links backend changes to OD-10 | Claude | Draft; D17 approved by owner |
