@@ -3,7 +3,7 @@
 ## Structure
 - Organize by feature/section, not by file type, once a section has more than ~3 files.
 - Suggested layout:
-  - `src/app` or `src/pages` – routes/pages only; keep them thin.
+  - `src/app` – routes/pages only (Next.js App Router, D6 in `docs/DESIGN_SPEC.md`); keep them thin.
   - `src/components/ui` – reusable, presentational primitives (Button, Card, Tag).
   - `src/components/sections` – page sections (Hero, Projects, Experience, Contact).
   - `src/lib` – pure utilities, data fetching, helpers.
