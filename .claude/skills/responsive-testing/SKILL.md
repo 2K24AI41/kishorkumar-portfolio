@@ -15,5 +15,5 @@ Viewports: **320, 375, 414** (mobile), **768, 1024** (tablet), **1280, 1440, 192
    - Check that touch targets are ≥ 24px (ideally 44px) on mobile.
    - Check landscape orientation on mobile.
 3. Test 200% browser zoom and a 320px width for reflow (WCAG 1.4.10).
-4. Test both light and dark themes.
+4. Test the dark theme (v1 is dark only, D16).
 5. Report per page: viewport → issue → screenshot path → likely cause (file:line) → fix.

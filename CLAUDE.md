@@ -76,7 +76,7 @@ Use skills to run multi-step workflows in a consistent way.
 |------|----------|
 | `.claude/skills/frontend-development/SKILL.md` | Building or modifying UI end to end: plan, implement, test, and review. |
 | `.claude/skills/design-review/SKILL.md` | Reviewing the design and accessibility of a page, section, or component. |
-| `.claude/skills/responsive-testing/SKILL.md` | After layout changes, to check mobile, tablet, and desktop viewports, zoom, and themes. |
+| `.claude/skills/responsive-testing/SKILL.md` | After layout changes, to check mobile, tablet, and desktop viewports, zoom, and the dark theme. |
 | `.claude/skills/pre-deployment-audit/SKILL.md` | Before any deployment, to run the full quality, accessibility, performance, SEO, and security checklist. |
 
 ### How they fit the Development Workflow

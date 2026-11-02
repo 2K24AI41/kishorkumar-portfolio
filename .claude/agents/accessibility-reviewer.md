@@ -11,7 +11,7 @@ Check:
 - Keyboard operability, logical tab order, visible focus, skip link, no focus traps (except modals, which must trap and restore).
 - Accessible names for buttons, links, icons, and form controls.
 - Alt text quality; decorative images hidden.
-- Color contrast in light and dark themes; no color-only meaning.
+- Color contrast in the dark theme (v1 is dark only, D16); no color-only meaning.
 - ARIA used correctly (no redundant or invalid roles).
 - `prefers-reduced-motion` respected.
 - Target sizes.

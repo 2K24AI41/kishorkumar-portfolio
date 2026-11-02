@@ -2,7 +2,7 @@
 
 ## Tokens (single source of truth)
 Define all tokens as CSS custom properties (and mirror in Tailwind config if used):
-- **Color**: semantic names only — `--color-bg`, `--color-surface`, `--color-text`, `--color-text-muted`, `--color-accent`, `--color-border`. Never use raw hex in components.
+- **Color**: semantic names only, as defined in `docs/DESIGN_SPEC.md` §5.1–§5.2 (source of truth; usage rules in §5.4): `--color-bg`, `--color-surface`, `--color-surface-elevated`, `--color-text`, `--color-text-muted`, `--color-accent`, `--color-accent-highlight`, `--color-accent-strong`, `--color-accent-strong-hover`, `--color-on-accent`, `--color-border`, `--color-border-strong`. Never use raw hex in components.
 - **Spacing**: 4px base scale (4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 112, 128), as defined in `docs/DESIGN_SPEC.md` §7.1 (source of truth).
 - **Typography**: modular scale; tokens for size, line-height, weight. Body ≥ 16px, line-height 1.5–1.7, line length 60–75ch.
 - **Radius, shadow, z-index, motion duration/easing**: tokenized.
