@@ -1,0 +1,9 @@
+# Generated files
+package-lock.json
+next-env.d.ts
+
+# Hand-written documentation and Claude configuration: not auto-formatted,
+# so existing wording and layout are never rewritten by the formatter.
+docs/
+.claude/
+CLAUDE.md

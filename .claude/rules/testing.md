@@ -9,4 +9,5 @@
 - Test behavior, not implementation details. No snapshot tests of large DOM trees.
 - New components ship with at least one test covering rendering and key interaction.
 - Bug fixes include a regression test.
-- All tests, lint, and type-check must pass before merge (`npm run lint && npx tsc --noEmit && npm test`).
+- **Required checks before merge (current):** lint, type-check, formatting and build must all pass: `npm run lint && npm run typecheck && npm run format:check && npm run build`. Use `npm run typecheck` rather than `npx tsc --noEmit` alone: on a fresh clone, Next.js route types must be generated first.
+- **Tests (not yet required):** Vitest is not installed yet and no `npm test` script exists. When the testing milestone introduces Vitest (and later Playwright and axe), `npm test` and those test suites become required merge checks, and this rule is updated.
