@@ -5,8 +5,8 @@
 | Field | Value |
 |-------|-------|
 | Owner | Kishor Kumar |
-| Version | 0.6 |
-| Document status | **Draft.** Approved decisions D1–D17 are binding. Everything marked *Proposed* needs owner approval. |
+| Version | 0.7 |
+| Document status | **Draft.** Approved decisions D1–D18 are binding. Everything marked *Proposed* needs owner approval. |
 | Last updated | 2026-11-02 |
 
 **Status labels**
@@ -25,7 +25,7 @@ A premium, professional engineering portfolio that demonstrates Kishor Kumar's r
 | Priority | Goal | Success signal |
 |----------|------|----------------|
 | Primary | Visitors understand who Kishor is and what Kishor builds within 5 seconds | Hero communicates name, role, and focus without scrolling |
-| Primary | Visitors explore at least one project in depth | Clear path from the home page to case study pages |
+| Primary | Visitors explore at least one project in depth (when at least one featured project is published, D18) | Clear path from the home page to case study pages |
 | Primary | Visitors can make contact easily | Contact and resume are reachable from every page |
 | Secondary | Demonstrate engineering quality through the site itself | Meets the accessibility, performance, and SEO criteria in §18 |
 | Secondary | Show growth over time | Learning and Research section kept up to date |
@@ -33,6 +33,7 @@ A premium, professional engineering portfolio that demonstrates Kishor Kumar's r
 ### 1.3 Scope (v1)
 - **In scope:** single-page home with anchored sections; one case study page per featured project; resume download; contact links; a 404 page.
 - **Out of scope for v1 (Approved, D16):** light theme and light/dark theme toggle. v1 ships dark only.
+- **Out of scope for v1 (Approved, D18):** a separate All Projects page. It may be considered in a future version if there are more than 3 strong projects.
 - **Out of scope for v1 (Proposed):** blog/CMS, internationalization, user accounts, analytics dashboards.
 
 ### 1.4 Primary interests
@@ -264,9 +265,9 @@ Horizontal page padding: 16px (mobile) · 24px (tablet) · 32px (desktop) · 40p
 ### 8.4 Other navigation
 - **Skip to main content:** the first focusable element, visible on focus.
 - **Smooth scrolling** for anchor links, disabled under reduced motion.
-- **Case study pages:** a "← All projects" back link at the top, and previous/next project links at the bottom.
+- **Case study pages:** a "← All projects" back link at the top (to the homepage `#projects` section), and previous/next project links at the bottom (omitted when only one project is published).
 - **Footer:** email, GitHub, LinkedIn (icon + text label), "Back to top", copyright line.
-- **404 page:** a short message plus links to Home and Projects.
+- **404 page:** a short message plus links to Home and, when at least one project is published, Projects.
 
 ---
 
@@ -274,10 +275,11 @@ Horizontal page padding: 16px (mobile) · 24px (tablet) · 32px (desktop) · 40p
 
 Section order (Approved via requirements): **Hero → About → Technical Skills → Featured Projects → Experience → Education → Learning and Research → Contact.**
 Each section is a `<section>` with an `id`, an `h2` (except the hero), and a mono index label (`01`–`07`).
+A section with no approved content is hidden: its navigation link is removed, and index labels number the visible sections consecutively.
 
 ### 9.1 Hero (`#top`)
 - **Content:** eyebrow label (mono: "AI/ML Engineer"), name (`h1`, display size), positioning statement (§2.1), focus chips (ML · DL · Computer Vision · NLP · Applied AI), CTAs.
-- **CTAs:** *View projects* (primary) → `#projects`; *Download resume* (secondary); icon links to GitHub and LinkedIn.
+- **CTAs:** *View projects* (primary) → `#projects`, shown only when at least one project is published (otherwise *Download resume* becomes primary); *Download resume* (secondary); icon links to GitHub and LinkedIn.
 - **Optional:** availability line (e.g. "Open to internships / entry-level roles"): **Open (OD-7)**; include only if true.
 - **Visual:** blueprint grid background (§2.4). Optional professional photo: **Open (OD-8)**.
 - **Layout:** left-aligned text on all viewports. On desktop, an optional right column for the photo or a real project visual.
@@ -295,8 +297,9 @@ Each section is a `<section>` with an `id`, an `h2` (except the hero), and a mon
 - Only list skills that are demonstrated in projects, coursework, or experience.
 
 ### 9.4 Featured Projects (`#projects`)
-- 3–6 project cards (§10.2), with the strongest project first.
-- Optional filter by domain (CV / NLP / ML / Applied AI): **Proposed** only if there are ≥ 6 projects.
+- **Approved (D18): 0–3 project cards** (§10.2), with the strongest project first. Only projects with approved, verified content (§17.1, §17.3, §18.2) are shown.
+- Never show empty, placeholder or "coming soon" cards. With 0 approved projects, the section is hidden (§9 intro).
+- The grid adapts to 1, 2 or 3 cards (§12.1). Projects can be added to the content layer later without redesigning the homepage, which shows at most 3.
 - Each card links to a case study page at `/projects/[slug]`.
 - Project selection and order: **Open (OD-5)**.
 
@@ -361,7 +364,7 @@ Fixed structure. Sections without real content are omitted:
 9. **Technologies:** grouped tags.
 10. **Lessons and next steps:** what didn't work, trade-offs, future improvements.
 11. **Links:** repository, live demo, notebook, report/paper.
-12. **Footer navigation:** previous/next project, back to all projects.
+12. **Footer navigation:** previous/next project (omitted when only one project is published), back to all projects (the homepage `#projects` section).
 
 ### 10.4 Buttons
 | Variant | Style | Use |
@@ -454,7 +457,7 @@ Mobile-first. Breakpoints align with Tailwind defaults.
 | **Typography** | Fluid minimums (display 40px, body 16px) | Interpolated | Near maximums | Maximums (display 72px, body 17px); no further growth |
 | **Hero** | Single column, photo/visual below text or hidden | Single column, wider measure | Two columns (text 7 / visual 5) if a visual exists | Same, more whitespace |
 | **Skills** | 1 column of groups | 2 columns | 3–4 columns | 4 columns |
-| **Project cards** | 1 column, thumbnail on top | 2 columns | 2 columns (featured card spans full width, horizontal) | 3 columns |
+| **Project cards** (1–3, D18) | 1 column, thumbnail on top | 1: full width · 2: 2 columns · 3: first card full width, 2 below | 1: full width, horizontal · 2: 2 columns · 3: first card full width (horizontal), 2 below | 1: full width, horizontal · 2: 2 columns · 3: 3 columns |
 | **Timeline** | Stacked, rail on the left edge | Rail with dates beside the title | Dates in a left column, content right | Same as desktop |
 | **Case study** | Single column, full-width figures | Single column, prose width | Prose column + sticky in-page table of contents | Same, with wider figures (breakout) |
 | **Images** | Full container width; `sizes="100vw"` | `sizes="50vw"` in grids | `sizes` matched to column width | Capped at intrinsic/2× size, never upscaled |
@@ -612,7 +615,7 @@ Consistent with `.claude/rules/architecture.md`.
 Each entity is defined as a TypeScript type and validated at build time. Optional fields are omitted when unknown.
 - **Profile:** name, role, positioning, summary, location (optional), availability (optional), email, social links, resume path.
 - **Skill group:** name, skills[] (each optionally linked to project slugs).
-- **Project:** slug, title, summary, problem, overview, domain(s), role, timeline, personal contribution, dataset (optional), implementation, architecture (optional, image + description), evaluation (metrics with value, dataset/split, baseline, and source/evidence link), technologies[], links (repo, demo optional), images[], featured flag, order.
+- **Project:** slug, title, summary, problem, overview, domain(s), role, timeline, personal contribution, dataset (optional), implementation, architecture (optional, image + description), evaluation (metrics with value, dataset/split, baseline, and source/evidence link), technologies[], links (repo, demo optional), images[], featured flag (at most 3 featured, D18), order.
 - **Experience:** role, organization, location, start/end, bullets[], technologies[].
 - **Education:** degree, institution, start/end (or expected), coursework (optional), honors (optional).
 - **Learning item:** type (course | certification | paper | research note | article), title, issuer/source, date, link, notes (optional).
@@ -663,7 +666,7 @@ Otherwise, describe the evaluation approach qualitatively, or omit the result.
 - No personal data from datasets is shown.
 
 ### 17.5 Required content from the owner before build completion
-Bio and positioning confirmation, skills list, 3–6 projects with assets, experience entries (if any), education details, learning/research items, resume PDF, professional photo (optional), email and social links, and the production domain.
+Bio and positioning confirmation, skills list, 0–3 featured projects with verified content and assets (D18), experience entries (if any), education details, learning/research items, resume PDF, professional photo (optional), email and social links, and the production domain.
 
 ---
 
@@ -676,6 +679,7 @@ A release is complete only when every item below passes.
 - [ ] The palette contrast-validation gate (§5.5) has passed and is recorded in §19.
 - [ ] None of the items in §2.5 appear.
 - [ ] Every section in §9 follows its specification or is intentionally hidden for lack of real content.
+- [ ] The homepage shows 0–3 featured projects and never an empty or placeholder card (D18).
 
 ### 18.2 Content
 - [ ] All content is real and owner-approved; no placeholder text.
@@ -686,6 +690,7 @@ A release is complete only when every item below passes.
 - [ ] No horizontal scroll or clipped content at 320, 375, 414, 768, 1024, 1280, 1440, 1920, and 2560px.
 - [ ] Works at 200% and 400% zoom and in landscape mobile.
 - [ ] Mobile menu passes all §8.3 behaviors.
+- [ ] The projects grid is checked with 1, 2 and 3 cards at every width above (D18).
 
 ### 18.4 Accessibility
 - [ ] Zero axe violations on all routes.
@@ -735,12 +740,13 @@ A release is complete only when every item below passes.
 | D15 | Typography: **Geist Sans + Geist Mono** (resolves OD-2) | 2026-11-02 | Kishor Kumar |
 | D16 | Theme: **dark only for v1**; no light/dark toggle in the initial release (resolves OD-3) | 2026-11-02 | Kishor Kumar |
 | D17 | Contact: **email only for v1**. No contact form, no backend or API route. Email shown as visible text with a `mailto:` link, plus GitHub and LinkedIn links; a copy-email button is optional (resolves OD-10) | 2026-11-02 | Kishor Kumar |
+| D18 | Featured projects: the homepage shows **at most 3** featured projects (0–3; replaces 3–6). Only approved, verified projects are shown; no empty or placeholder cards; the grid adapts to 1, 2 or 3 cards; with 0 projects, the section and its navigation link are hidden and *Download resume* becomes the primary hero CTA. Each featured project has its own case study page. A separate All Projects page is not part of v1 | 2026-11-02 | Kishor Kumar |
 
 ### 19.3 Open decisions
 | ID | Decision needed | Section | Current proposal |
 |----|-----------------|---------|------------------|
 | OD-4 | Status colors (success, warning, error) | §5.2 | Not needed in v1 (no contact form, D17); define if a future feature requires them |
-| OD-5 | Featured projects and their order | §9.4 | Owner to provide |
+| OD-5 | Featured projects and their order | §9.4 | Owner to provide: 0–3 projects, each with verified content (D18) |
 | OD-6 | Logo / monogram | §2.4 | "KK" wordmark in Geist Sans |
 | OD-7 | Availability line in the hero | §9.1 | Include only if true; wording from owner |
 | OD-8 | Professional photo | §9.1 | Optional |
@@ -767,3 +773,4 @@ A release is complete only when every item below passes.
 | 0.4 | 2026-11-02 | Resolved spacing conflict 3 (owner-approved): added 112px to the §7.1 spacing scale (now 4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 112, 128), matching the existing desktop section spacing. Clarified §7.4 "Between sections" Desktop+ value from "112–128px" to "112px (desktop) / 128px (large desktop)". §12.1 unchanged. No spacing values changed. `.claude/rules/design-system.md` spacing rule aligned to §7.1 | Claude | Draft; change approved by owner |
 | 0.5 | 2026-11-02 | Completed conflict 3 cleanup (owner-approved): §10.5 tag padding changed from 4×10px to 4×8px so it uses the spacing scale. §7.1 now states the scale applies to layout spacing (margins, padding, gaps), not to component dimensions, typography offsets, borders, focus-ring offsets or animation distances. Unchanged: 72px desktop header height and its `scroll-margin-top`, 2px focus-ring offset, 3px underline offset, 2px hover lift, 44px button height. Spacing scale values unchanged | Claude | Draft; change approved by owner |
 | 0.6 | 2026-11-02 | Resolved conflict 5 (owner-approved): recorded D17, email-only contact for v1 (resolves OD-10). Updated §9.8 Contact, the §16.1 `/api/contact` row, the §16.6 environment-variable note, the §5.2 status-color note and the OD-4 proposal to reflect that v1 has no contact form. `.claude/rules/architecture.md` now states v1 is frontend-only and links backend changes to OD-10 | Claude | Draft; D17 approved by owner |
+| 0.7 | 2026-11-02 | Recorded D18 (owner-approved): homepage shows at most 3 featured projects (0–3) instead of 3–6. Updated §1.2, §1.3 (All Projects page out of scope for v1), §8.4, §9 intro (hidden-section rule), §9.1 hero CTA, §9.4, §10.3, §12.1 project grid, §16.3, §17.5, §18.1, §18.3 and the OD-5 proposal. Clarified that "All projects" links go to the homepage `#projects` section. Removed the ≥ 6 domain filter, which is no longer reachable | Claude | Draft; D18 approved by owner |
