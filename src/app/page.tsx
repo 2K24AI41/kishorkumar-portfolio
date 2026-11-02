@@ -1,10 +1,9 @@
-import { profile } from "@/content/profile";
+import { Hero } from "@/components/sections/Hero";
 
 export default function Home() {
   return (
-    <main id="main" className="flex flex-1 flex-col justify-center px-4">
-      <h1 className="text-4xl font-semibold">{profile.name}</h1>
-      <p className="font-mono text-text-muted">{profile.role}</p>
+    <main id="main" tabIndex={-1} className="flex-1 focus:outline-none">
+      <Hero />
     </main>
   );
 }
