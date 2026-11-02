@@ -5,8 +5,8 @@
 | Field | Value |
 |-------|-------|
 | Owner | Kishor Kumar |
-| Version | 0.7 |
-| Document status | **Draft.** Approved decisions D1–D18 are binding. Everything marked *Proposed* needs owner approval. |
+| Version | 0.8 |
+| Document status | **Draft.** Approved decisions D1–D20 are binding. Everything marked *Proposed* needs owner approval. |
 | Last updated | 2026-11-02 |
 
 **Status labels**
@@ -620,14 +620,15 @@ Each entity is defined as a TypeScript type and validated at build time. Optiona
 - **Education:** degree, institution, start/end (or expected), coursework (optional), honors (optional).
 - **Learning item:** type (course | certification | paper | research note | article), title, issuer/source, date, link, notes (optional).
 
-Case study long-form content may use MDX: **Proposed (OD-13)**.
+**Approved (D19):** all v1 content, including case studies, is stored in TypeScript data files. No MDX in v1; MDX may be reconsidered in a future version if needed.
 
 ### 16.4 Design tokens in code
 - Tokens defined once as CSS custom properties (§5–§7, §11.2) and mapped into the Tailwind theme so components use semantic utilities only.
 - `.claude/rules/design-system.md` governs usage.
 
-### 16.5 Quality tooling (Proposed, finalized at initialization)
-ESLint (Next.js config), TypeScript `strict`, Prettier, Vitest + Testing Library, Playwright + axe. Commands are documented in `CLAUDE.md` once the project is initialized.
+### 16.5 Quality tooling (Approved, D20)
+**Approved (D20):** ESLint (Next.js config), Prettier, Vitest, Playwright and axe, alongside TypeScript `strict` (D5). Tools are introduced gradually as development progresses; each is required once it is set up, and all must pass before release (§18). Testing Library (for Vitest component tests): **Proposed**.
+Commands are documented in `CLAUDE.md` once the project is initialized.
 
 ### 16.6 Deployment
 - Vercel with preview deployments per branch and production on the main branch.
@@ -741,6 +742,8 @@ A release is complete only when every item below passes.
 | D16 | Theme: **dark only for v1**; no light/dark toggle in the initial release (resolves OD-3) | 2026-11-02 | Kishor Kumar |
 | D17 | Contact: **email only for v1**. No contact form, no backend or API route. Email shown as visible text with a `mailto:` link, plus GitHub and LinkedIn links; a copy-email button is optional (resolves OD-10) | 2026-11-02 | Kishor Kumar |
 | D18 | Featured projects: the homepage shows **at most 3** featured projects (0–3; replaces 3–6). Only approved, verified projects are shown; no empty or placeholder cards; the grid adapts to 1, 2 or 3 cards; with 0 projects, the section and its navigation link are hidden and *Download resume* becomes the primary hero CTA. Each featured project has its own case study page. A separate All Projects page is not part of v1 | 2026-11-02 | Kishor Kumar |
+| D19 | Content storage: **TypeScript data files** for all v1 content, including case studies. No MDX in v1; MDX may be reconsidered in a future version if needed (resolves OD-13) | 2026-11-02 | Kishor Kumar |
+| D20 | Quality tooling: **ESLint, Prettier, Vitest, Playwright and axe**. Introduced gradually as development progresses rather than all at once; each is required once set up, and all must pass before release (§18) | 2026-11-02 | Kishor Kumar |
 
 ### 19.3 Open decisions
 | ID | Decision needed | Section | Current proposal |
@@ -753,7 +756,6 @@ A release is complete only when every item below passes.
 | OD-9 | Experience section when there is no professional experience | §9.5 | Hide until real entries exist |
 | OD-11 | Production domain | §14 | Owner to provide |
 | OD-12 | Analytics and Speed Insights | §15 | Vercel Speed Insights only, privacy-friendly |
-| OD-13 | MDX for case study content | §16.3 | Use MDX for case studies; typed data for everything else |
 | OD-14 | Positioning statement wording | §2.1 | As drafted |
 ### 19.3a Resolved decisions
 | ID | Decision needed | Resolution | Date |
@@ -763,6 +765,7 @@ A release is complete only when every item below passes.
 | OD-3 | Light theme | **Resolved by D16.** Dark only for v1; no theme toggle | 2026-11-02 |
 | OD-15 | Exact package manager and versions | **Resolved by D13.** npm. Exact versions are pinned at initialization and recorded in §19 | 2026-11-02 |
 | OD-10 | Contact form vs. email only | **Resolved by D17.** Email only for v1; no contact form, backend or API route | 2026-11-02 |
+| OD-13 | MDX for case study content | **Resolved by D19.** TypeScript data files for all v1 content; no MDX in v1 | 2026-11-02 |
 
 ### 19.4 Change log
 | Version | Date | Change | Author | Status |
@@ -774,3 +777,4 @@ A release is complete only when every item below passes.
 | 0.5 | 2026-11-02 | Completed conflict 3 cleanup (owner-approved): §10.5 tag padding changed from 4×10px to 4×8px so it uses the spacing scale. §7.1 now states the scale applies to layout spacing (margins, padding, gaps), not to component dimensions, typography offsets, borders, focus-ring offsets or animation distances. Unchanged: 72px desktop header height and its `scroll-margin-top`, 2px focus-ring offset, 3px underline offset, 2px hover lift, 44px button height. Spacing scale values unchanged | Claude | Draft; change approved by owner |
 | 0.6 | 2026-11-02 | Resolved conflict 5 (owner-approved): recorded D17, email-only contact for v1 (resolves OD-10). Updated §9.8 Contact, the §16.1 `/api/contact` row, the §16.6 environment-variable note, the §5.2 status-color note and the OD-4 proposal to reflect that v1 has no contact form. `.claude/rules/architecture.md` now states v1 is frontend-only and links backend changes to OD-10 | Claude | Draft; D17 approved by owner |
 | 0.7 | 2026-11-02 | Recorded D18 (owner-approved): homepage shows at most 3 featured projects (0–3) instead of 3–6. Updated §1.2, §1.3 (All Projects page out of scope for v1), §8.4, §9 intro (hidden-section rule), §9.1 hero CTA, §9.4, §10.3, §12.1 project grid, §16.3, §17.5, §18.1, §18.3 and the OD-5 proposal. Clarified that "All projects" links go to the homepage `#projects` section. Removed the ≥ 6 domain filter, which is no longer reachable | Claude | Draft; D18 approved by owner |
+| 0.8 | 2026-11-02 | Recorded D19 (owner-approved): TypeScript data files for all v1 content, no MDX (resolves OD-13). Recorded D20 (owner-approved): ESLint, Prettier, Vitest, Playwright and axe, introduced gradually and all required before release. Updated §16.3 and §16.5; OD-13 moved to §19.3a. Testing Library remains Proposed | Claude | Draft; D19–D20 approved by owner |

@@ -7,7 +7,7 @@
   - `src/components/ui` – reusable, presentational primitives (Button, Card, Tag).
   - `src/components/sections` – page sections (Hero, Projects, Experience, Contact).
   - `src/lib` – pure utilities, data fetching, helpers.
-  - `src/content` or `src/data` – portfolio content (projects, experience) as typed data/MDX.
+  - `src/content` or `src/data` – portfolio content (projects, experience) as typed TypeScript data. MDX is not used in v1 (D19 in `docs/DESIGN_SPEC.md`).
   - `src/styles` – global styles and design tokens.
   - `public/` – static assets (optimized images, favicon, resume PDF).
 
