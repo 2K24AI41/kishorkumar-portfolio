@@ -14,7 +14,7 @@ Review for:
 3. **Layout & rhythm** – Spacing scale respected, alignment, comfortable line length, whitespace.
 4. **Typography** – Scale, readability, contrast, weight usage.
 5. **Interaction states** – hover, focus-visible, active, disabled, loading, empty, error.
-6. **Responsiveness** – Layout holds from 320px to 1920px.
+6. **Responsiveness** – Layout holds from 320px to 2560px (see `docs/DESIGN_SPEC.md` §12.2).
 7. **Content clarity** – Clear headings, scannable copy, obvious calls to action.
 
 Output a prioritized list: **Critical / Should fix / Nice to have**, each with file:line, the problem, and a concrete fix. Do not edit files.
