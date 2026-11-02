@@ -5,7 +5,7 @@
 | Field | Value |
 |-------|-------|
 | Owner | Kishor Kumar |
-| Version | 0.9 |
+| Version | 0.10 |
 | Document status | **Draft.** Approved decisions D1–D20 are binding. Everything marked *Proposed* needs owner approval. |
 | Last updated | 2026-11-02 |
 
@@ -166,6 +166,8 @@ The palette values are approved (D14). Contrast validation is still required bef
 3. Manually check hover, focus, active, disabled, and selected states.
 4. Check at 200% zoom and with a Windows High Contrast / forced-colors mode sanity pass.
 5. Record the results and the owner's approval in §19.
+
+**Status (2026-11-02): partially complete.** Items 1–2 are done for the Foundation + Hero milestone; items 3–4 are only partly done (emulated checks only). Details and outstanding checks are in [§19.6](#196-accessibility-validation-record-55-foundation--hero). The validation is **not** marked complete.
 
 ---
 
@@ -779,6 +781,7 @@ A release is complete only when every item below passes.
 | 0.7 | 2026-11-02 | Recorded D18 (owner-approved): homepage shows at most 3 featured projects (0–3) instead of 3–6. Updated §1.2, §1.3 (All Projects page out of scope for v1), §8.4, §9 intro (hidden-section rule), §9.1 hero CTA, §9.4, §10.3, §12.1 project grid, §16.3, §17.5, §18.1, §18.3 and the OD-5 proposal. Clarified that "All projects" links go to the homepage `#projects` section. Removed the ≥ 6 domain filter, which is no longer reachable | Claude | Draft; D18 approved by owner |
 | 0.8 | 2026-11-02 | Recorded D19 (owner-approved): TypeScript data files for all v1 content, no MDX (resolves OD-13). Recorded D20 (owner-approved): ESLint, Prettier, Vitest, Playwright and axe, introduced gradually and all required before release. Updated §16.3 and §16.5; OD-13 moved to §19.3a. Testing Library remains Proposed | Claude | Draft; D19–D20 approved by owner |
 | 0.9 | 2026-11-02 | Milestone 1 (Next.js setup): added §19.5 with the exact installed dependency versions, ESLint 9.39.5 as a temporary tooling exception (end of life, with revisit condition), and the analysis of the dev-only minimatch advisory. No approved decisions, token values or other sections changed | Claude | Draft; recorded at the owner's request |
+| 0.10 | 2026-11-02 | Recorded the partial accessibility validation (§5.5) for Milestone 2 (Foundation + Hero) in new §19.6, and added a status note under §5.5. Four accessibility fixes (A–D) were applied in code. No approved decisions, token values or other sections changed. The validation is **not** marked complete: real browser zoom, real Windows High Contrast, NVDA, VoiceOver, other browsers and touch testing are outstanding | Claude | Draft; recording approved by the owner |
 
 ### 19.5 Pinned dependency versions
 Installed at project initialization (Milestone 1, 2026-11-02) with npm (D13). All direct dependencies are pinned to exact versions (`.npmrc`: `save-exact=true`), and `package-lock.json` records the full dependency tree. Node.js ≥ 20.9.0 (`engines` in `package.json`); verified locally on Node.js 26.13.0 and npm 11.20.0.
@@ -812,3 +815,88 @@ It stays visible in `npm audit` (16 moderate findings, all from this one advisor
 - **minimatch 3.1.5** (used by `eslint`, `@eslint/config-array`, `@eslint/eslintrc`, `eslint-plugin-react`, `eslint-plugin-jsx-a11y` and `eslint-plugin-import`): the installed code contains no `firstPhasePreProcess`, `secondPhasePreProcess` or `optimizationLevel`, so the described vulnerable code is not present. It is reported only because of the database's broader range.
 - **minimatch 10.2.6** (used by `@typescript-eslint/typescript-estree` 8.72.1): the described code path is present. Its only call in `typescript-estree` passes `{ dot: true }`, so `optimizationLevel` keeps its default of 1 and the path is not reached.
 - **No non-breaking fix exists:** 3.1.5 and 10.2.6 are the latest releases in their lines, and the dependents require `^3.1.x` and `^10.2.2`. `npm audit fix --force` would downgrade to `eslint` 4.0.0 / `eslint-config-next` 0.2.4 and must not be used. Revisit with the ESLint upgrade and before every release.
+
+### 19.6 Accessibility validation record (§5.5): Foundation + Hero
+
+**Status: PARTIAL. The §5.5 validation is not complete.** This records what was actually tested for the home page (`/`) at Milestone 2 (Foundation + Hero, 2026-11-02). The owner reviewed the audit report and approved recording these results; that approval covers the record only, not the completion of §5.5.
+
+**Method and environment**
+- Chrome 157.0.8103.26 (headless, Windows 11), driven over the DevTools protocol with scripted key presses and media emulation. The scripts were temporary and are not part of the repository.
+- Tested against the production build (`next build` + `next start`). A first run accidentally used a development server; it was repeated on the production build with identical results.
+- axe-core 4.14.0, taken from `node_modules` where it is a transitive dependency of `eslint-config-next` (through `eslint-plugin-jsx-a11y`). It is not a direct dependency, and the D20 axe tooling (`@axe-core/playwright`) is not set up yet.
+
+**Automated (axe-core 4.14.0)**
+- Rule sets: wcag2a, wcag2aa, wcag21a, wcag21aa, wcag22aa, best-practice.
+- Before fixes: **0 violations**, 33 rules passed, 1 incomplete (`color-contrast`, 2 nodes).
+- After fixes: **0 violations**, 35 rules passed, the same 1 incomplete.
+- The incomplete nodes are the eyebrow `<p>` and `#hero-heading`: axe cannot determine their background because of the CSS-masked blueprint grid. They were checked by calculation (below), not by axe.
+
+**Contrast (calculated independently, WCAG 2.x relative luminance; Foundation + Hero pairs only)**
+
+| Pair as used | Ratio | Required | Result |
+|--------------|-------|----------|--------|
+| `text` on `bg` (header name link, `h1`) | 18.57:1 | 4.5:1 | Pass |
+| `accent-highlight` on `bg` (eyebrow) | 7.64:1 | 4.5:1 | Pass |
+| `text-muted` on `surface-elevated` (chips) | 6.14:1 | 4.5:1 | Pass |
+| `text` on `surface-elevated` (skip link) | 15.05:1 | 4.5:1 | Pass |
+| Focus ring `accent-highlight` on `bg` | 7.64:1 | 3:1 | Pass |
+| Focus ring `accent-highlight` on `surface-elevated` | 6.19:1 | 3:1 | Pass |
+| `text` over a grid line (`border`) | 12.02:1 | 3:1 (large text) | Pass |
+| `accent-highlight` over a grid line (`border`) | 4.95:1 | 4.5:1 | Pass (small margin; keep in mind when adding text over the grid) |
+
+The chip background against the page background (1.23:1) and the grid lines (1.54:1) are not requirements: the chip text carries the meaning and the grid is decorative.
+
+**Keyboard (scripted in Chrome)**
+- Tab order: skip link, then the header name link, then out of the page. Logical.
+- Focus ring on both links: 2px solid `rgb(96, 165, 250)` with 2px offset, matching `:focus-visible`.
+- Skip link activation changes the URL to `#main`. Before fix C, focus placement in `main` could not be shown; after fix C, focus moves to `main#main`.
+- Name link target size 106×44px. Skip link while focused: 161×28px before fix A, 193×52px after.
+- This was a scripted check. A manual, human keyboard-only pass has not been done.
+
+**Zoom and reflow (emulated by viewport size, not by browser zoom)**
+- 200% zoom emulated as a 640 CSS px viewport and 400% as a 320 CSS px viewport: no horizontal scroll and no overflowing elements at either.
+- WCAG 1.4.12 text-spacing overrides at 375px: no horizontal scroll.
+- Root font size raised to 64px at 1280px (after fix D): the header grows to contain its link, the hero starts below it, and there is no horizontal scroll.
+
+**Display preferences (emulated)**
+- Reduced motion: the setting took effect (`prefers-reduced-motion: reduce` matches). The page currently has no animations, transitions or smooth scrolling, so the result is trivially a pass. It must be retested when animation is added.
+- Forced colors (Chrome emulation, plain white and black palette): text stays legible, the focus ring stays visible, and the decorative grid is removed. Before fix B, chip backgrounds disappeared and chips had no border; after fix B they show a 1px border.
+
+**Fixes applied (from the audit)**
+
+| ID | File | Change | Verified |
+|----|------|--------|----------|
+| A | `src/components/layout/SkipLink.tsx` | Focused padding via `focus:px-4 focus:py-3` (`not-sr-only` reset it to 0) | Focused size 193×52px, padding 12px 16px |
+| B | `src/components/ui/Tag.tsx` | Added `border border-transparent` | Border is visible in forced colors, transparent in normal mode |
+| C | `src/app/page.tsx` | Added `tabIndex={-1}` to `<main>` | Skip link moves focus to `main#main` |
+| D | `src/components/layout/Header.tsx` | `h-16 lg:h-18` changed to `min-h-16 lg:min-h-18` | 64px at 320px, 72px at 1280px; grows with large text |
+
+Finding E (the eyebrow's 4.95:1 over a grid line) passes and was left unchanged.
+
+**Focus ring on `main` after fix C (resolved).** Making `main` focusable (fix C) made the global `:focus-visible` ring appear around the whole `main` area when the skip link moved focus there. Two owner-approved attempts to hide it on `main` alone did not work:
+1. `focus:outline-none` on `<main>`: no effect, because the global focus rule is unlayered CSS and unlayered CSS beats Tailwind's layered utilities.
+2. Wrapping the global focus rule in `@layer base { … }`: no effect in the Next.js production build. Tailwind's own output keeps the rule inside `@layer base` (checked in isolation), but the CSS served by the Next.js/Turbopack build contains the rule at the top level, outside any layer. The stage that removes the layer was not identified.
+
+**Final solution (owner-approved):** the `@layer base` wrapper was removed, so the global rule is again plain `:focus-visible { outline: 2px solid var(--color-accent-highlight); outline-offset: 2px; }`, and a separate rule `main:focus { outline: none; }` was added to `src/styles/globals.css`. It is more specific than `:focus-visible`, so it wins without depending on CSS layers. `focus:outline-none` stays on `<main>` (redundant but harmless). `main` is focusable only so the skip link can move focus to it; it is not an interactive control.
+
+**Verified in Chrome on a production build (computed styles; not inspected visually):** the skip link moves focus to `main#main`; `main` has `outline-style: none`; the skip link and the header name link keep `solid 2px rgb(96, 165, 250)` with a 2px offset; Tab moves from the skip link to the name link. Because `main` now has no focus indicator, a keyboard user who activates the skip link has no visible marker of where focus is. The next Tab press moves to the next interactive element, and the page has none after the header yet. Revisit when more interactive content exists, and cover it in the screen-reader and manual keyboard passes still outstanding below.
+
+**§5.5 checklist status**
+
+| Item | Status |
+|------|--------|
+| 1. Recompute every pair used in the UI | Done for Foundation + Hero (table above). Repeat for each new section. |
+| 2. Automated audit, zero contrast violations | Done with a temporary axe-core 4.14.0 run (0 violations; 2 contrast nodes incomplete, covered by calculation). The repeatable Playwright + axe suite (D20) is not set up. |
+| 3. Hover, focus, active, disabled and selected states | Partial. Focus checked. The header link's hover underline was inspected in code only. No active, disabled or selected states exist yet. |
+| 4. 200% and 400% zoom, forced colors | Partial. Emulated only (see outstanding checks). |
+| 5. Record results and owner approval | This record. The owner approved recording it; validation is **not** approved as complete. |
+
+**Outstanding checks (not performed)**
+- Real browser zoom at 200% and 400%.
+- Real Windows High Contrast themes (the checks above used Chrome's emulation).
+- Screen reader testing with NVDA (Windows) and VoiceOver (macOS/iOS), required by §13.8.
+- A manual, human keyboard-only pass.
+- Other browsers (Firefox, Safari, Edge) and touch/mobile device testing.
+- Lighthouse accessibility audit.
+- Repeatable automated suite (Playwright + `@axe-core/playwright`, D20).
+- Retest of reduced motion once any animation exists.

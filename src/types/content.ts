@@ -5,4 +5,6 @@
 export type Profile = {
   name: string;
   role: string;
+  /** Areas of focus shown as chips in the hero. */
+  focusAreas: string[];
 };
