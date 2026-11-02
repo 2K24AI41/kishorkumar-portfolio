@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens: values from docs/DESIGN_SPEC.md §5.1–§5.2 (D14). Do not change
+ * them without owner approval. v1 is dark only (D16): no light theme and no
+ * prefers-color-scheme switching.
+ *
+ * prettier-ignore keeps the hex values character-for-character as in the spec
+ * (Prettier would otherwise lowercase them).
+ */
+/* prettier-ignore */
+@theme {
+  /* Disable Tailwind's default palette so only approved tokens are available. */
+  --color-*: initial;
+
+  /* §5.1 Core tokens */
+  --color-bg: #080D18;
+  --color-surface: #101827;
+  --color-surface-elevated: #172338;
+  --color-accent: #3B82F6;
+  --color-accent-highlight: #60A5FA;
+  --color-text: #F8FAFC;
+  --color-text-muted: #94A3B8;
+  --color-border: #263449;
+
+  /* §5.2 Additional tokens */
+  --color-accent-strong: #2563EB;
+  --color-accent-strong-hover: #1D4ED8;
+  --color-on-accent: #FFFFFF;
+  --color-border-strong: #64748B;
+}
+
+/* Typography families (D15), provided by next/font in the root layout. */
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+}
+
+html {
+  color-scheme: dark;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}

@@ -86,4 +86,21 @@ Use skills to run multi-step workflows in a consistent way.
 4. **Review:** run `code-reviewer`; for UI changes, also run `design-review`.
 5. **Before deployment:** run `pre-deployment-audit`.
 
-Build, lint, and test commands will be documented here once the framework is chosen.
+## 9. Commands
+Next.js 16 (App Router) with npm (D13). Requires Node.js ≥ 20.9.0. Run from the project root.
+
+| Command | What it does |
+|---------|--------------|
+| `npm install` | Install the exact versions recorded in `package-lock.json` |
+| `npm run dev` | Start the development server at http://localhost:3000 |
+| `npm run build` | Create the production build (all pages are static) |
+| `npm run start` | Serve the production build locally (run `npm run build` first) |
+| `npm run lint` | Run ESLint (`eslint-config-next`) |
+| `npm run typecheck` | Generate Next.js route types, then run `tsc --noEmit` (strict) |
+| `npm run format` | Format files with Prettier (writes changes) |
+| `npm run format:check` | Check formatting without changing files |
+
+- Use `npm run typecheck` rather than `npx tsc --noEmit` alone: on a fresh clone, the route types must be generated first.
+- Before requesting commit approval, all of these must pass: `npm run lint && npm run typecheck && npm run format:check && npm run build`.
+- Tests (`npm test`) will be added with Vitest (D20); this section will be updated then.
+- Exact dependency versions and tooling exceptions are recorded in `docs/DESIGN_SPEC.md` §19.5.
