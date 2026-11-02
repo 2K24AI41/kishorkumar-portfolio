@@ -6,7 +6,7 @@ Define all tokens as CSS custom properties (and mirror in Tailwind config if use
 - **Spacing**: 4px base scale (4, 8, 12, 16, 20, 24, 32, 40, 48, 64, 80, 96, 112, 128), as defined in `docs/DESIGN_SPEC.md` §7.1 (source of truth).
 - **Typography**: modular scale; tokens for size, line-height, weight. Body ≥ 16px, line-height 1.5–1.7, line length 60–75ch.
 - **Radius, shadow, z-index, motion duration/easing**: tokenized.
-- **Breakpoints**: sm 640, md 768, lg 1024, xl 1280.
+- **Breakpoints**: sm 640, md 768, lg 1024, xl 1280, 2xl 1536 (Tailwind defaults), as defined in `docs/DESIGN_SPEC.md` §12 (source of truth).
 
 ## Theming
 - v1 is dark only (D16 in `docs/DESIGN_SPEC.md`): one dark theme. No light theme, no switching based on `prefers-color-scheme`, and no manual theme toggle (`data-theme`).
