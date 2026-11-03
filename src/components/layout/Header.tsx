@@ -1,22 +1,20 @@
-import Link from "next/link";
-import { Container } from "@/components/ui/Container";
 import { profile } from "@/content/profile";
+import { visibleSections } from "@/lib/sections";
+import { HeaderShell } from "@/components/layout/HeaderShell";
 
 /**
- * Simple text header: your name, linking to the top of the home page
- * (spec §8.1). Navigation links are added as sections are built.
+ * Site header (spec §8.1). Builds the nav from the visible sections so a
+ * hidden section never gets a link. The Resume button (§8.1) is deferred
+ * until a resume file is provided.
  */
 export function Header() {
   return (
-    <header>
-      <Container className="flex min-h-16 items-center lg:min-h-18">
-        <Link
-          href="/"
-          className="inline-flex min-h-11 items-center text-body font-medium underline-offset-[3px] hover:underline"
-        >
-          {profile.name}
-        </Link>
-      </Container>
-    </header>
+    <HeaderShell
+      name={profile.name}
+      items={visibleSections.map(({ id, navLabel }) => ({
+        id,
+        label: navLabel,
+      }))}
+    />
   );
 }
