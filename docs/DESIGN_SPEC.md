@@ -5,9 +5,9 @@
 | Field | Value |
 |-------|-------|
 | Owner | Kishor Kumar |
-| Version | 0.10 |
+| Version | 0.12 |
 | Document status | **Draft.** Approved decisions D1–D20 are binding. Everything marked *Proposed* needs owner approval. |
-| Last updated | 2026-11-02 |
+| Last updated | 2026-11-03 |
 
 **Status labels**
 - **Approved (Dn):** binding; recorded in §19. Do not change without owner approval.
@@ -215,7 +215,7 @@ Maximum two families. Latin subset only. `font-display: swap` (handled by `next/
 - borders and focus-ring offsets (e.g. 2px focus-ring offset),
 - animation distances (e.g. 2px hover lift, 12–16px reveal rise).
 
-Offsets tied to a component dimension follow that dimension. For example, `scroll-margin-top` equals the header height (§8.1).
+Offsets tied to a component dimension follow that dimension. For example, the root `scroll-padding-top` equals the header height plus an 8px focus-ring buffer (§8.1, §13.2).
 
 ### 7.2 Containers
 | Container | Max width | Use |
@@ -225,6 +225,8 @@ Offsets tied to a component dimension follow that dimension. For example, `scrol
 | `prose` | ~68ch | Long-form text in About and case studies |
 
 Horizontal page padding: 16px (mobile) · 24px (tablet) · 32px (desktop) · 40px (large desktop).
+
+**Interpretation (Approved, 2026-11-03):** each max width above is the **total width of the container box, including the horizontal page padding**. The usable content area is therefore narrower than the max width by twice the padding (for example, 1200px minus 2 × 40px = 1120px on a large desktop). The header and the hero use `wide`; the About, Skills, Education and Contact sections use `content`, the default. Project grids will use `wide` when they exist (D18). Because `content` is narrower than `wide`, on screens wider than about 1200px the sections start further in from the left than the header and the hero.
 
 ### 7.3 Grid
 | Viewport | Columns | Gutter |
@@ -253,7 +255,7 @@ Horizontal page padding: 16px (mobile) · 24px (tablet) · 32px (desktop) · 40p
 - Sticky at the top. Transparent over the hero, then switches to `surface` at ~90% opacity with a backdrop blur ≤ 8px and a bottom `border` after scrolling 24px.
 - **Left:** wordmark/monogram linking to home (top of page).
 - **Right (desktop):** About · Skills · Projects · Experience · Education · Learning · Contact, then a **Resume** button (secondary style, opens a PDF in a new tab with an external indicator).
-- Height: 64px mobile, 72px desktop. Anchored sections use `scroll-margin-top` equal to the header height.
+- Height: 64px mobile, 72px desktop. Anchor targets and focused elements stay clear of the header through `scroll-padding-top` on `html` (the `--header-height` token, 65px mobile / 73px desktop including the 1px border, plus an 8px buffer for the focus ring); sections carry no `scroll-margin-top` (§13.2).
 
 ### 8.2 Active state
 - The current section is indicated with an accent underline (2px, `accent`) plus `aria-current="true"` on the link.
@@ -454,7 +456,7 @@ Mobile-first. Breakpoints align with Tailwind defaults.
 | Aspect | Mobile | Tablet | Desktop | Large desktop |
 |--------|--------|--------|---------|---------------|
 | **Navigation** | Menu button + overlay | Menu button + overlay | Full inline nav + Resume button | Same as desktop; nav aligned to `wide` container |
-| **Page padding** | 16px | 24px | 32px | 40px; content capped at 1200/1360px, centered |
+| **Page padding** | 16px | 24px | 32px | 40px; container capped at 1200px (sections) or 1360px (header, hero), including the padding, centered |
 | **Section spacing** | 64px | 80px | 112px | 128px |
 | **Typography** | Fluid minimums (display 40px, body 16px) | Interpolated | Near maximums | Maximums (display 72px, body 17px); no further growth |
 | **Hero** | Single column, photo/visual below text or hidden | Single column, wider measure | Two columns (text 7 / visual 5) if a visual exists | Same, more whitespace |
@@ -782,6 +784,8 @@ A release is complete only when every item below passes.
 | 0.8 | 2026-11-02 | Recorded D19 (owner-approved): TypeScript data files for all v1 content, no MDX (resolves OD-13). Recorded D20 (owner-approved): ESLint, Prettier, Vitest, Playwright and axe, introduced gradually and all required before release. Updated §16.3 and §16.5; OD-13 moved to §19.3a. Testing Library remains Proposed | Claude | Draft; D19–D20 approved by owner |
 | 0.9 | 2026-11-02 | Milestone 1 (Next.js setup): added §19.5 with the exact installed dependency versions, ESLint 9.39.5 as a temporary tooling exception (end of life, with revisit condition), and the analysis of the dev-only minimatch advisory. No approved decisions, token values or other sections changed | Claude | Draft; recorded at the owner's request |
 | 0.10 | 2026-11-02 | Recorded the partial accessibility validation (§5.5) for Milestone 2 (Foundation + Hero) in new §19.6, and added a status note under §5.5. Four accessibility fixes (A–D) were applied in code. No approved decisions, token values or other sections changed. The validation is **not** marked complete: real browser zoom, real Windows High Contrast, NVDA, VoiceOver, other browsers and touch testing are outstanding | Claude | Draft; recording approved by the owner |
+| 0.11 | 2026-11-03 | Milestone 3 (About, Skills, Education, Contact, header). Resolved an internal conflict (owner-approved): §8.1 and §7.1 said anchored sections use `scroll-margin-top`, while §13.2 requires `scroll-padding-top` for WCAG 2.4.11. The offset now lives on `html` as `scroll-padding-top` (header height + 8px); per-section `scroll-margin-top` is removed to avoid double spacing. Added the `lucide-react` row to §19.5. No tokens or approved decisions changed | Claude | Draft; change approved by owner |
+| 0.12 | 2026-11-03 | Container widths (owner-approved clarification, found by a read-only audit against v0.11). §7.2 now states that each container max width is the total box width, including the horizontal page padding. §12.1 "Page padding" row reworded to match. Implementation: the header and the hero use the `wide` (1360px) container; About, Skills, Education and Contact use the default `content` (1200px) container. Previously every section used `wide`. No token values changed | Claude | Draft; clarification approved by owner |
 
 ### 19.5 Pinned dependency versions
 Installed at project initialization (Milestone 1, 2026-11-02) with npm (D13). All direct dependencies are pinned to exact versions (`.npmrc`: `save-exact=true`), and `package-lock.json` records the full dependency tree. Node.js ≥ 20.9.0 (`engines` in `package.json`); verified locally on Node.js 26.13.0 and npm 11.20.0.
@@ -791,6 +795,7 @@ Installed at project initialization (Milestone 1, 2026-11-02) with npm (D13). Al
 | `next` | 16.4.4 | dependency | D4, D6 |
 | `react` | 19.3.1 | dependency | |
 | `react-dom` | 19.3.1 | dependency | |
+| `lucide-react` | 1.67.0 | dependency | D9. Added in Milestone 3 (2026-11-03) for the Mail and ArrowUpRight icons; imported individually |
 | `typescript` | 5.9.3 | devDependency | D5. TypeScript 7.x is not used: `typescript-eslint` supports TypeScript < 6.1.0 only |
 | `tailwindcss` | 4.3.3 | devDependency | D7 |
 | `@tailwindcss/turbopack` | 4.3.3 | devDependency | Tailwind integration generated by `create-next-app` 16.4.4 (Turbopack loader in `next.config.ts`; no PostCSS config). Change only for a demonstrated technical requirement |
@@ -802,7 +807,7 @@ Installed at project initialization (Milestone 1, 2026-11-02) with npm (D13). Al
 | `@types/react` | 19.3.0 | devDependency | |
 | `@types/react-dom` | 19.3.0 | devDependency | |
 
-Not installed yet: Motion (D8), Lucide React (D9), Vitest, Playwright and axe (D20). Their versions are recorded here when they are added.
+Not installed yet: Motion (D8), Vitest, Playwright and axe (D20). Their versions are recorded here when they are added.
 
 **Temporary tooling exception: ESLint 9.39.5 is end of life.**
 - **Status:** ESLint 9 is no longer supported upstream. npm marks 9.39.5 as deprecated: "This version is no longer supported."
