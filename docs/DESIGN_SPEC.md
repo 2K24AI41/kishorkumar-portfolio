@@ -5,9 +5,9 @@
 | Field | Value |
 |-------|-------|
 | Owner | Kishor Kumar |
-| Version | 0.19 |
+| Version | 0.20 |
 | Document status | **Draft.** Approved decisions D1–D34 are binding. Everything marked *Proposed* needs owner approval. |
-| Last updated | 2026-11-03 |
+| Last updated | 2026-11-04 |
 
 **Status labels**
 - **Approved (Dn):** binding; recorded in §19. Do not change without owner approval.
@@ -290,7 +290,7 @@ A section with no approved content is hidden: its navigation link is removed, an
 - **Optional:** availability line (e.g. "Open to internships / entry-level roles"): **Open (OD-7)**; include only if true.
 - **Visual:** blueprint grid background (§2.4) and the signature illustration (D21, §20.3). Optional professional photo: **Open (OD-8)**.
 - **Layout:** left-aligned text on all viewports. On desktop, a right column holds the signature illustration (D21); a photo remains Open (OD-8).
-- Must fit above the fold at 1280×720 and 375×667.
+- Must fit above the fold at 1280×720 and 375×667. Measured result (step 4.2, §19.7): at 1280×720 the text, the buttons and the whole illustration card fit; at 375×667 the text and the buttons fit and the illustration sits below them, as designed (§12.1). The illustration is never hidden to make a measurement pass.
 
 ### 9.2 About (`#about`)
 - 2–3 short paragraphs: background, what draws Kishor to ML/AI, the kinds of problems to work on, and current goals.
@@ -343,7 +343,7 @@ A section with no approved content is hidden: its navigation link is removed, an
 - Server Components by default; Client Components only for interactivity (menu, scroll spy, animations).
 - Every interactive component defines: default, hover, focus-visible, active, disabled (if applicable), and loading/error (if applicable).
 - Components consume design tokens through Tailwind theme utilities; no hardcoded colors, spacing, or font sizes.
-- Icons: Lucide React (D9). Import icons individually. Default size 16/20/24px, stroke width 1.75. Decorative icons get `aria-hidden="true"`; icon-only controls get an accessible name.
+- Icons: Lucide React (D9). Import icons individually. Default size 16/20/24px, stroke width 1.75. Decorative icons get `aria-hidden="true"`; icon-only controls get an accessible name. Lucide has no brand icons (no GitHub or LinkedIn), so those two marks are small inline SVG components in `src/components/ui/BrandIcons.tsx`, copied unchanged from GitHub's Octicons (MIT) and Simple Icons (CC0). No icon dependency is added, and D9 is unchanged (§19.7).
 
 ### 10.2 Project card
 | Element | Spec |
@@ -445,7 +445,7 @@ Parallax, scroll-jacking, cursor-follow effects, particle or neural-net backgrou
 - Animation is **CSS-only** (keyframes and transitions using the §11.2 tokens). "CSS-only" means no animation library: Motion (D8) is not installed in Milestone 4, and D8 is not revoked.
 - **Animations that are built:**
   - **The hero entrance is transform-only.** The eyebrow, positioning statement, credential line, chips and actions each rise with a subtle `translateY` (about 12px) to their final position, staggered, starting on page load and ending within 800ms. **Opacity is never animated from zero**, so all hero text is visible from the first paint. The hero `h1` is not animated at all (§11.6).
-  - **The neural-network illustration** (D21) is visible immediately. It may use a subtle, one-time, transform-only entrance (for example, layers settling slightly into place). "Revealed once" in D21 means this one-time entrance, never a fade from zero and never a loop.
+  - **The neural-network illustration** (D21) is visible immediately. It may use a subtle, one-time, transform-only entrance (implemented as the whole figure rising into place once as one unit, not layer by layer). "Revealed once" in D21 means this one-time entrance, never a fade from zero and never a loop.
   - Subtle hover and focus transitions of 150ms or less (color, background, or a small transform).
 - **Not built in Milestone 4:** scroll-triggered section reveals (the "Section content" row of §11.3), staggered card reveals, the sliding nav indicator, cursor-follow or spotlight effects, parallax, and any looping motion.
 - **`IntersectionObserver` and scroll listeners are not banned.** The existing header scroll spy (§8.2, `src/components/layout/useHeaderState.ts`) uses `IntersectionObserver` and **remains unchanged**. What is prohibited is **new** `IntersectionObserver` or scroll-listener code written for scroll-triggered animation, reveal effects or hidden section states.
@@ -485,7 +485,7 @@ Mobile-first. Breakpoints align with Tailwind defaults.
 ### 12.2 Universal requirements
 - No horizontal page scroll from 320px to 2560px; code blocks and tables scroll inside their own container.
 - Reflows at 320 CSS px and works at 200% and 400% zoom without loss of content or function.
-- Landscape mobile: the hero must not exceed the viewport height; the menu overlay scrolls if needed.
+- Landscape mobile: nothing is hidden to fit the screen. The hero may be taller than the viewport and scrolls; the illustration scales down (256px wide at 480px height or less) instead of being hidden (owner decision, v0.20; the approved hero text alone is already taller than a 375px-high screen). The menu overlay scrolls if needed.
 - Hover-only interactions always have a tap/focus equivalent.
 
 ---
@@ -832,6 +832,7 @@ A release is complete only when every item below passes. The per-step criteria f
 | 0.17 | 2026-11-03 | Testing decisions D31–D34 (owner decisions; v0.13 to v0.16 are preserved above). **D31:** Testing Library approved as part of a six-package Vitest stack (`vitest`, `@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom`, `jsdom`, `@vitejs/plugin-react`), explicitly pinned and mutually compatible, versions chosen at installation in step 4.1; OD-18 resolved. **D32:** every new React component gets its component test in the same step that introduces it (`Button` 4.1, `NeuralFigure` 4.2, copy-email control 4.3, Footer 4.4); the 404 route's browser-level test is in 4.6; Playwright is additional and never replaces a required component test; v0.16's "static components are tested in the browser in 4.6" is superseded. **D33:** rule-file updates are separate proposals (4.1 for Vitest and `npm test`, 4.6 for Playwright and axe) for `.claude/rules/testing.md` and `CLAUDE.md` §9, reviewed before application; nothing edited; the governing rule in the meantime is stated. **D34:** Chromium in CI, screenshots at nine widths for the homepage and the 404 route (18 images), automated overflow checks, upload even on failure, 14-day retention, human inspection, no committed baselines; Vitest may run locally. Updated D30 (refinement note), §16.5, §19.5, §20 intro, §20.2, §20.4 (common gate; steps 4.0, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7), §20.5, §20.6 and §20.7. No token values and no decisions D1–D30 changed other than the refinements noted | Claude | Draft; D31–D34 approved by owner |
 | 0.18 | 2026-11-03 | Two final corrections after owner review of v0.17 (v0.13 to v0.17 are preserved above). (1) **Immediate regression test:** step 4.1 now includes a focused Vitest assertion for the corrected "Aspiring AI/ML Engineer" role/title content, written in the same step as the correction instead of in 4.6; it is an owner-directed exception to "no Vitest for unrelated application logic" (D30), limited to this one test. The browser-level page-title assertion stays in 4.6 as additional coverage. (2) **`npm test` permission:** `.claude/settings.json` stays unchanged; step 4.1 must inspect its current permission configuration and propose the smallest necessary update for `npm test`, applied only with the owner's explicit approval. Updated §20 intro, §20.4 (steps 4.0, 4.1, 4.6), §20.5, §20.6 and §20.7 (requirement 11). D31–D34, the component-test assignments, the testing requirements, the CI gates and the design, accessibility, security, animation and responsive requirements are unchanged | Claude | Draft; corrections approved by owner |
 | 0.19 | 2026-11-03 | Step 4.1 record (no decisions changed). §19.5 now lists the eight test dependencies installed in step 4.1 with their exact versions (`vitest` 4.1.12, `@testing-library/react` 16.3.3, `@testing-library/user-event` 14.6.8, `@testing-library/jest-dom` 6.9.1, `jsdom` 29.1.1, `@vitejs/plugin-react` 6.2.1, plus the required peers `vite` 8.3.5 and `@testing-library/dom` 10.4.2, both owner-approved additions to the six-package list of D31), the Node.js requirements for testing (20.19+ locally, 22.13+ in CI; `engines` unchanged), the lockfile platform note and the `npm audit` result. Version 0.18 stays the committed specification checkpoint | Claude | Draft; recorded as required by step 4.1 |
+| 0.20 | 2026-11-04 | Step 4.2 corrections and record (owner decisions; no approved decision D1–D34 changed or reopened). (1) **Desktop fold:** the illustration card is capped at about 360px and centered in its five-column area (7/5 proportions kept), and the hero's top padding is 80px from `md` up (was 112px at `lg`), so the text and the whole card fit above the fold at 1280×720. (2) **Brand icons:** GitHub and LinkedIn use inline SVG brand marks (`BrandIcons.tsx`, no dependency); the GitHub path was corrected to GitHub's official Octicons file, the LinkedIn path matches Simple Icons 16.36.0. §10.1 notes that Lucide has no brand icons. (3) **JavaScript budget:** measured from the browser's own network log: 140.5 KB gzipped for six script files (147.1 KB with inline scripts), so the 150KB target is met with a thin margin. (4) **Spec text corrected to match the implementation:** §9.1 (fold result), §12.2 (short landscape scales down instead of hiding the illustration and the hero may scroll), §20.3 (brand icons, two-sentence caption, whole-figure entrance, equation rendering, card width and padding), §20.4 step 4.2, §20.5, §20.6 (five conflict rows) and §20.7 (brand-icon tests). (5) **New §19.7:** step 4.2 verification record with the final viewport measurements, contrast table, animation, keyboard and JavaScript-transfer results, and what was not verified | Claude | Draft; corrections approved by owner |
 
 ### 19.5 Pinned dependency versions
 Installed at project initialization (Milestone 1, 2026-11-02) with npm (D13). All direct dependencies are pinned to exact versions (`.npmrc`: `save-exact=true`), and `package-lock.json` records the full dependency tree. Node.js ≥ 20.9.0 (`engines` in `package.json`); verified locally on Node.js 26.13.0 and npm 11.20.0.
@@ -966,6 +967,74 @@ Finding E (the eyebrow's 4.95:1 over a grid line) passes and was left unchanged.
 - Repeatable automated suite (Playwright + `@axe-core/playwright`, D20).
 - Retest of reduced motion once any animation exists.
 
+### 19.7 Verification record: step 4.2 (Hero + illustration)
+
+**Status: PARTIAL.** The §5.5 validation is still not complete. This records what was measured for the home page (`/`) in step 4.2 (2026-11-04). It replaces nothing in §19.6.
+
+**Method and environment**
+- Chrome 157.0.8103.26 (headless, Windows 11, one instance at a time, desktop emulation, not touch), driven over the DevTools protocol by temporary scripts kept outside the repository. Edge was not used.
+- Production build (`next build` + `next start`) on a local port. Headless Chrome shows classic 15px scrollbars, so a "1280px" window has a 1265px layout width.
+- Contrast ratios are calculated from the design tokens (WCAG 2.x relative luminance), not sampled from rendered pixels.
+
+**Layout changes made to meet the fold at 1280×720 (owner-directed, v0.20).** At the 5-column width (482px) the illustration card was 634px tall and ended at 823px. Capping the card at about 360px and centering it left it ending at 738px (18px short). Trying options live in the browser showed that card padding alone does not help (a narrower padding widens the drawing). Lowering the hero's top padding from 112px to 80px (from `md` up) fits it with 14px to spare. Card width, 7/5 proportions, mobile layout and content are unchanged, and nothing is hidden.
+
+**Viewport measurements (final build)**
+
+| Item | 1280×720 | 375×667 |
+|---|---|---|
+| Header height | 73px | 65px |
+| Eyebrow, `h1`, statement | 225–244, 260–335, 359–423 | 129–146, 162–206, 230–346 |
+| Credential line, chips | 439–457, 489–558 | 362–395, 427–563 |
+| Buttons row | 590–634 | 595–639 |
+| Text and buttons end at | 634px: **fits** (viewport 720) | 639px: **fits** (viewport 667) |
+| Illustration card | 153–706px, 360px wide: **fits** (14px spare) | 687–1204px, 328px wide: below the fold, by design (§12.1) |
+| Card centered in its 5-column area (751–1233px) | Centre offset 0px | not applicable (one column) |
+| Hero ends at | 762px | 1236px |
+| Horizontal scroll | none | none |
+| CLS | 0 | 0 |
+| LCP element | `h1` | the positioning sentence (transform-only animation) |
+
+- **Widths 320, 375, 414, 768, 1024, 1280, 1440, 1920 and 2560px:** no horizontal overflow and no clipped equation at any of them. The card is 273px at 320px, 328px at 375px, and 360px from 414px up.
+- **Short landscape 667×375:** the illustration stays visible and scales down to 256px wide; no overflow; the hero scrolls (1064px tall).
+- **Earlier build, for the record:** with the card at the full 5-column width the text and buttons also fit (706px at 1280×720) and the card ended at 823px.
+
+**Animation (computed in the browser)**
+- Six elements animate on load, every one with `transform` only (no opacity), one iteration, fill `backwards`, the last ending at 690ms (budget 800ms). Their opacity is 1 at the first frame. The `h1` has no animation.
+- With `prefers-reduced-motion: reduce` emulated: 0 animations, `animation-name: none`, no transforms.
+- With JavaScript disabled: the `h1`, statement, buttons and illustration are all visible, and the served HTML already contains them.
+
+**Keyboard (scripted Tab presses at 1280px):** skip link, name, About, Skills, Education, Contact, Get in touch, GitHub, LinkedIn, then the Contact section links. Every focused element has the solid 2px ring. Touch targets: the icon links are 44×44px, Get in touch is 120×44px.
+
+**Contrast, new pairs (calculated)**
+
+| Pair as used | Ratio | Required | Result |
+|---|---|---|---|
+| `text-muted` on `surface` (caption, layer labels) | 6.93:1 | 4.5:1 | Pass |
+| `text` on `surface` (equations, symbols) | 16.98:1 | 4.5:1 | Pass |
+| `text-muted` on `bg` (credential line) | 7.58:1 | 4.5:1 | Pass |
+| `text-muted` over a grid line (credential line, worst case) | 4.90:1 | 4.5:1 | Pass (smallest margin) |
+| `text` on `bg` (positioning sentence) / over a grid line | 18.57:1 / 12.02:1 | 4.5:1 | Pass |
+| `border-strong` lines on `surface` (network edges) | 3.73:1 | 3:1 | Pass |
+| `border-strong` outline against node fill `surface-elevated` | 3.31:1 | 3:1 | Pass |
+| `accent-highlight` highlighted path on `surface` | 6.99:1 | 3:1 | Pass |
+| `accent` node fill on `surface` | 4.83:1 | 3:1 | Pass |
+| White icons (GitHub, LinkedIn) on `bg` | 18.57:1 | 3:1 | Pass |
+| `on-accent` on `accent-strong` (Get in touch) | 5.17:1 | 4.5:1 | Pass |
+| Focus ring `accent-highlight` on `bg` / on `surface` | 7.64:1 / 6.99:1 | 3:1 | Pass |
+
+**Brand icon paths.** The GitHub path in `BrandIcons.tsx` was first typed from memory and did **not** match GitHub's current official file; it was replaced with the exact path of `icons/mark-github-16.svg` from GitHub's Octicons repository (MIT license). The LinkedIn path was compared character by character with `icons/linkedin.svg` of Simple Icons 16.36.0 (CC0) and is identical. LinkedIn publishes no machine-readable logo file, so Simple Icons is the closest available source. The marks are used only to link to Kishor's own profiles.
+
+**JavaScript transferred for `/` (modern browser, cold load, cache off, 6s idle, local `next start` with gzip)**
+- Measured with Chrome's own network log (bytes transferred, which include a few hundred bytes of HTTP headers per file). Six script files were requested: 2.3, 7.9, 70.5, 45.8, 4.2 and 9.8 KB, **140.5 KB in total** (462.6 KB after decompression).
+- A seventh file listed in the HTML (38.7 KB gzipped) is marked `noModule`. That attribute tells browsers that support JavaScript modules, which is every current browser, to ignore the file; it is a fallback for very old browsers. Chrome did not request it, so it is not counted. It is the only file excluded.
+- The HTML also holds 18 inline `<script>` tags (34.6 KB raw, 6.6 KB gzipped) that carry the page data Next.js needs to start. They are already inside the 9.7 KB document transfer. Counting them as JavaScript too gives **147.1 KB**.
+- **The 150KB target (§15.1) is met, with a thin margin:** 140.5 KB for the script files (9.5 KB spare), or 147.1 KB counting inline scripts (2.9 KB spare). Step 4.2 added no client-side JavaScript: the hero, illustration and icons are server-rendered. Later client components (such as the copy-email control in 4.3) must be watched against this margin.
+- Other transfers, for reference: HTML 9.7 KB, stylesheet 7.0 KB, two fonts 51.8 KB, favicon 15.1 KB, two page-data fetches 7.1 KB.
+
+**Tests.** `npm test` passes 26 tests in 5 files (title regression 3, `Button` 7, `NeuralFigure` 7, brand icons 3, Hero 6). All five gates pass.
+
+**Not verified:** NVDA and VoiceOver; real browser zoom; Firefox, Safari and Edge; touch devices; Windows High Contrast; automated axe (starts in 4.6); contrast of rendered pixels; how smooth the entrance looks; the first-load figure for slower or cold-cache networks. The full §5.5 validation remains outstanding.
+
 ---
 
 ## 20. Milestone 4: Premium Visual Identity and Portfolio Polish
@@ -994,16 +1063,16 @@ D21 illustration · D22 positioning statement · D23 hero CTA · D24 CSS-only an
 3. Positioning statement, word for word as in D22 (`body-lg`, about 60–68ch wide).
 4. Credential line (mono, `text-muted`), read from the education content so nothing is retyped: degree · university · expected graduation.
 5. Focus chips (existing).
-6. Actions: primary button "Get in touch" → `#contact` (D23); icon links to GitHub and LinkedIn (44×44px, accessible names, external-link rules of §10.8).
-7. From `lg`: the signature illustration in the right column (text 7 / visual 5, §12.1).
+6. Actions: primary button "Get in touch" → `#contact` (D23), shown only while the Contact section exists; icon links to GitHub and LinkedIn using the recognizable GitHub and LinkedIn marks as inline SVG (`BrandIcons.tsx`, §10.1), 44×44px, accessible names "GitHub (opens in new tab)" and "LinkedIn (opens in new tab)", external-link rules of §10.8. No generic arrow stand-ins.
+7. From `lg`: the signature illustration in the right column (text 7 / visual 5, §12.1). The card is at most about 360px wide and centered in its five-column area. From `md` up the hero's top padding is 80px (it was 112px at `lg`), so that the text and the whole card fit above the fold at 1280×720 (§19.7).
 
 **Signature illustration (D21)**
 - A feed-forward network: 4 input nodes, 5 hidden nodes, 3 output nodes, with connecting lines. One path is highlighted in `accent-highlight` / `accent` to show a signal flowing through. Flat fills and strokes from tokens only: no glow, no blur, no gradients, no raw hex.
-- Layer labels (INPUT, HIDDEN, OUTPUT) and the two equations (`h = ReLU(W₁x + b₁)`, `ŷ = softmax(W₂h + b₂)`) are HTML text beside or under the SVG so they never fall below 12px (§6.3).
-- Visible caption: "Illustration: a small feed-forward neural network." No numbers, accuracy, or claim that it is Kishor's model.
+- Layer labels (INPUT, HIDDEN, OUTPUT) and the two equations (`h = ReLU(W₁x + b₁)`, `ŷ = softmax(W₂h + b₂)`) are HTML text under the SVG so they never fall below 12px (§6.3). The equations use semantic `<var>` and `<sub>`, with the hat of ŷ drawn by CSS, because the hat letter and the subscript digits are outside the Latin font subset (§6.1). They are set at 16px, so the subscripts stay at 12px or larger. The visual form is hidden from assistive technology and replaced by a plain-language reading (for example "h equals ReLU of W one times x, plus b one").
+- Visible caption, in two sentences: first the exact owner-approved sentence "Illustration: a small feed-forward neural network.", then "The highlighted path shows one signal flowing from an input node, through a hidden node, to an output node." No numbers, accuracy, or claim that it is Kishor's model. The network drawing, its accessible description and the labels are built from one typed data object (`src/content/illustration.ts`), so they cannot disagree.
 - Markup: server component, `<figure>` with `<svg role="img">` carrying `<title>` and `<desc>`; fixed `viewBox` and aspect ratio (no layout shift). The `desc` and caption say in words that one path is highlighted, so color is never the only signal (§13.4).
-- Motion: visible immediately. It may use a subtle, one-time, transform-only entrance, with layers settling slightly into place from left to right (inside the 800ms hero budget, §11.3). No opacity animation from zero and no loop (§11.7).
-- Mobile: below the text at full width (about 360px maximum); hidden in short landscape viewports so the hero does not exceed the screen (§12.2).
+- Motion: visible immediately. The whole figure, card included, rises into place once as one unit, with the transform-only `rise-in` utility (order 1, inside the 800ms hero budget, §11.3). It is not staggered per layer: the connecting lines would shear against nodes that are 12px apart. No opacity animation from zero and no loop (§11.7).
+- Mobile: below the text at full width (about 360px maximum). On short landscape screens (height 480px or less, below `lg`) it scales down to 256px wide; it is never hidden (owner decision, §12.2).
 
 **Existing sections** (structure, spacing and widths unchanged)
 - About: first paragraph styled as a lead (`body-lg`) with a short accent rule; remaining paragraphs unchanged.
@@ -1025,7 +1094,7 @@ Common gate for every step: `npm run lint && npm run typecheck && npm run format
 |------|-------|-------------------------------|
 | **4.0** Spec | This document, v0.12 → v0.13 (reviewed), then amended to v0.14 (D29, animation correction) v0.15 (transform-only entrance, `IntersectionObserver` rule, testing standards) and v0.16 (D30, testing gap resolved) v0.17 (D31–D34) and v0.18 (immediate role/title regression test, `npm test` permission proposal). Documentation only | `git status` shows only `docs/DESIGN_SPEC.md` modified and nothing staged; version row reads 0.18; changelog rows 0.13 to 0.18 exist; no rule file (`.claude/rules/*`), `CLAUDE.md`, package file or source file is modified; nothing is installed; D21–D34 recorded; the text of D1–D20 is unchanged apart from the amendments named in D23; OD-11 and OD-16 remain Open; OD-17 is resolved by D29 and extended by D30; OD-18 is resolved by D31; the owner approves |
 | **4.1** Foundations | Vitest set up with the D31 stack; `Button` primitive **with its component test, in this step (D32)**; proposed `testing.md` and `CLAUDE.md` §9 updates for Vitest and `npm test` (D33, presented separately, not applied); CSS-only motion utilities from the §11.2 tokens (transform-only hero entrance keyframes, 150ms transitions); site configuration module; **correct the role wording in `src/content/site.ts` from "AI/ML Engineer" to "Aspiring AI/ML Engineer"** (currently in `homeTitle`), **with a focused Vitest regression assertion written in this step (v0.18)**; inspect the permission configuration in `.claude/settings.json` and propose the smallest update `npm test` needs (not applied without the owner's explicit approval) | the only new dependencies are the six D31 dev dependencies (`vitest`, `@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom`, `jsdom`, `@vitejs/plugin-react`), each explicitly pinned (exact version) to a mutually compatible version, installed without `--force` or `--legacy-peer-deps`, with `npm ls` reporting no peer-dependency errors and the exact versions recorded in §19.5; if no compatible set exists, work stops and the owner is told before the list changes; no browser is downloaded; test files are checked by `npm run lint` and `npm run typecheck`, and the `@/` import alias works inside tests; `npm test` exists, runs without a browser and passes; the `Button` test covers rendering and key interaction (for example that a click is handled, that a disabled button does not fire it, and which element it renders), queries by role or label, and contains no snapshot of a large DOM tree; `Button` documents default, hover, focus-visible, active and disabled states; the built home page `<title>` reads "Kishor Kumar · Aspiring AI/ML Engineer" and the string "AI/ML Engineer" appears in `site.ts` only as part of "Aspiring AI/ML Engineer"; the motion utilities are CSS only, animate `transform` only for entrances (no opacity animation from zero), and are removed under reduced motion; the existing header scroll spy (`src/components/layout/useHeaderState.ts`, which uses `IntersectionObserver`) is not modified; step 4.1 adds no new `IntersectionObserver` or scroll-listener code for scroll-triggered animation, reveal effects or hidden section states, and no section has a hidden starting state; the page is fully visible with JavaScript disabled; the site URL comes from configuration and no domain is hardcoded; **the role/title correction has its regression test in this step, not later:** a focused Vitest assertion checks that the home page title content reads exactly "Kishor Kumar · Aspiring AI/ML Engineer" and that the role content reads "Aspiring AI/ML Engineer", and it fails if the old "AI/ML Engineer"-only wording returns (an owner-directed exception to "no Vitest for unrelated application logic", D30, limited to this one regression test); the browser-level page-title assertion in 4.6 is additional coverage and does not replace it; **settings:** `.claude/settings.json` is left unchanged by default; the step inspects its current permission configuration (today it allows `npm run test:*` but not `npm test`) and presents the smallest necessary update for `npm test` as a proposal in the step report, and the file is changed only after the owner explicitly approves that proposal; the D33 proposals for `.claude/rules/testing.md` and for `CLAUDE.md` §9 are written as two separate documents in the step report for owner review, preserve the existing standards, and neither file is modified before approval |
-| **4.2** Hero + illustration | New hero content (§20.3), signature illustration, hero entrance | D22 text matches exactly; eyebrow reads "Aspiring AI/ML Engineer"; exactly one `h1`; "Get in touch" links to `#contact`; no resume CTA or link exists; hero content fits above the fold at 1280×720 and 375×667; the SVG has `role="img"`, `<title>`, `<desc>` and a visible "Illustration" caption; no horizontal scroll from 320 to 2560px; CLS < 0.1; hero entrance ≤ 800ms, CSS only and transform only (no opacity animation from zero), with the `h1` not animated; all hero text and the illustration are visible from the first paint; with reduced motion there is no movement and the final state shows at once; manual keyboard and code review finds no accessibility issue (automated axe checks start in 4.6); the illustration component (`NeuralFigure`) has its Vitest component test **in this step (D32)**: it finds the figure by role and accessible name, checks the description and the visible "Illustration" caption, and checks that the description says one path is highlighted; the browser tests added in 4.6 are additional and do not replace it |
+| **4.2** Hero + illustration | New hero content (§20.3), signature illustration, hero entrance | D22 text matches exactly; eyebrow reads "Aspiring AI/ML Engineer"; exactly one `h1`; "Get in touch" links to `#contact`; no resume CTA or link exists; the hero fits above the fold at 1280×720 including the whole illustration card, and at 375×667 the text and buttons fit with the illustration below them, and the measured numbers are reported even when something does not fit (nothing is hidden to pass); GitHub and LinkedIn use their recognizable brand marks with accessible names, and the inline paths match their official sources; the SVG has `role="img"`, `<title>`, `<desc>` and a visible two-sentence caption that starts "Illustration:"; no horizontal scroll from 320 to 2560px; CLS < 0.1; hero entrance ≤ 800ms, CSS only and transform only (no opacity animation from zero), with the `h1` not animated; all hero text and the illustration are visible from the first paint; with reduced motion there is no movement and the final state shows at once; manual keyboard and code review finds no accessibility issue (automated axe checks start in 4.6); the illustration component (`NeuralFigure`) has its Vitest component test **in this step (D32)**: it finds the figure by role and accessible name, checks the description and the visible "Illustration" caption, and checks that the description says one path is highlighted; the browser tests added in 4.6 are additional and do not replace it; the brand-icon components have their Vitest test in this step too; a few Hero regression tests cover its essential content, heading and links; the actual compressed JavaScript a modern browser transfers for the home page is measured and reported against the 150KB target |
 | **4.3** Sections | About, Skills, Education, Contact treatments (§20.3) | Section order, ids and headings unchanged; Skills columns match §12.1; the email is visible text with a working `mailto:` without JavaScript; the copy-email control has its Vitest component test **in this step (D32)**, covering a successful copy, a failed copy, the announcement and keyboard activation, using role or label queries and `user-event`; no hover lift on non-interactive items; no scroll reveals or hidden starting states; manual keyboard and code review finds no accessibility issue (axe starts in 4.6); contrast table for new pairs recorded |
 | **4.4** Footer | Footer component | Exactly one `contentinfo` landmark; email, GitHub, LinkedIn (icon + text), "Back to top" and copyright present; nav links only for visible sections; external links carry `rel="noopener noreferrer"`; targets ≥ 44px (never below 24px); manual keyboard and code review finds no accessibility issue (axe starts in 4.6); the Footer has its Vitest component test **in this step (D32)**: it finds the `contentinfo` landmark by role, checks that the email, GitHub, LinkedIn and "Back to top" links exist by name with the right `href` and `rel`, and that the navigation links match the visible sections; the browser tests added in 4.6 are additional and do not replace it |
 | **4.5** Metadata and SEO | Title/description, Open Graph and Twitter tags, generated 1200×630 share image, icons and manifest, robots, sitemap, JSON-LD, 404 page | Home title is "Kishor Kumar · Aspiring AI/ML Engineer"; description 140–160 characters; share image is 1200×630; JSON-LD parses as valid JSON with `<` escaped and contains no invented data; a preview deployment returns `noindex` and a production build does not (tested by simulating both environments); canonical, sitemap and Open Graph `url` appear only when a site URL is configured; a search of the source finds no hardcoded production domain; the 404 page returns status 404; the JSON-LD serialization (whether a React component or a helper) has a Vitest test in this step covering valid JSON output and the escaping of `<`, U+2028 and U+2029 (a genuine safety need, D25); any other React component added in this step has its component test in this step (D32); the 404 route's browser-level test is written in 4.6, as the owner decided (D32) |
@@ -1042,7 +1111,7 @@ Common gate for every step: `npm run lint && npm run typecheck && npm run format
 - **Exact versions of the six D31 packages (decided in step 4.1):** chosen as mutually compatible at installation, checked with `npm ls`, and recorded in §19.5. If no compatible set exists, the owner is told before the list changes.
 - **Rule-file and `CLAUDE.md` updates (D33; proposals pending, nothing applied):** the last bullet of `testing.md` says that when Vitest (and later Playwright and axe) are introduced, `npm test` and those suites become required merge checks "and this rule is updated". Its "Vitest is not installed yet" and "Required checks (current)" wording will be out of date after step 4.1, and `CLAUDE.md` §9 (commands) will be too. Four separate proposals are prepared for review, none applied until approved: `testing.md` and `CLAUDE.md` §9 for Vitest and `npm test` at step 4.1, and `testing.md` and `CLAUDE.md` §9 for Playwright and axe at step 4.6. Each preserves the existing standards. **Rule in the meantime:** the existing rule files stay as they are, and the stricter gate in §20.4 governs; every Milestone 4 request for commit approval reports `npm test` (from 4.1) and the CI results (from 4.6). **Permissions for `npm test`:** `.claude/settings.json` is unchanged. Its allowlist today contains `npm run test:*` but not `npm test`, so `npm test` may prompt for permission. In step 4.1 the current permission configuration is inspected and the smallest necessary update is proposed in the step report; the file is changed only after the owner explicitly approves the proposal.
 - **Share-image design** and the exact §20.3 details (credential line, footer wording, section treatments): confirmed when the step that builds them is reviewed.
-- **Existing code that will change in later steps** (not edited in 4.0): the role wording in `src/content/site.ts` still reads "AI/ML Engineer" (corrected in step 4.1), and the hero code comment still says "no buttons yet" (corrected in 4.2).
+- **Existing code that will change in later steps** (not edited in 4.0): the role wording in `src/content/site.ts` (corrected in step 4.1) and the hero code comment that said "no buttons yet" (corrected in step 4.2). Both are now done.
 
 ### 20.6 Conflicts and how they are resolved
 | Conflict | Resolution |
@@ -1067,6 +1136,11 @@ Common gate for every step: `npm run lint && npm run typecheck && npm run format
 | `testing.md` lists Testing Library as optional and not yet approved | Settled in v0.17 by D31: the six-package stack is approved; `testing.md` line 4 (role/label queries) still governs how tests are written |
 | v0.17 left the regression test for the corrected "Aspiring AI/ML Engineer" wording to the browser tests in 4.6, while `testing.md` line 11 says bug fixes include a regression test and Vitest exists from 4.1 | Resolved in v0.18: a focused Vitest assertion is written in step 4.1 itself (an owner-directed exception to "no Vitest for unrelated application logic", limited to this one test); the 4.6 browser assertion is additional coverage |
 | `npm test` is a required gate from 4.1, but `.claude/settings.json` does not allow it | Resolved in v0.18 without changing the file: step 4.1 inspects the permission configuration and proposes the smallest necessary update; no change without the owner's explicit approval |
+| §20.3 asked for GitHub and LinkedIn icon links, but Lucide (D9) has no brand icons | Resolved in v0.20 (owner decision): small inline SVG marks in `BrandIcons.tsx`, with the paths checked against GitHub's Octicons and Simple Icons; no new dependency; D9 unchanged (§10.1, §19.7) |
+| §20.3 gave an exact caption but also required the caption to say the path is highlighted | Resolved in v0.20 (owner decision): the exact sentence, followed by a second sentence that explains the highlighted path |
+| §20.3 let the layers "settle left to right", but moving layers separately would shear the connecting lines against the nodes | Resolved in v0.20 (owner decision): the whole figure rises once as one unit, transform only |
+| §12.2 said the hero must not exceed the viewport height in landscape mobile, but the approved hero text alone is taller than a 375px-high screen, and the owner ruled that nothing is hidden to pass a measurement | Resolved in v0.20: the hero may scroll in short landscape; the illustration scales down to 256px wide instead of being hidden; §12.2 is amended |
+| §9.1 requires the hero to fit above the fold at 1280×720, but the illustration card at the 5-column width (482px) was 634px tall and ended at 823px | Resolved in v0.20 (owner decision plus a small spacing change): the card is at most about 360px wide and centered, and the hero's top padding is 80px from `md` up (it was 112px at `lg`); measured result in §19.7 |
 
 No conflict with D16 (dark only), D17 (email only), D18 (no Projects section until real projects exist) or D19 (TypeScript content files).
 
@@ -1093,6 +1167,7 @@ The rule file was read line by line at v0.16, re-checked at v0.17, and is **unch
 |---|---|---|---|
 | `Button` (shared primitive) | 4.1 | Vitest: which element it renders, click handling, disabled state does not fire | Used by the hero and Contact, so covered by the homepage, anchor and axe tests |
 | Illustration (`NeuralFigure`) | 4.2 | Vitest: found by role and accessible name; description and visible "Illustration" caption present; the description says one path is highlighted | Visible on load with its caption; axe; screenshots |
+| Brand icons (`GitHubIcon`, `LinkedInIcon`) | 4.2 | Vitest: hidden from screen readers on their own; an icon link takes its accessible name from its label; size can be set | The homepage external-link `rel` test (D29 test 4); axe |
 | Copy-email control | 4.3 | Vitest with `user-event`: successful copy, failed copy, announcement, keyboard activation | Email stays visible text with a working `mailto:`; axe |
 | Footer | 4.4 | Vitest: `contentinfo` landmark by role; email, GitHub, LinkedIn and "Back to top" links by name with the right `href` and `rel`; navigation links match the visible sections | Links and "Back to top" work in the browser; external-link `rel` (D29 test 4); axe |
 | JSON-LD serialization (component or helper) | 4.5 | Vitest: valid JSON; `<`, U+2028 and U+2029 escaped (genuine safety need, D25) | Page `<title>` and metadata checks where observable |
