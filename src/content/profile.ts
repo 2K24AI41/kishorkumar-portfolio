@@ -3,6 +3,8 @@ import type { Profile } from "@/types/content";
 export const profile: Profile = {
   name: "Kishor Kumar",
   role: "Aspiring AI/ML Engineer",
+  positioning:
+    "Artificial Intelligence undergraduate developing a strong foundation in Machine Learning, Computer Vision, and Natural Language Processing.",
   focusAreas: [
     "Machine Learning",
     "Deep Learning",

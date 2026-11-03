@@ -5,6 +5,8 @@
 export type Profile = {
   name: string;
   role: string;
+  /** Positioning sentence under the name in the hero (spec §2.1, D22). */
+  positioning: string;
   /** Areas of focus shown as chips in the hero. */
   focusAreas: string[];
   /** About section paragraphs, in reading order (spec §9.2). */
