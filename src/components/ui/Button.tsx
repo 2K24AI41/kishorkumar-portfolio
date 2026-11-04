@@ -16,8 +16,8 @@ import type { MouseEventHandler, ReactNode } from "react";
  * States: default, hover, focus-visible (the global focus ring), active
  * (pressed), and disabled (buttons only). Hover is switched off while disabled.
  *
- * External links (`external`) open in a new tab and announce it, like
- * ExternalLink (§10.8).
+ * External links (`external`) open in a new tab, are marked
+ * `rel="noopener noreferrer"` and announce it (§10.8).
  */
 
 type Appearance =
