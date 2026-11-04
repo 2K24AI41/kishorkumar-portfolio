@@ -97,10 +97,11 @@ Next.js 16 (App Router) with npm (D13). Requires Node.js ≥ 20.9.0. Run from th
 | `npm run start` | Serve the production build locally (run `npm run build` first) |
 | `npm run lint` | Run ESLint (`eslint-config-next`) |
 | `npm run typecheck` | Generate Next.js route types, then run `tsc --noEmit` (strict) |
+| `npm test` | Run the Vitest tests once (jsdom, no browser). Needs Node.js ≥ 20.19 |
 | `npm run format` | Format files with Prettier (writes changes) |
 | `npm run format:check` | Check formatting without changing files |
 
 - Use `npm run typecheck` rather than `npx tsc --noEmit` alone: on a fresh clone, the route types must be generated first.
-- Before requesting commit approval, all of these must pass: `npm run lint && npm run typecheck && npm run format:check && npm run build`.
-- Tests (`npm test`) will be added with Vitest (D20); this section will be updated then.
+- Before requesting commit approval, all of these must pass: `npm run lint && npm run typecheck && npm run format:check && npm run build && npm test`.
+- Browser tests (Playwright, axe) are added in step 4.6 of Milestone 4; this section will be updated then.
 - Exact dependency versions and tooling exceptions are recorded in `docs/DESIGN_SPEC.md` §19.5.

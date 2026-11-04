@@ -176,3 +176,31 @@ section[tabindex="-1"]:focus {
   background-size: 3rem 3rem;
   mask-image: radial-gradient(ellipse at center, black 20%, transparent 75%);
 }
+
+/*
+ * Entrance motion (§11.3, §11.7, D24): CSS only and transform only. An element
+ * rises 12px into place once, when the page loads. Opacity is never animated,
+ * so the content is visible from the first paint, with or without JavaScript.
+ * Nothing waits for scrolling, and nothing is hidden beforehand.
+ *
+ * Use it for hero text and the hero illustration only, never the h1. Give each
+ * element its place in the sequence with --rise-order (0 to 5). The stagger is
+ * 60ms per step, so the last element finishes at 5 x 60 + 450 = 750ms, inside
+ * the 800ms hero budget. Under prefers-reduced-motion: reduce there is no
+ * movement at all: the rule below simply does not apply.
+ */
+@keyframes rise-in {
+  from {
+    transform: translateY(0.75rem);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@utility rise-in {
+  @media (prefers-reduced-motion: no-preference) {
+    animation: rise-in var(--duration-slow) var(--ease-standard) backwards;
+    animation-delay: calc(var(--rise-order, 0) * 60ms);
+  }
+}

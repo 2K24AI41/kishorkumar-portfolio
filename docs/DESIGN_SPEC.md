@@ -5,9 +5,9 @@
 | Field | Value |
 |-------|-------|
 | Owner | Kishor Kumar |
-| Version | 0.12 |
-| Document status | **Draft.** Approved decisions D1–D20 are binding. Everything marked *Proposed* needs owner approval. |
-| Last updated | 2026-11-03 |
+| Version | 0.22 |
+| Document status | **Draft.** Approved decisions D1–D34 are binding. Everything marked *Proposed* needs owner approval. |
+| Last updated | 2026-11-05 |
 
 **Status labels**
 - **Approved (Dn):** binding; recorded in §19. Do not change without owner approval.
@@ -46,8 +46,10 @@ Machine Learning, Deep Learning, Computer Vision, Natural Language Processing, a
 ### 2.1 Positioning
 **Aspiring AI/ML Engineer** who builds practical, well-evaluated machine learning systems and can explain the reasoning behind them.
 
-**Positioning statement (Proposed):**
-> "I build and evaluate machine learning systems across computer vision, NLP, and applied AI, with a focus on clear problem framing and honest results."
+**Positioning statement (Approved, D22):**
+> "Artificial Intelligence undergraduate developing a strong foundation in Machine Learning, Computer Vision, and Natural Language Processing."
+
+The v0.12 draft ("I build and evaluate machine learning systems…") is retired: it claimed more than the current work shows (D12). Use the D22 wording exactly.
 
 ### 2.2 Brand attributes
 | Attribute | Means | Does not mean |
@@ -71,6 +73,7 @@ To stand out from generic templates without gimmicks:
 3. **Single accent line:** a 2px electric-blue rule marks the active nav item, section headings, and the selected project card.
 4. **Real artifacts as imagery:** architecture diagrams, confusion matrices, sample model outputs, and UI screenshots from actual projects.
 5. **Logo/monogram:** "KK" wordmark set in the heading typeface (Open: OD-6).
+6. **Signature illustration (Approved, D21):** one labeled, accurate neural-network diagram in the hero, drawn in SVG as a foreground figure. It is not a background and not decoration. Details in §20.3.
 
 ### 2.5 Explicitly avoided
 - Generic AI-generated portfolio templates and layouts.
@@ -80,7 +83,7 @@ To stand out from generic templates without gimmicks:
 - Skill percentage bars, star ratings, or proficiency meters.
 - Fake statistics, achievements, clients, or testimonials.
 - Unverified project results.
-- Stock "AI" imagery (glowing brains, robots, abstract neural-network art).
+- Stock "AI" imagery (glowing brains, robots, abstract neural-network art). The only exception is the labeled foreground illustration approved in D21 (§2.4 item 6, §20.3); it does not permit neural-network backgrounds or decorative network art anywhere.
 
 ---
 
@@ -254,7 +257,7 @@ Horizontal page padding: 16px (mobile) · 24px (tablet) · 32px (desktop) · 40p
 ### 8.1 Header
 - Sticky at the top. Transparent over the hero, then switches to `surface` at ~90% opacity with a backdrop blur ≤ 8px and a bottom `border` after scrolling 24px.
 - **Left:** wordmark/monogram linking to home (top of page).
-- **Right (desktop):** About · Skills · Projects · Experience · Education · Learning · Contact, then a **Resume** button (secondary style, opens a PDF in a new tab with an external indicator).
+- **Right (desktop):** About · Skills · Projects · Experience · Education · Learning · Contact, then a **Resume** button (secondary style, opens a PDF in a new tab with an external indicator). The Resume button appears only when a resume PDF exists (D23, OD-16).
 - Height: 64px mobile, 72px desktop. Anchor targets and focused elements stay clear of the header through `scroll-padding-top` on `html` (the `--header-height` token, 65px mobile / 73px desktop including the 1px border, plus an 8px buffer for the focus ring); sections carry no `scroll-margin-top` (§13.2).
 
 ### 8.2 Active state
@@ -282,12 +285,12 @@ Each section is a `<section>` with an `id`, an `h2` (except the hero), and a mon
 A section with no approved content is hidden: its navigation link is removed, and index labels number the visible sections consecutively.
 
 ### 9.1 Hero (`#top`)
-- **Content:** eyebrow label (mono: "AI/ML Engineer"), name (`h1`, display size), positioning statement (§2.1), focus chips (ML · DL · Computer Vision · NLP · Applied AI), CTAs.
-- **CTAs:** *View projects* (primary) → `#projects`, shown only when at least one project is published (otherwise *Download resume* becomes primary); *Download resume* (secondary); icon links to GitHub and LinkedIn.
+- **Content:** eyebrow label (mono: "Aspiring AI/ML Engineer", D27), name (`h1`, display size), positioning statement (§2.1, D22), focus chips (ML · DL · Computer Vision · NLP · Applied AI), CTAs. The exact content order is in §20.3.
+- **CTAs (amended by D23):** *Get in touch* (primary) → `#contact`; icon links to GitHub and LinkedIn. *View projects* → `#projects` is added only when at least one project is published (D18). *Download resume* appears only when a resume PDF exists (OD-16); until then there is no resume CTA, and D18's fallback "Download resume becomes primary" does not apply.
 - **Optional:** availability line (e.g. "Open to internships / entry-level roles"): **Open (OD-7)**; include only if true.
-- **Visual:** blueprint grid background (§2.4). Optional professional photo: **Open (OD-8)**.
-- **Layout:** left-aligned text on all viewports. On desktop, an optional right column for the photo or a real project visual.
-- Must fit above the fold at 1280×720 and 375×667.
+- **Visual:** blueprint grid background (§2.4) and the signature illustration (D21, §20.3). Optional professional photo: **Open (OD-8)**.
+- **Layout:** left-aligned text on all viewports. On desktop, a right column holds the signature illustration (D21); a photo remains Open (OD-8).
+- Must fit above the fold at 1280×720 and 375×667. Measured result (step 4.2, §19.7): at 1280×720 the text, the buttons and the whole illustration card fit; at 375×667 the text and the buttons fit and the illustration sits below them, as designed (§12.1). The illustration is never hidden to make a measurement pass.
 
 ### 9.2 About (`#about`)
 - 2–3 short paragraphs: background, what draws Kishor to ML/AI, the kinds of problems to work on, and current goals.
@@ -329,7 +332,7 @@ A section with no approved content is hidden: its navigation link is removed, an
 - Short invitation (1–2 sentences).
 - Email address displayed as visible text, plus a `mailto:` link.
 - GitHub and LinkedIn links.
-- Optional: a "Copy email" button.
+- A text-only "Copy email address" button. It was optional in the original v1 plan ("optional" here means "not required for v1", not "forbidden", so D17 is not affected). It was added in Milestone 4, step 4.3, by owner decision (source commit `06b5390`); its behavior is in §20.3 and its verification record in §19.8. It stayed within the JavaScript budget (§19.8).
 - **Future contact form:** not part of v1. Adding one requires a new owner decision on OD-10 that supersedes D17 (see `.claude/rules/architecture.md`). If added, it needs labeled fields, inline validation, spam protection, a server-side handler, and success/error states (see `.claude/rules/security.md`).
 
 ---
@@ -340,7 +343,7 @@ A section with no approved content is hidden: its navigation link is removed, an
 - Server Components by default; Client Components only for interactivity (menu, scroll spy, animations).
 - Every interactive component defines: default, hover, focus-visible, active, disabled (if applicable), and loading/error (if applicable).
 - Components consume design tokens through Tailwind theme utilities; no hardcoded colors, spacing, or font sizes.
-- Icons: Lucide React (D9). Import icons individually. Default size 16/20/24px, stroke width 1.75. Decorative icons get `aria-hidden="true"`; icon-only controls get an accessible name.
+- Icons: Lucide React (D9). Import icons individually. Default size 16/20/24px, stroke width 1.75. Decorative icons get `aria-hidden="true"`; icon-only controls get an accessible name. Lucide has no brand icons (no GitHub or LinkedIn), so those two marks are small inline SVG components in `src/components/ui/BrandIcons.tsx`, copied unchanged from GitHub's Octicons (MIT) and Simple Icons (CC0). No icon dependency is added, and D9 is unchanged (§19.7).
 
 ### 10.2 Project card
 | Element | Spec |
@@ -401,7 +404,7 @@ Left rail with `border` line and an `accent` dot for the current item. Title (`h
 
 ## 11. Animation Guidelines
 
-**Approved:** balanced and purposeful animation (D3), implemented with Motion (D8).
+**Approved:** balanced and purposeful animation (D3), implemented with Motion (D8). For Milestone 4, animation is CSS-only and Motion is not installed (D24, §11.7).
 
 ### 11.1 Principles
 - Motion clarifies hierarchy, state, or spatial relationships. If it doesn't, remove it.
@@ -420,15 +423,15 @@ Left rail with `border` line and an `accent` dot for the current item. Title (`h
 ### 11.3 Allowed animations
 | Element | Animation |
 |---------|-----------|
-| Hero | One-time entrance: fade + 12px rise, staggered (eyebrow → name → tagline → CTAs), total ≤ 800ms |
-| Section content | Fade + 16px rise when 15% in view, **once** per element |
+| Hero | One-time entrance: a subtle `translateY` rise of the eyebrow, positioning statement, credential line, chips and actions (not the name), staggered, total ≤ 800ms. Transform only: opacity is not animated from zero (Milestone 4, §11.7) |
+| Section content | Fade + 16px rise when 15% in view, **once** per element. **Not built in Milestone 4:** scroll-triggered reveals are removed (D24, §11.7) |
 | Project cards | Staggered reveal; hover lift 2px plus a surface/border change |
 | Mobile menu | Panel slides/fades in (`base`); links stagger lightly |
-| Nav active indicator | Underline slides between items (shared layout animation) |
+| Nav active indicator | Underline slides between items (shared layout animation). Not implemented in Milestone 4: it needs Motion (D24) |
 | Page transitions | Simple fade (≤ 200ms) between home and case studies; **Proposed** |
 
 ### 11.4 Not allowed
-Parallax, scroll-jacking, cursor-follow effects, particle or neural-net backgrounds, typing effects, auto-playing video/carousels, continuous glow/pulse, counters animating up to (fake or real) numbers.
+Parallax, scroll-jacking, cursor-follow effects, particle or neural-net backgrounds, typing effects, auto-playing video/carousels, continuous glow/pulse, counters animating up to (fake or real) numbers. The D21 illustration is a labeled foreground figure revealed once; it does not relax this list.
 
 ### 11.5 Reduced motion
 - Respect `prefers-reduced-motion: reduce` globally (Motion's reduced-motion configuration set to follow the user setting).
@@ -437,6 +440,17 @@ Parallax, scroll-jacking, cursor-follow effects, particle or neural-net backgrou
 ### 11.6 Performance
 - Use Motion's lazy feature loading and lightweight components to keep the animation bundle small.
 - Animations must not cause layout shift or block interaction. Hero entrance must not delay LCP (the LCP element renders visible immediately or animates from opacity ≥ 0.01 only if measured to be safe; prefer no animation on the LCP element).
+
+### 11.7 Milestone 4 implementation approach (D24)
+- Animation is **CSS-only** (keyframes and transitions using the §11.2 tokens). "CSS-only" means no animation library: Motion (D8) is not installed in Milestone 4, and D8 is not revoked.
+- **Animations that are built:**
+  - **The hero entrance is transform-only.** The eyebrow, positioning statement, credential line, chips and actions each rise with a subtle `translateY` (about 12px) to their final position, staggered, starting on page load and ending within 800ms. **Opacity is never animated from zero**, so all hero text is visible from the first paint. The hero `h1` is not animated at all (§11.6).
+  - **The neural-network illustration** (D21) is visible immediately. It may use a subtle, one-time, transform-only entrance (implemented as the whole figure rising into place once as one unit, not layer by layer). "Revealed once" in D21 means this one-time entrance, never a fade from zero and never a loop.
+  - Subtle hover and focus transitions of 150ms or less (color, background, or a small transform).
+- **Not built in Milestone 4:** scroll-triggered section reveals (the "Section content" row of §11.3), staggered card reveals, the sliding nav indicator, cursor-follow or spotlight effects, parallax, and any looping motion.
+- **`IntersectionObserver` and scroll listeners are not banned.** The existing header scroll spy (§8.2, `src/components/layout/useHeaderState.ts`) uses `IntersectionObserver` and **remains unchanged**. What is prohibited is **new** `IntersectionObserver` or scroll-listener code written for scroll-triggered animation, reveal effects or hidden section states.
+- **All page content is visible immediately.** No section, card or text block has a hidden starting state, and nothing waits for JavaScript, scrolling or any other event to appear. The page is complete with JavaScript disabled (§11.1).
+- **Reduced motion** (`prefers-reduced-motion: reduce`, §11.5): all movement is removed and the hero and the illustration show their final state immediately. Color or opacity transitions of 150ms or less (for example on hover) are still allowed.
 
 ---
 
@@ -471,7 +485,7 @@ Mobile-first. Breakpoints align with Tailwind defaults.
 ### 12.2 Universal requirements
 - No horizontal page scroll from 320px to 2560px; code blocks and tables scroll inside their own container.
 - Reflows at 320 CSS px and works at 200% and 400% zoom without loss of content or function.
-- Landscape mobile: the hero must not exceed the viewport height; the menu overlay scrolls if needed.
+- Landscape mobile: nothing is hidden to fit the screen. The hero may be taller than the viewport and scrolls; the illustration scales down (256px wide at 480px height or less) instead of being hidden (owner decision, v0.20; the approved hero text alone is already taller than a 375px-high screen). The menu overlay scrolls if needed.
 - Hover-only interactions always have a tap/focus equivalent.
 
 ---
@@ -528,16 +542,16 @@ Implemented with the Next.js App Router Metadata API (D5, D6).
 
 | Item | Requirement |
 |------|-------------|
-| Titles | Home: "Kishor Kumar · AI/ML Engineer". Case studies: "{Project} · Kishor Kumar". Template-based, unique per page |
+| Titles | Home: "Kishor Kumar · Aspiring AI/ML Engineer" (D27). Case studies: "{Project} · Kishor Kumar". Template-based, unique per page |
 | Descriptions | 140–160 characters, unique per page, written from real content |
-| Canonical URLs | Set on every page; production domain **Open (OD-11)** |
+| Canonical URLs | Set on every page once a site URL is configured; production domain **Open (OD-11)**. No domain is invented or hardcoded; absolute URLs (canonical, Open Graph, sitemap, JSON-LD `url`) come from configuration (D26) |
 | Open Graph / Twitter | Title, description, URL, and a 1200×630 image per page (generated or designed, matching the dark brand) |
-| Structured data | JSON-LD `Person` on home (name, jobTitle, url, sameAs: GitHub/LinkedIn). `CreativeWork`/`SoftwareSourceCode` on case studies |
+| Structured data | JSON-LD `Person` on home (name, jobTitle "Aspiring AI/ML Engineer", url only if configured, sameAs: GitHub/LinkedIn), serialized safely (D25). `CreativeWork`/`SoftwareSourceCode` on case studies |
 | Sitemap / robots | Generated `sitemap.xml` and `robots.txt` via App Router metadata files |
 | Icons | Favicon, Apple touch icon, web app manifest |
 | Headings and semantics | As in §13.1; descriptive link text |
 | Performance | Core Web Vitals targets in §15 (they affect ranking) |
-| Indexing | Preview deployments on Vercel are `noindex` |
+| Indexing | Preview deployments on Vercel are `noindex`. Production must never be `noindex`: the rule applies only when a deployment is positively identified as a preview, never as a fallback default (D26) |
 
 ---
 
@@ -570,7 +584,7 @@ Implemented with the Next.js App Router Metadata API (D5, D6).
 - Variable fonts, Latin subset, two families maximum, only the weights in use.
 
 ### 15.5 JavaScript and bundle
-- Motion: use lazy-loaded features and lightweight motion components; never animate in Server Components.
+- Motion (not installed in Milestone 4, D24): if added later, use lazy-loaded features and lightweight motion components; never animate in Server Components.
 - Lucide: per-icon imports only (no full icon set).
 - Third-party scripts: none by default. Any analytics (OD-12) loads after interaction/idle and must be privacy-friendly.
 - Use the bundle analyzer before each release; reject dependencies that add > 20KB gzipped without a strong reason.
@@ -584,7 +598,7 @@ Implemented with the Next.js App Router Metadata API (D5, D6).
 
 ## 16. Technical Architecture
 
-**Approved stack:** Next.js (D4) · TypeScript (D5) · App Router (D6) · Tailwind CSS (D7) · Motion (D8) · Lucide React (D9) · Vercel (D10) · npm package manager (D13).
+**Approved stack:** Next.js (D4) · TypeScript (D5) · App Router (D6) · Tailwind CSS (D7) · Motion (D8; not installed in Milestone 4, D24) · Lucide React (D9) · Vercel (D10) · npm package manager (D13).
 Exact package versions are pinned at initialization (npm records them in `package-lock.json`) and recorded in §19.
 
 ### 16.1 Routes
@@ -592,7 +606,7 @@ Exact package versions are pinned at initialization (npm records them in `packag
 |-------|---------|-----------|
 | `/` | Home with all sections | Static |
 | `/projects/[slug]` | Case study per project | Static (pre-generated) |
-| `/resume.pdf` | Resume file (static asset) | Static |
+| `/resume.pdf` | Resume file (static asset). Exists only once the owner supplies a resume (OD-16) | Static |
 | 404 | Not-found page | Static |
 | `/api/contact` | Not in v1 (D17). Only if a future decision on OD-10 supersedes D17 | Serverless function |
 
@@ -631,13 +645,21 @@ Each entity is defined as a TypeScript type and validated at build time. Optiona
 - `.claude/rules/design-system.md` governs usage.
 
 ### 16.5 Quality tooling (Approved, D20)
-**Approved (D20):** ESLint (Next.js config), Prettier, Vitest, Playwright and axe, alongside TypeScript `strict` (D5). Tools are introduced gradually as development progresses; each is required once it is set up, and all must pass before release (§18). Testing Library (for Vitest component tests): **Proposed**.
+**Approved (D20):** ESLint (Next.js config), Prettier, Vitest, Playwright and axe, alongside TypeScript `strict` (D5). Tools are introduced gradually as development progresses; each is required once it is set up, and all must pass before release (§18). Testing Library (for Vitest component tests): **Approved (D31)**, with `@testing-library/user-event`, `@testing-library/jest-dom`, `jsdom` and `@vitejs/plugin-react`.
+**Milestone 4 (D29):** Playwright and `@axe-core/playwright` are set up in step 4.6 for a small, selective set of browser tests that run in GitHub Actions only (§20.4). This set is the *minimum* for Milestone 4, not a reduction of the standards in `.claude/rules/testing.md`. **D30 (v0.16)** adds screenshots at the nine §18.3 widths to the CI run and sets up Vitest in step 4.1. **D31–D34 (v0.17)** approve the Testing Library stack, require a component test for every new React component in its own step (Playwright adds end-to-end coverage and does not replace it), make rule-file updates separate reviewed proposals, and fix the CI browser and screenshot details. Vitest is not used for unrelated application logic. §20.7 maps every `testing.md` requirement to where it is met.
 Commands are documented in `CLAUDE.md` once the project is initialized.
 
 ### 16.6 Deployment
 - Vercel with preview deployments per branch and production on the main branch.
 - Security headers (CSP, HSTS, etc.) per `.claude/rules/security.md`.
 - Environment variables only if needed; none are needed for contact in v1 (email only, D17). Never exposed to the client unless non-sensitive.
+
+### 16.7 Security headers and Content Security Policy (D25)
+- Headers required by `.claude/rules/security.md`: Content-Security-Policy, `X-Content-Type-Options: nosniff`, `Referrer-Policy: strict-origin-when-cross-origin`, `Permissions-Policy`, HSTS.
+- **The CSP must be conservative.** `'unsafe-inline'` and `'unsafe-eval'` are not assumed, and are not defaults. The policy is designed and then tested against the actual production build (`next build` + `next start`) before it is enforced.
+- If testing shows an exception is unavoidable (for example Next.js inline scripts), it is written into this section with the reason, the directive and the alternatives considered, and the owner approves it before enforcement. Until then, no `unsafe-*` source is enforced.
+- The CSP is verified on every route (`/` and the 404 page) with zero violations in the browser console.
+- JSON-LD (D25) is the only permitted use of `dangerouslySetInnerHTML`. It serializes a fixed, typed object with `JSON.stringify` and escapes `<`, U+2028 and U+2029. No user input is ever included.
 
 ---
 
@@ -677,7 +699,7 @@ Bio and positioning confirmation, skills list, 0–3 featured projects with veri
 
 ## 18. Acceptance Criteria
 
-A release is complete only when every item below passes.
+A release is complete only when every item below passes. The per-step criteria for Milestone 4 are in §20.4; they add to these items and do not replace them.
 
 ### 18.1 Design
 - [ ] All colors, spacing, type, radii, and motion use the tokens in this spec.
@@ -748,6 +770,20 @@ A release is complete only when every item below passes.
 | D18 | Featured projects: the homepage shows **at most 3** featured projects (0–3; replaces 3–6). Only approved, verified projects are shown; no empty or placeholder cards; the grid adapts to 1, 2 or 3 cards; with 0 projects, the section and its navigation link are hidden and *Download resume* becomes the primary hero CTA. Each featured project has its own case study page. A separate All Projects page is not part of v1 | 2026-11-02 | Kishor Kumar |
 | D19 | Content storage: **TypeScript data files** for all v1 content, including case studies. No MDX in v1; MDX may be reconsidered in a future version if needed (resolves OD-13) | 2026-11-02 | Kishor Kumar |
 | D20 | Quality tooling: **ESLint, Prettier, Vitest, Playwright and axe**. Introduced gradually as development progresses rather than all at once; each is required once set up, and all must pass before release (§18) | 2026-11-02 | Kishor Kumar |
+| D21 | Signature illustration: one **labeled, accurate, foreground** SVG neural-network illustration is allowed in the hero, as a specific exception to the decorative restrictions in §2.5 and §11.4. It must be captioned as an illustration and never presented as Kishor's own model or result; use flat token colors (no glow, §5.4); be revealed once with no looping motion; and have a text alternative. Neural-network backgrounds, particle effects and decorative network art remain not allowed | 2026-11-03 | Kishor Kumar |
+| D22 | Hero positioning statement (resolves OD-14), exactly: "Artificial Intelligence undergraduate developing a strong foundation in Machine Learning, Computer Vision, and Natural Language Processing." Replaces the v0.12 draft in §2.1 | 2026-11-03 | Kishor Kumar |
+| D23 | Hero primary CTA is **"Get in touch"**, linking to `#contact`. No resume CTA, Resume button or resume link until an actual resume PDF exists (OD-16). This amends only D18's fallback ("Download resume becomes the primary hero CTA"); the rest of D18 is unchanged | 2026-11-03 | Kishor Kumar |
+| D24 | Milestone 4 animation is **CSS-only**; Motion is not installed. D8 is not revoked: Motion remains the approved library if a later milestone needs it | 2026-11-03 | Kishor Kumar |
+| D25 | JSON-LD `Person` is approved, with safe serialization and escaping (§16.7); it is the only permitted `dangerouslySetInnerHTML` use. The CSP must be conservative: `unsafe-inline` / `unsafe-eval` are **not** assumed as defaults, and a policy is tested against the actual production build before it is enforced (§16.7) | 2026-11-03 | Kishor Kumar |
+| D26 | Domain and indexing: no production domain exists and none is invented (OD-11 stays open). Preview deployments are `noindex`; production must not be accidentally `noindex`, so the rule applies only when a deployment is positively identified as a preview. Absolute URLs come from configuration, not hardcoded values | 2026-11-03 | Kishor Kumar |
+| D27 | Role wording: **"Aspiring AI/ML Engineer"** is used consistently, including the hero eyebrow, page title and metadata, JSON-LD `jobTitle` and the share image. Amends the eyebrow in §9.1 and the home title in §14 | 2026-11-03 | Kishor Kumar |
+| D28 | Milestone 4 ("Premium Visual Identity and Portfolio Polish") includes all steps 4.0 through 4.7 as set out in §20.4 | 2026-11-03 | Kishor Kumar |
+| D29 | Browser tests in Milestone 4 (resolves OD-17): **selective Playwright browser tests plus axe accessibility checks** for essential page and menu states. They run in **GitHub Actions only**; browsers are installed in CI only, never locally. Essential tests: homepage loads with exactly one `h1` and a working skip link; the mobile menu opens, closes with Escape and restores focus; anchor navigation works; external links carry appropriate `rel` attributes; the 404 page returns HTTP 404; axe checks the homepage, the 404 page and the open mobile-menu state. The tests are added in step 4.6 together with CI; step 4.7 records the results. Vitest is **not** added unless a genuine unit-testing need arises. D20 is not revoked (Vitest stays approved but is not set up). **Clarified in v0.15:** these tests are the *minimum* automated browser and accessibility coverage for Milestone 4; they do not weaken the existing requirements in `.claude/rules/testing.md`, which stay in force and are not edited in the specification step. **Extended in v0.16 by D30:** the sentence "Vitest is not added unless a genuine unit-testing need arises" is refined by D30, which sets up Vitest in step 4.1 for components that genuinely need component-level tests | 2026-11-03 | Kishor Kumar |
+| D30 | Testing standards for Milestone 4 (closes the testing gap recorded in v0.15). (1) `.claude/rules/testing.md` is preserved **unchanged and fully in force**. (2) Playwright browser tests and `@axe-core/playwright` checks run in GitHub Actions. (3) **Screenshots at all nine §18.3 widths** (320, 375, 414, 768, 1024, 1280, 1440, 1920, 2560) are part of CI verification. (4) **Vitest** is set up (in step 4.1, with the shared `Button`) and used for `Button` and any other newly introduced component that genuinely requires component-level testing, following `testing.md` (queries by role/label; no snapshot tests of large DOM trees). (5) Vitest is **not** added for unrelated application logic without a genuine need. (6) Browsers are installed and run **only in CI**; Vitest needs no browser. (7) The D29 scenarios remain the *minimum* Milestone 4 browser and accessibility coverage. (8) Test results, screenshot artifacts and CI run identifiers are recorded in step 4.7. Testing Library remains Proposed until separately approved (OD-18). **Refined in v0.17:** Testing Library is approved by D31 (resolves OD-18); D32 replaces the "genuinely requires" qualifier in item (4) by a component test for **every** new React component in the step that introduces it; D34 settles the CI browser and screenshot details | 2026-11-03 | Kishor Kumar |
+| D31 | Testing Library approval (resolves OD-18). The Vitest component-testing stack is approved: `vitest`, `@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom`, `jsdom` and `@vitejs/plugin-react`. They are development dependencies, each **explicitly pinned** (exact versions, `.npmrc` `save-exact`) to **mutually compatible** versions chosen and verified at installation in step 4.1, then recorded in §19.5. Nothing is installed during documentation-only steps. Component tests query by accessible role/name or label, as `testing.md` requires | 2026-11-03 | Kishor Kumar |
+| D32 | Component tests accompany components. **Every new React component receives its required component test in the same implementation step in which the component is introduced**; a component's only test is never postponed to a later step or milestone. This applies to `Button` (4.1), the copy-email control (4.3), `NeuralFigure` (the step that introduces it, 4.2) and the Footer (the step that introduces it, 4.4), and to any other new React component. The **404 route** receives its browser-level test in 4.6. Playwright tests give additional end-to-end coverage and **do not replace** required component tests. Tests verify user-observable behavior, use accessible role/name or label queries wherever practical, and avoid large DOM snapshots and implementation-detail testing. Vitest is still not added for unrelated application logic without a genuine need (D30) | 2026-11-03 | Kishor Kumar |
+| D33 | Rule-file updates are proposals, reviewed before application. At step 4.1, separate proposed updates for `.claude/rules/testing.md` and for `CLAUDE.md` §9 are prepared to reflect Vitest and the new required `npm test` gate. At step 4.6, separate proposed updates for the Playwright and axe requirements are prepared. **Neither file is edited** until the owner has reviewed and approved the proposal. Every proposal preserves the existing standards. The implementation plan states which rule governs in the meantime (§20.5) | 2026-11-03 | Kishor Kumar |
+| D34 | CI and screenshots. **Chromium** is the initial CI browser. Screenshots are taken at all nine §18.3 widths (320, 375, 414, 768, 1024, 1280, 1440, 1920, 2560) for **both** the homepage and the 404 route (18 images). An **automated horizontal-overflow check** runs at every required viewport. Screenshot artifacts are **uploaded even when tests fail**, with **14-day retention**. Screenshots are inspected by a human; **no screenshot baselines are committed** and no image comparison is run. Browsers are installed and run **only in CI**; Vitest may run locally because it uses `jsdom` and needs no browser | 2026-11-03 | Kishor Kumar |
 
 ### 19.3 Open decisions
 | ID | Decision needed | Section | Current proposal |
@@ -760,7 +796,7 @@ A release is complete only when every item below passes.
 | OD-9 | Experience section when there is no professional experience | §9.5 | Hide until real entries exist |
 | OD-11 | Production domain | §14 | Owner to provide |
 | OD-12 | Analytics and Speed Insights | §15 | Vercel Speed Insights only, privacy-friendly |
-| OD-14 | Positioning statement wording | §2.1 | As drafted |
+| OD-16 | Resume PDF: availability and file | §8.1, §9.1, §16.1 | No resume exists. The Resume button, resume CTA and `/resume.pdf` stay absent until the owner supplies a PDF (< 500KB, §15.6) |OD-11 (production domain) and OD-7 (availability line) also stay open. OD-6 (logo): the "KK" wordmark is the working proposal for the footer and icons, still pending approval.
 ### 19.3a Resolved decisions
 | ID | Decision needed | Resolution | Date |
 |----|-----------------|------------|------|
@@ -770,6 +806,9 @@ A release is complete only when every item below passes.
 | OD-15 | Exact package manager and versions | **Resolved by D13.** npm. Exact versions are pinned at initialization and recorded in §19 | 2026-11-02 |
 | OD-10 | Contact form vs. email only | **Resolved by D17.** Email only for v1; no contact form, backend or API route | 2026-11-02 |
 | OD-13 | MDX for case study content | **Resolved by D19.** TypeScript data files for all v1 content; no MDX in v1 | 2026-11-02 |
+| OD-14 | Positioning statement wording | **Resolved by D22.** Exact wording approved by the owner | 2026-11-03 |
+| OD-17 | When Playwright + axe (and Vitest) are introduced | **Resolved by D29.** Selective Playwright and axe tests in Milestone 4, added in step 4.6 and run in GitHub Actions only; no Vitest unless a genuine need arises | 2026-11-03 |
+| OD-18 | Vitest tooling and Testing Library approval | **Resolved by D31.** `vitest`, `@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom`, `jsdom` and `@vitejs/plugin-react` approved, explicitly pinned and mutually compatible; exact versions chosen at installation in step 4.1 and recorded in §19.5 | 2026-11-03 |
 
 ### 19.4 Change log
 | Version | Date | Change | Author | Status |
@@ -786,6 +825,16 @@ A release is complete only when every item below passes.
 | 0.10 | 2026-11-02 | Recorded the partial accessibility validation (§5.5) for Milestone 2 (Foundation + Hero) in new §19.6, and added a status note under §5.5. Four accessibility fixes (A–D) were applied in code. No approved decisions, token values or other sections changed. The validation is **not** marked complete: real browser zoom, real Windows High Contrast, NVDA, VoiceOver, other browsers and touch testing are outstanding | Claude | Draft; recording approved by the owner |
 | 0.11 | 2026-11-03 | Milestone 3 (About, Skills, Education, Contact, header). Resolved an internal conflict (owner-approved): §8.1 and §7.1 said anchored sections use `scroll-margin-top`, while §13.2 requires `scroll-padding-top` for WCAG 2.4.11. The offset now lives on `html` as `scroll-padding-top` (header height + 8px); per-section `scroll-margin-top` is removed to avoid double spacing. Added the `lucide-react` row to §19.5. No tokens or approved decisions changed | Claude | Draft; change approved by owner |
 | 0.12 | 2026-11-03 | Container widths (owner-approved clarification, found by a read-only audit against v0.11). §7.2 now states that each container max width is the total box width, including the horizontal page padding. §12.1 "Page padding" row reworded to match. Implementation: the header and the hero use the `wide` (1360px) container; About, Skills, Education and Contact use the default `content` (1200px) container. Previously every section used `wide`. No token values changed | Claude | Draft; clarification approved by owner |
+| 0.13 | 2026-11-03 | Milestone 4.0 (plan only, no code). Recorded owner decisions D21–D28: labeled foreground neural-network illustration (D21), exact positioning statement (D22, resolves OD-14), "Get in touch" hero CTA with no resume CTA (D23), CSS-only animation (D24), JSON-LD plus a conservative, tested CSP (D25), no invented domain and safe indexing (D26), "Aspiring AI/ML Engineer" wording (D27), Milestone 4 scope 4.0–4.7 (D28). Updated §2.1, §2.4, §2.5, §8.1, §9.1, §11 (new §11.7), §14, §15.5, §16 (new §16.7), §18, §19.5; added open decisions OD-16 and OD-17; added §20 (Milestone 4 plan, design details, sequence, acceptance criteria, unresolved items, conflicts). No token values and no decisions D1–D20 changed (D18's CTA fallback is amended only by D23; D8 is not revoked) | Claude | Draft; D21–D28 approved by owner |
+| 0.14 | 2026-11-03 | Amendments after owner review of v0.13 (v0.13 is kept as the reviewed version). (1) **Animation corrected:** v0.13 §11.7 and §20.3 introduced an `IntersectionObserver` helper and scroll-triggered section reveals, which contradicted the CSS-only decision (D24) and the rule that content is visible immediately. Both are removed: the hero entrance (without the `h1`), the illustration's one-time reveal, reduced-motion support and subtle hover/focus transitions stay; no scroll reveals, no observer, no hidden starting states; content is visible with JavaScript disabled. §11.3 "Section content" row annotated. (2) **D29 added and OD-17 resolved:** selective Playwright browser tests and axe checks, run in GitHub Actions only, added in step 4.6, results recorded in step 4.7; no Vitest unless a genuine need arises; §16.5 and §19.5 updated. (3) **Step 4.1** now includes correcting the role wording in `src/content/site.ts` to "Aspiring AI/ML Engineer" (was step 4.5). (4) **Acceptance criteria** for steps 4.0–4.4, 4.6 and 4.7 and the common gate updated: no axe requirement before the CI test setup exists in 4.6. §20.1–§20.6 updated to match. No token values and no decisions D1–D28 changed | Claude | Draft; amendments and D29 approved by owner |
+| 0.15 | 2026-11-03 | Final documentation corrections after owner review of v0.14 (v0.13 and v0.14 are preserved above). (1) **Animation:** the hero entrance is now transform-only (subtle `translateY`); opacity is never animated from zero; the `h1` stays unanimated; the neural illustration is visible immediately and may use a subtle one-time, transform-only entrance; no scroll-triggered reveals or hidden section states; reduced motion removes movement and shows the final state at once. Updated §11.3 (Hero row), §11.7, §20.3 and the step 4.2 criteria. (2) **`IntersectionObserver`:** no longer banned globally. The existing header scroll spy (§8.2) uses it and remains unchanged; only new `IntersectionObserver` or scroll-listener code for scroll-triggered animation, reveal effects or hidden section states is prohibited. Step 4.1 criteria corrected so they no longer contradict the scroll spy. (3) **Testing standards:** D29 is the minimum automated browser and accessibility coverage for Milestone 4 and does not weaken `.claude/rules/testing.md`, which is unchanged; the v0.14 line saying the rule file would be updated in 4.6 is removed; the open question of how its Playwright, screenshot and component-test rules are met is recorded in §20.5; any rule-file change is presented separately for review. Updated D29 (clarification), §16.5, §20.4 (steps 4.0, 4.1, 4.2, 4.6, 4.7), §20.5 and §20.6. No token values and no decisions D1–D28 changed | Claude | Draft; amendments approved by owner |
+| 0.16 | 2026-11-03 | Testing gap resolved (owner decisions; v0.13, v0.14 and v0.15 are preserved above). Added **D30**: `.claude/rules/testing.md` stays unchanged and fully in force; Playwright and axe run in GitHub Actions; screenshots at all nine §18.3 widths are part of CI verification; Vitest is set up in step 4.1 for `Button` and any other new component that genuinely needs component-level tests, not for unrelated application logic; browsers are installed and run only in CI; the D29 scenarios stay the minimum; test results, screenshot artifacts and CI run identifiers are recorded in step 4.7. The exact rule file was read before editing and each of its requirements is mapped to its coverage in the new §20.7. Updated D29 (pointer to D30), §16.5, §19.5, §20 intro, §20.2, §20.4 (common gate now includes `npm test` from 4.1; steps 4.0, 4.1, 4.2, 4.3, 4.4, 4.6, 4.7), §20.5 and §20.6. Added open decision **OD-18** (Testing Library and the exact Vitest packages, needed before 4.1). The rule-file and `CLAUDE.md` updates that `testing.md` itself calls for are not made here and are to be presented separately for review. No token values and no decisions D1–D29 changed | Claude | Draft; D30 approved by owner |
+| 0.17 | 2026-11-03 | Testing decisions D31–D34 (owner decisions; v0.13 to v0.16 are preserved above). **D31:** Testing Library approved as part of a six-package Vitest stack (`vitest`, `@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom`, `jsdom`, `@vitejs/plugin-react`), explicitly pinned and mutually compatible, versions chosen at installation in step 4.1; OD-18 resolved. **D32:** every new React component gets its component test in the same step that introduces it (`Button` 4.1, `NeuralFigure` 4.2, copy-email control 4.3, Footer 4.4); the 404 route's browser-level test is in 4.6; Playwright is additional and never replaces a required component test; v0.16's "static components are tested in the browser in 4.6" is superseded. **D33:** rule-file updates are separate proposals (4.1 for Vitest and `npm test`, 4.6 for Playwright and axe) for `.claude/rules/testing.md` and `CLAUDE.md` §9, reviewed before application; nothing edited; the governing rule in the meantime is stated. **D34:** Chromium in CI, screenshots at nine widths for the homepage and the 404 route (18 images), automated overflow checks, upload even on failure, 14-day retention, human inspection, no committed baselines; Vitest may run locally. Updated D30 (refinement note), §16.5, §19.5, §20 intro, §20.2, §20.4 (common gate; steps 4.0, 4.1, 4.2, 4.3, 4.4, 4.5, 4.6, 4.7), §20.5, §20.6 and §20.7. No token values and no decisions D1–D30 changed other than the refinements noted | Claude | Draft; D31–D34 approved by owner |
+| 0.18 | 2026-11-03 | Two final corrections after owner review of v0.17 (v0.13 to v0.17 are preserved above). (1) **Immediate regression test:** step 4.1 now includes a focused Vitest assertion for the corrected "Aspiring AI/ML Engineer" role/title content, written in the same step as the correction instead of in 4.6; it is an owner-directed exception to "no Vitest for unrelated application logic" (D30), limited to this one test. The browser-level page-title assertion stays in 4.6 as additional coverage. (2) **`npm test` permission:** `.claude/settings.json` stays unchanged; step 4.1 must inspect its current permission configuration and propose the smallest necessary update for `npm test`, applied only with the owner's explicit approval. Updated §20 intro, §20.4 (steps 4.0, 4.1, 4.6), §20.5, §20.6 and §20.7 (requirement 11). D31–D34, the component-test assignments, the testing requirements, the CI gates and the design, accessibility, security, animation and responsive requirements are unchanged | Claude | Draft; corrections approved by owner |
+| 0.19 | 2026-11-03 | Step 4.1 record (no decisions changed). §19.5 now lists the eight test dependencies installed in step 4.1 with their exact versions (`vitest` 4.1.12, `@testing-library/react` 16.3.3, `@testing-library/user-event` 14.6.8, `@testing-library/jest-dom` 6.9.1, `jsdom` 29.1.1, `@vitejs/plugin-react` 6.2.1, plus the required peers `vite` 8.3.5 and `@testing-library/dom` 10.4.2, both owner-approved additions to the six-package list of D31), the Node.js requirements for testing (20.19+ locally, 22.13+ in CI; `engines` unchanged), the lockfile platform note and the `npm audit` result. Version 0.18 stays the committed specification checkpoint | Claude | Draft; recorded as required by step 4.1 |
+| 0.20 | 2026-11-04 | Step 4.2 corrections and record (owner decisions; no approved decision D1–D34 changed or reopened). (1) **Desktop fold:** the illustration card is capped at about 360px and centered in its five-column area (7/5 proportions kept), and the hero's top padding is 80px from `md` up (was 112px at `lg`), so the text and the whole card fit above the fold at 1280×720. (2) **Brand icons:** GitHub and LinkedIn use inline SVG brand marks (`BrandIcons.tsx`, no dependency); the GitHub path was corrected to GitHub's official Octicons file, the LinkedIn path matches Simple Icons 16.36.0. §10.1 notes that Lucide has no brand icons. (3) **JavaScript budget:** measured from the browser's own network log: 140.5 KB gzipped for six script files (147.1 KB with inline scripts), so the 150KB target is met with a thin margin. (4) **Spec text corrected to match the implementation:** §9.1 (fold result), §12.2 (short landscape scales down instead of hiding the illustration and the hero may scroll), §20.3 (brand icons, two-sentence caption, whole-figure entrance, equation rendering, card width and padding), §20.4 step 4.2, §20.5, §20.6 (five conflict rows) and §20.7 (brand-icon tests). (5) **New §19.7:** step 4.2 verification record with the final viewport measurements, contrast table, animation, keyboard and JavaScript-transfer results, and what was not verified | Claude | Draft; corrections approved by owner |
+| 0.21 | 2026-11-04 | Step 4.3 scope reconciled with the owner's pre-implementation decisions (documentation only; no decision D1–D34 changed or reopened; the D17 and D28 decision rows are unchanged, byte for byte). (1) **Step 4.3 is Contact only:** §20.4 now describes and tests Contact alone; About, Skills and Education are unchanged, and the treatments v0.13–v0.20 listed for them (lead paragraph, Skills icons, Education card) are deferred (§20.3, §20.5). (2) **Copy email control approved, text-only:** hydration-only rendering when a clipboard API exists, constant accessible name "Copy email address", a persistent `role="status"` message for success and failure, email text selected on failure, message cleared after about 4 seconds, no `execCommand` fallback (§20.3, §20.4). (3) **GitHub and LinkedIn** as secondary buttons with brand icons and text. (4) **Email** as large text with responsive wrapping and no forced break after the `@`. (5) **Tests:** the copy control's six behaviors and a new `Contact.test.tsx` server-render regression (§20.4, §20.7). (6) **JavaScript budget:** investigate an increase above 2.5 KB; stop if the measured total exceeds 149.5 KB (§20.4). (7) **Cleanup:** delete the unused `ExternalLink` and fix the `Button.tsx` comment that mentions it. (8) **§9.8 wording:** the Copy email button is now stated as included in step 4.3; "optional" in §9.8 and in the D17 row means "not required for v1", so D17 is not contradicted and is not modified (clarified in the §20.6 conflict record). (9) **Forward reference removed:** the contrast record is now described as a new verification section added during implementation, not as a numbered section that does not exist yet. (10) **D33 status corrected from the repository history:** the step 4.1 proposals were applied (rule files in `a31e64e`, the `Bash(npm test)` permission in `2fb406d`); only the step 4.6 Playwright and axe proposals are pending; the package count is corrected from six to eight in §20.5 and in the step 4.1 acceptance row; the common-gate "Rule files" sentence and two §20.6 rows are updated to match. (11) **D30 item (5) exceptions recorded:** the title/role, Hero and Contact regression tests are owner-approved, limited exceptions (§20.7). The two extra `Contact.test.tsx` checks are kept, and the real-clipboard browser test stays optional. (12) **Punctuation** fixed in the step 4.0 row. Updated §9.8, §20.3, §20.4 (common gate; steps 4.0, 4.2, 4.3), §20.5, §20.6 (three new rows and three updated rows) and §20.7 | Claude | Draft; scope and corrections approved by owner |
+| 0.22 | 2026-11-05 | Step 4.3 record (owner-reviewed implementation; source commit `06b5390`; no decision D1–D34 changed or reopened, and no new decision is added). (1) **New §19.8:** the step 4.3 verification record: what was built, the repeated-attempt correction made before the commit, email wrapping and overflow, layout stability, the status-message layout shift (recorded as a known trade-off, to be reassessed after step 4.4), keyboard, contrast of the new pairs, behavior in Chrome, the combined JavaScript payload estimate (148.83 KiB, measured as in §19.7), 43 tests in 7 files, and what was not verified. (2) **Spec text corrected to match the implementation:** the control's visible text is "Copy email address", the same as its accessible name (§9.8, §20.3, §20.4); one optional line-break opportunity (`<wbr>`) immediately before the `@`, with no forced break added after it (§20.3, §20.4); every copy attempt, repeated or not, adds its message to the page again and restarts the four seconds (§20.3). (3) Updated §20.4 (step 4.3 row: label, wrapping, test description, record reference), §20.5 (Contact layout reviewed; layout-shift reassessment after step 4.4), §20.6 (three new rows) and §20.7 (copy-control test row; Contact regression sentence). §19.5 and §19.7 are unchanged: no dependency was added, and §19.7 stays a dated record. No token values changed | Claude | Draft; pending owner approval |
 
 ### 19.5 Pinned dependency versions
 Installed at project initialization (Milestone 1, 2026-11-02) with npm (D13). All direct dependencies are pinned to exact versions (`.npmrc`: `save-exact=true`), and `package-lock.json` records the full dependency tree. Node.js ≥ 20.9.0 (`engines` in `package.json`); verified locally on Node.js 26.13.0 and npm 11.20.0.
@@ -806,8 +855,22 @@ Installed at project initialization (Milestone 1, 2026-11-02) with npm (D13). Al
 | `@types/node` | 20.19.43 | devDependency | Matches the Node.js 20 minimum |
 | `@types/react` | 19.3.0 | devDependency | |
 | `@types/react-dom` | 19.3.0 | devDependency | |
+| `vitest` | 4.1.12 | devDependency | D20, D30, D31. Added in step 4.1 (2026-11-03). Latest 4.x; the 5.x line needs Node 22+ and `@types/node` 22+, which this project does not use (a dry run failed with `ERESOLVE`) |
+| `@testing-library/react` | 16.3.3 | devDependency | D31. Step 4.1. React 19 supported |
+| `@testing-library/user-event` | 14.6.8 | devDependency | D31. Step 4.1 |
+| `@testing-library/jest-dom` | 6.9.1 | devDependency | D31. Step 4.1. Deliberately below 6.10.0 and 7.x, which require Node 22 or newer |
+| `jsdom` | 29.1.1 | devDependency | D31. Step 4.1. Test environment; no browser needed |
+| `@vitejs/plugin-react` | 6.2.1 | devDependency | D31. Step 4.1. Requires Vite 8 |
+| `vite` | 8.3.5 | devDependency | Step 4.1. Required peer of `vitest` and `@vitejs/plugin-react`; pinned explicitly with owner approval (not in the six-package list of D31) |
+| `@testing-library/dom` | 10.4.2 | devDependency | Step 4.1. Required peer of `@testing-library/react` and `@testing-library/jest-dom`; pinned explicitly with owner approval (not in the six-package list of D31) |
 
-Not installed yet: Motion (D8), Vitest, Playwright and axe (D20). Their versions are recorded here when they are added.
+Not installed yet: Motion (D8), Playwright and axe (D20). Their versions are recorded here when they are added. Motion is deliberately not installed during Milestone 4 (D24). Playwright (`@playwright/test`) and `@axe-core/playwright` are installed in step 4.6 (D29) with exact pinned versions, which are recorded in this table at that time. Vitest and its supporting test tooling were installed in step 4.1 (D30, D31); their exact versions are in the table above. Installed without `--force` or `--legacy-peer-deps`; `npm ls` reports no peer-dependency problems.
+
+**Node.js requirements for testing (step 4.1).** The application keeps `engines.node >=20.9.0` (unchanged, owner decision): building and running the site works from Node.js 20.9. Running the tests (`npm test`) needs **Node.js 20.19 or newer** (Vite 8, `@vitejs/plugin-react` 6 and `jsdom` 29 require `^20.19.0 || ^22.13.0 || >=24`). The CI baseline for step 4.6 is **Node.js 22.13 or newer** (22 LTS). Local development was verified on Node.js 26.13.0.
+
+**Lockfile and platforms.** The lockfile records the native binaries of `rolldown` and `lightningcss` for Windows, Linux and macOS, as it already did for Next.js and Tailwind, so `npm ci` on a Linux CI runner is expected to work. This is only proven by the first CI run in step 4.6.
+
+**`npm audit` after step 4.1.** Unchanged from before the install: 16 moderate findings, all from the single minimatch advisory in the development dependencies described above, and 0 vulnerabilities with `--omit=dev`. The new test tooling introduced no findings.
 
 **Temporary tooling exception: ESLint 9.39.5 is end of life.**
 - **Status:** ESLint 9 is no longer supported upstream. npm marks 9.39.5 as deprecated: "This version is no longer supported."
@@ -905,3 +968,316 @@ Finding E (the eyebrow's 4.95:1 over a grid line) passes and was left unchanged.
 - Lighthouse accessibility audit.
 - Repeatable automated suite (Playwright + `@axe-core/playwright`, D20).
 - Retest of reduced motion once any animation exists.
+
+### 19.7 Verification record: step 4.2 (Hero + illustration)
+
+**Status: PARTIAL.** The §5.5 validation is still not complete. This records what was measured for the home page (`/`) in step 4.2 (2026-11-04). It replaces nothing in §19.6.
+
+**Method and environment**
+- Chrome 157.0.8103.26 (headless, Windows 11, one instance at a time, desktop emulation, not touch), driven over the DevTools protocol by temporary scripts kept outside the repository. Edge was not used.
+- Production build (`next build` + `next start`) on a local port. Headless Chrome shows classic 15px scrollbars, so a "1280px" window has a 1265px layout width.
+- Contrast ratios are calculated from the design tokens (WCAG 2.x relative luminance), not sampled from rendered pixels.
+
+**Layout changes made to meet the fold at 1280×720 (owner-directed, v0.20).** At the 5-column width (482px) the illustration card was 634px tall and ended at 823px. Capping the card at about 360px and centering it left it ending at 738px (18px short). Trying options live in the browser showed that card padding alone does not help (a narrower padding widens the drawing). Lowering the hero's top padding from 112px to 80px (from `md` up) fits it with 14px to spare. Card width, 7/5 proportions, mobile layout and content are unchanged, and nothing is hidden.
+
+**Viewport measurements (final build)**
+
+| Item | 1280×720 | 375×667 |
+|---|---|---|
+| Header height | 73px | 65px |
+| Eyebrow, `h1`, statement | 225–244, 260–335, 359–423 | 129–146, 162–206, 230–346 |
+| Credential line, chips | 439–457, 489–558 | 362–395, 427–563 |
+| Buttons row | 590–634 | 595–639 |
+| Text and buttons end at | 634px: **fits** (viewport 720) | 639px: **fits** (viewport 667) |
+| Illustration card | 153–706px, 360px wide: **fits** (14px spare) | 687–1204px, 328px wide: below the fold, by design (§12.1) |
+| Card centered in its 5-column area (751–1233px) | Centre offset 0px | not applicable (one column) |
+| Hero ends at | 762px | 1236px |
+| Horizontal scroll | none | none |
+| CLS | 0 | 0 |
+| LCP element | `h1` | the positioning sentence (transform-only animation) |
+
+- **Widths 320, 375, 414, 768, 1024, 1280, 1440, 1920 and 2560px:** no horizontal overflow and no clipped equation at any of them. The card is 273px at 320px, 328px at 375px, and 360px from 414px up.
+- **Short landscape 667×375:** the illustration stays visible and scales down to 256px wide; no overflow; the hero scrolls (1064px tall).
+- **Earlier build, for the record:** with the card at the full 5-column width the text and buttons also fit (706px at 1280×720) and the card ended at 823px.
+
+**Animation (computed in the browser)**
+- Six elements animate on load, every one with `transform` only (no opacity), one iteration, fill `backwards`, the last ending at 690ms (budget 800ms). Their opacity is 1 at the first frame. The `h1` has no animation.
+- With `prefers-reduced-motion: reduce` emulated: 0 animations, `animation-name: none`, no transforms.
+- With JavaScript disabled: the `h1`, statement, buttons and illustration are all visible, and the served HTML already contains them.
+
+**Keyboard (scripted Tab presses at 1280px):** skip link, name, About, Skills, Education, Contact, Get in touch, GitHub, LinkedIn, then the Contact section links. Every focused element has the solid 2px ring. Touch targets: the icon links are 44×44px, Get in touch is 120×44px.
+
+**Contrast, new pairs (calculated)**
+
+| Pair as used | Ratio | Required | Result |
+|---|---|---|---|
+| `text-muted` on `surface` (caption, layer labels) | 6.93:1 | 4.5:1 | Pass |
+| `text` on `surface` (equations, symbols) | 16.98:1 | 4.5:1 | Pass |
+| `text-muted` on `bg` (credential line) | 7.58:1 | 4.5:1 | Pass |
+| `text-muted` over a grid line (credential line, worst case) | 4.90:1 | 4.5:1 | Pass (smallest margin) |
+| `text` on `bg` (positioning sentence) / over a grid line | 18.57:1 / 12.02:1 | 4.5:1 | Pass |
+| `border-strong` lines on `surface` (network edges) | 3.73:1 | 3:1 | Pass |
+| `border-strong` outline against node fill `surface-elevated` | 3.31:1 | 3:1 | Pass |
+| `accent-highlight` highlighted path on `surface` | 6.99:1 | 3:1 | Pass |
+| `accent` node fill on `surface` | 4.83:1 | 3:1 | Pass |
+| White icons (GitHub, LinkedIn) on `bg` | 18.57:1 | 3:1 | Pass |
+| `on-accent` on `accent-strong` (Get in touch) | 5.17:1 | 4.5:1 | Pass |
+| Focus ring `accent-highlight` on `bg` / on `surface` | 7.64:1 / 6.99:1 | 3:1 | Pass |
+
+**Brand icon paths.** The GitHub path in `BrandIcons.tsx` was first typed from memory and did **not** match GitHub's current official file; it was replaced with the exact path of `icons/mark-github-16.svg` from GitHub's Octicons repository (MIT license). The LinkedIn path was compared character by character with `icons/linkedin.svg` of Simple Icons 16.36.0 (CC0) and is identical. LinkedIn publishes no machine-readable logo file, so Simple Icons is the closest available source. The marks are used only to link to Kishor's own profiles.
+
+**JavaScript transferred for `/` (modern browser, cold load, cache off, 6s idle, local `next start` with gzip)**
+- Measured with Chrome's own network log (bytes transferred, which include a few hundred bytes of HTTP headers per file). Six script files were requested: 2.3, 7.9, 70.5, 45.8, 4.2 and 9.8 KB, **140.5 KB in total** (462.6 KB after decompression).
+- A seventh file listed in the HTML (38.7 KB gzipped) is marked `noModule`. That attribute tells browsers that support JavaScript modules, which is every current browser, to ignore the file; it is a fallback for very old browsers. Chrome did not request it, so it is not counted. It is the only file excluded.
+- The HTML also holds 18 inline `<script>` tags (34.6 KB raw, 6.6 KB gzipped) that carry the page data Next.js needs to start. They are already inside the 9.7 KB document transfer. Counting them as JavaScript too gives **147.1 KB**.
+- **The 150KB target (§15.1) is met, with a thin margin:** 140.5 KB for the script files (9.5 KB spare), or 147.1 KB counting inline scripts (2.9 KB spare). Step 4.2 added no client-side JavaScript: the hero, illustration and icons are server-rendered. Later client components (such as the copy-email control in 4.3) must be watched against this margin.
+- Other transfers, for reference: HTML 9.7 KB, stylesheet 7.0 KB, two fonts 51.8 KB, favicon 15.1 KB, two page-data fetches 7.1 KB.
+
+**Tests.** `npm test` passes 26 tests in 5 files (title regression 3, `Button` 7, `NeuralFigure` 7, brand icons 3, Hero 6). All five gates pass.
+
+**Not verified:** NVDA and VoiceOver; real browser zoom; Firefox, Safari and Edge; touch devices; Windows High Contrast; automated axe (starts in 4.6); contrast of rendered pixels; how smooth the entrance looks; the first-load figure for slower or cold-cache networks. The full §5.5 validation remains outstanding.
+
+### 19.8 Verification record: step 4.3 (Contact)
+
+**Status: PARTIAL.** The §5.5 validation is still not complete. This records what was built and measured for the home page (`/`) in step 4.3 (2026-11-05). It replaces nothing in §19.6 or §19.7. Source commit: `06b5390`, "feat: add copy email control and button links to contact section". The owner reviewed the implementation and approved it for its source commit.
+
+**Scope of the commit.** Six files and nothing else: `Contact.tsx` (changed), `Button.tsx` (one comment corrected), `ExternalLink.tsx` (deleted, because nothing used it any more), and three new files, `CopyEmailButton.tsx`, `CopyEmailButton.test.tsx` and `Contact.test.tsx`. About, Skills, Education, their content files, this specification, the rule files, the package files and the settings are unchanged by that commit. No dependency was added.
+
+**What was built**
+- `Contact` is still a Server Component. `CopyEmailButton` is the only client code in it.
+- The email is a large (`text-h3`) `mailto:` link with its Mail icon (24px). It is in the server HTML, so it works without JavaScript. It carries one optional line-break opportunity (`<wbr>`, no characters added) immediately before the `@`; no break is forced, and none is added after the `@`. The link also keeps `overflow-wrap: anywhere` as a safety net, so a very narrow screen can never overflow.
+- The copy button is absent from the server HTML and during hydration. It appears only once the page has loaded in a browser where `navigator.clipboard.writeText` exists, so there is never a button that does nothing. Its visible text, "Copy email address", is also its accessible name and never changes. There is no `execCommand` fallback.
+- One persistent `<p role="status">` shows the result. Each attempt, successful or failed, adds its message as a new element inside it and restarts the four-second timer. If the browser refuses the copy, the visible email text is selected.
+- GitHub and LinkedIn are secondary `Button` links with their brand icons, opening in a new tab (`rel="noopener noreferrer"`, arrow icon, hidden "(opens in new tab)").
+
+**Correction made before the commit (repeated attempts).** The first version stored the status as a string. A second copy with the same outcome set the same value, so nothing changed in the page: the repeated message was not added to the page again, and the four-second timer was not restarted. Measured in Chrome before the fix, on the second click: no change in the status element, the same message node in the accessibility tree, and the message already gone 4.5 s after the first click (second click at 3 s). The state now holds the latest attempt with a counter, and each message is a new element in the same status element. Four regression tests fail on the old component (checked by putting it back temporarily) and pass on the new one.
+
+**Method and environment**
+- Chrome 157.0.8103.39 (headless, Windows 11, one instance at a time, desktop emulation, not touch), driven over the DevTools protocol by temporary scripts kept outside the repository.
+- Production build (`next build` + `next start`) on a local port. Headless Chrome shows classic 15px scrollbars, so a "1280px" window has a 1265px layout width.
+- The clipboard permission was granted through the protocol, so the real `navigator.clipboard` was used in these checks. The Vitest tests use the clipboard stand-in that `user-event` provides in jsdom.
+- Contrast ratios are calculated from the design tokens (WCAG 2.x relative luminance). The rendered colors were read from computed styles and equal the tokens; they were not sampled from pixels.
+
+**Email wrapping and overflow (hydrated page)**
+
+| Width | Email lines | Where it wraps | Link right edge | Page overflow |
+|---|---|---|---|---|
+| 320px | 2 | "kishormenghwar4120" / "@gmail.com" | 304px of 320 | none |
+| 375px | 2 | same | 359px of 375 | none |
+| 768px | 1 | not wrapped | 404px of 753 | none |
+| 1280px | 1 | not wrapped | 479px of 1265 | none |
+
+The email text is 20px at 320px and 24px at 1280px.
+
+**Layout stability.** With scripts disabled (the server HTML only) and with the copy button present, the GitHub and LinkedIn buttons start at the same position and the Contact section has the same height at 320, 375 and 1280px (for example 508px at 320px). The copy button is 171×44px. The arrival of the button therefore moves nothing.
+
+**The status message can move the buttons below it (measured; known trade-off).** The row that holds the button reserves 44px, which fits a one-line message on wide screens, but the message wraps on narrow ones. While a wrapped message is shown, the row grows and the GitHub and LinkedIn buttons move down; they move back when the message clears after about four seconds. Movement of the GitHub button when a message appears:
+
+| Width | Success message | Failure message |
+|---|---|---|
+| 320px | +29px | +50px |
+| 375px | 0px | +50px |
+| 1280px | 0px | 0px |
+
+Layout shift (CLS) was not measured for this. **Owner decision (v0.22):** record it as a known trade-off, make no change in step 4.3, and reassess after step 4.4, when the footer is present, by measuring layout shift before deciding whether a change is justified (§20.5).
+
+**Keyboard (scripted key presses in Chrome at 1280px, starting with the email link focused).** Tab reaches the copy button, then GitHub, then LinkedIn. Enter copied the exact address (the clipboard then held it) and showed "Email address copied."; the message cleared after 4.3 s; Space did the same, and focus stayed on the button. Every focused element shows the solid 2px ring, `rgb(96, 165, 250)`, with a 2px offset. Targets: copy button 171×44px, GitHub 139×44px, LinkedIn 150×44px, the email link 44px high on one line (52–53px when it wraps). This was a scripted check; a manual keyboard-only pass by a person has not been done.
+
+**Repeated attempts in Chrome (two copies in a row, identical message)**
+
+| | Before the correction | After |
+|---|---|---|
+| Changes in the status element on the second attempt | none | one element added, one removed |
+| Message node in the accessibility tree | the same node | a new node |
+| Message 4.5 s after the first attempt, when the second came at 3 s | gone | still shown |
+| Message 4.7 s after the second attempt | gone | gone |
+
+In both cases the status element itself is one node that stays in the page (`live` polite, atomic, relevant "additions text"). The same holds for two failed copies, and after the second failure the email text is selected again (in Chrome, the selection read exactly the address; this was not checked in other browsers). This shows what the page and Chrome's accessibility tree do; it does not show what a screen reader says.
+
+**Contrast, new pairs (calculated; rendered colors confirmed)**
+
+| Pair as used | Ratio | Required | Result |
+|---|---|---|---|
+| Email link `accent-highlight` on `bg` (24px text) | 7.64:1 | 4.5:1 | Pass |
+| Copy button text `text` on `bg` | 18.57:1 | 4.5:1 | Pass |
+| Copy button and GitHub/LinkedIn border `border-strong` on `bg` | 4.08:1 | 3:1 | Pass |
+| Status message `text-muted` on `bg` | 7.58:1 | 4.5:1 | Pass |
+| GitHub and LinkedIn text and icons `text` on `bg` | 18.57:1 | 4.5:1 / 3:1 | Pass |
+| Hover (calculated only, not rendered): `text` on `surface-elevated` | 15.05:1 | 4.5:1 | Pass |
+| Hover (calculated only): `border-strong` on `surface-elevated` | 3.31:1 | 3:1 | Pass (smallest margin) |
+| Focus ring `accent-highlight` on `bg` / on `surface-elevated` | 7.64:1 / 6.19:1 | 3:1 | Pass |
+
+**Reduced motion.** With `prefers-reduced-motion: reduce` emulated: 0 animations in Contact. The button's color transitions last 0.15s, which is the §11.5 limit.
+
+**JavaScript payload for `/` (combined estimate, using the §19.7 method)**
+- **Method.** The home page was loaded cold in Chrome (cache off, 6s idle, local `next start` with gzip). The script files were measured from Chrome's own network log (bytes transferred, which include a few hundred bytes of HTTP headers per file). The inline `<script>` tags carry the page data Next.js needs to start. They are not separate downloads: they travel inside the HTML response. Following §19.7, they were extracted from the HTML, joined, and compressed with gzip on their own. That gives an estimate of their size; it is not the measured share of the HTML transfer, which was not isolated. The total below is therefore a combined payload estimate, not a single measured transfer.
+- **Units.** The new measurements in this section are given in KiB (bytes divided by 1,024). Earlier records (§19.7, §20.4, §15.1) write "KB"; they are not rewritten, and the comparisons below set the figures side by side without converting them.
+- **Seven separately requested script files:** 2.3, 7.9, 70.5, 45.8, 4.2, 9.8 and 1.6 KiB (the last is new in step 4.3: the copy control), approximately **142.0 KiB** in total (145,459 bytes). The one `noModule` file is excluded, as in §19.7.
+- **Inline scripts:** 18 tags, 37.4 KiB raw, approximately **6.8 KiB** when extracted and compressed separately.
+- **Combined estimate: 148.83 KiB.**
+- **Comparisons.** The same method before the repeated-attempt correction gave 148.80 KiB (145,423 bytes of script files), so the correction added 36 bytes. The step 4.2 record (§19.7) gives 147.1 KB with the same method, so step 4.3 adds about 1.7 KiB, below the 2.5 KB investigation line of §20.4.
+- **Budget.** The estimate is 0.67 below the 149.5 KB stop and 1.17 below the 150KB target (§15.1), so work did not stop. The margin is thin: later client code must be measured the same way.
+
+**Tests.** `npm test` passes 43 tests in 7 files: `site` 3, `Button` 7, `NeuralFigure` 7, brand icons 3 and Hero 6 (the 26 of step 4.2), plus `CopyEmailButton` 12 and `Contact` 5. Lint, type-check, format check, the production build and `git diff --check` also pass. The copy-control tests cover: no button without a clipboard API; a successful copy (exact address written, status announced); a failed copy (message, email text selected); Enter and Space; a constant name; the message clearing after the timeout; and, for both successes and failures, repeated attempts (a new message element each time, the timeout restarting) and the email text selected again after a second failure. `Contact.test.tsx` checks the server-rendered email and `mailto:` link, the single optional break opportunity before the `@` with no `<br>`, the GitHub and LinkedIn links (`rel` and accessible names), that there is no copy button in the server output, and that it appears once mounted.
+
+**Known trade-offs.** (1) The status message can move the buttons below it on narrow screens (above). (2) The fixed-height row (44px plus an 8px margin) stays an empty gap for visitors who never get the button (JavaScript off, or no clipboard); this is by design, so that the button's arrival moves nothing. (3) The failure message says the address "is selected", but the selection is made by the browser's selection API and is not guaranteed: if the link were missing, or a browser handled the selection differently, the message could be wrong. With the current markup the link always exists, and Chrome confirmed that the exact email address was selected; other browsers and environments were not checked.
+
+**Not verified:** speech from NVDA, JAWS, VoiceOver and TalkBack (Chrome's accessibility tree receives a new message node on each attempt, which is what screen readers are told, but this shows nothing about what they say; VoiceOver with Safari is the usual weak spot for repeated identical text, and the usual mitigation would be to clear the region and add the message a frame later, at the cost of an extra timer); Firefox, Safari and Edge; touch devices; a real-device clipboard, and the missing button on a non-secure (`http:`) page in a real browser (covered by a test only); real browser zoom; Windows High Contrast; automated axe (starts in step 4.6); contrast of rendered pixels and of hover states; a manual keyboard-only pass by a person; the layout shift (CLS) of the status message appearing and clearing; the exact transferred size of the HTML response with its inline scripts. The full §5.5 validation remains outstanding.
+
+---
+
+## 20. Milestone 4: Premium Visual Identity and Portfolio Polish
+
+> Recorded in v0.13 (step 4.0) and amended in v0.14 (D29 and the animation correction) and v0.15 (transform-only entrance, `IntersectionObserver` rule, testing standards) v0.16 (D30, testing gap resolved) and v0.17 (D31–D34, component tests with components, rule-file proposals, CI details) and v0.18 (immediate role/title regression test, `npm test` permission proposal). The scope and decisions D21–D34 are **Approved**. The design details in §20.3 are **Proposed**: the owner confirms each one when the step that builds it is reviewed. Nothing in this section overrides an Approved decision.
+
+### 20.1 Goal and constraints
+**Concept: "Neural Architecture"**, a digital identity built around intelligence, mathematics and machine learning. In practice: a calm dark page, one blue accent, and one signature figure that carries the identity.
+
+Owner constraints (binding for the whole milestone):
+- No Projects section. No invented experience, achievements, metrics or projects (D12).
+- Dark only (D16). No light theme.
+- No contact form and no backend (D17).
+- No WebGL or heavy 3D. Prefer CSS, SVG and optimized assets.
+- No unnecessary dependencies. Do not redesign existing sections without a clear reason. Preserve the existing architecture where practical.
+- Typography (D15), spacing (§7.1) and container widths (§7.2) are unchanged.
+- Target hardware for local testing: 8 GB RAM, no dedicated GPU, so measure against production builds and keep the visual lightweight.
+
+### 20.2 Confirmed decisions
+D21 illustration · D22 positioning statement · D23 hero CTA · D24 CSS-only animation · D25 JSON-LD and conservative CSP · D26 domain and indexing · D27 role wording · D28 scope 4.0–4.7 · D29 selective Playwright + axe tests, CI only · D30 full testing standards: `testing.md` unchanged, nine-width screenshots in CI · D31 Testing Library stack approved · D32 every new component gets its component test in its own step · D33 rule-file updates are separate reviewed proposals · D34 Chromium, 18 screenshots, overflow checks, 14-day artifacts, no committed baselines. Full text in §19.2; requirement-by-requirement coverage in §20.7.
+
+### 20.3 Design details (Proposed)
+**Hero content order**
+1. Eyebrow (mono, `accent-highlight`): "Aspiring AI/ML Engineer" (D27).
+2. `h1`: "Kishor Kumar" (display size). Not animated.
+3. Positioning statement, word for word as in D22 (`body-lg`, about 60–68ch wide).
+4. Credential line (mono, `text-muted`), read from the education content so nothing is retyped: degree · university · expected graduation.
+5. Focus chips (existing).
+6. Actions: primary button "Get in touch" → `#contact` (D23), shown only while the Contact section exists; icon links to GitHub and LinkedIn using the recognizable GitHub and LinkedIn marks as inline SVG (`BrandIcons.tsx`, §10.1), 44×44px, accessible names "GitHub (opens in new tab)" and "LinkedIn (opens in new tab)", external-link rules of §10.8. No generic arrow stand-ins.
+7. From `lg`: the signature illustration in the right column (text 7 / visual 5, §12.1). The card is at most about 360px wide and centered in its five-column area. From `md` up the hero's top padding is 80px (it was 112px at `lg`), so that the text and the whole card fit above the fold at 1280×720 (§19.7).
+
+**Signature illustration (D21)**
+- A feed-forward network: 4 input nodes, 5 hidden nodes, 3 output nodes, with connecting lines. One path is highlighted in `accent-highlight` / `accent` to show a signal flowing through. Flat fills and strokes from tokens only: no glow, no blur, no gradients, no raw hex.
+- Layer labels (INPUT, HIDDEN, OUTPUT) and the two equations (`h = ReLU(W₁x + b₁)`, `ŷ = softmax(W₂h + b₂)`) are HTML text under the SVG so they never fall below 12px (§6.3). The equations use semantic `<var>` and `<sub>`, with the hat of ŷ drawn by CSS, because the hat letter and the subscript digits are outside the Latin font subset (§6.1). They are set at 16px, so the subscripts stay at 12px or larger. The visual form is hidden from assistive technology and replaced by a plain-language reading (for example "h equals ReLU of W one times x, plus b one").
+- Visible caption, in two sentences: first the exact owner-approved sentence "Illustration: a small feed-forward neural network.", then "The highlighted path shows one signal flowing from an input node, through a hidden node, to an output node." No numbers, accuracy, or claim that it is Kishor's model. The network drawing, its accessible description and the labels are built from one typed data object (`src/content/illustration.ts`), so they cannot disagree.
+- Markup: server component, `<figure>` with `<svg role="img">` carrying `<title>` and `<desc>`; fixed `viewBox` and aspect ratio (no layout shift). The `desc` and caption say in words that one path is highlighted, so color is never the only signal (§13.4).
+- Motion: visible immediately. The whole figure, card included, rises into place once as one unit, with the transform-only `rise-in` utility (order 1, inside the 800ms hero budget, §11.3). It is not staggered per layer: the connecting lines would shear against nodes that are 12px apart. No opacity animation from zero and no loop (§11.7).
+- Mobile: below the text at full width (about 360px maximum). On short landscape screens (height 480px or less, below `lg`) it scales down to 256px wide; it is never hidden (owner decision, §12.2).
+
+**Existing sections** (structure, spacing and widths unchanged)
+- **About, Skills and Education: no changes in Milestone 4 (owner decision, v0.21).** They were built and approved in Milestone 3. The treatments that v0.13–v0.20 listed here (a lead style for the first About paragraph, one decorative icon per Skills group, an Education entry in a `surface` card) are **deferred**: they are not part of Milestone 4 unless the owner reopens them, and no other part of the plan depends on them.
+- **Contact (step 4.3, the only section changed):**
+  - The email stays the focal element: large visible text (`text-h3`) and the same `mailto:` link with its Mail icon. It wraps responsively on narrow screens: one optional line-break opportunity (`<wbr>`, adding no characters) sits immediately before the `@`, so a narrow screen can show "name" / "@domain"; no break is forced, and none is added after the `@`. It works without JavaScript.
+  - A text-only **"Copy email address"** button (no icon; its visible text is also its accessible name) with a visible, polite status message beside it (§9.8 "optional", now included). It is a small client component, not the whole section, so the JavaScript stays minimal. It uses the shared `Button` (secondary variant).
+  - **Clipboard behavior:** the button is not in the server-rendered HTML and appears only after the page has loaded in a browser that has a working clipboard API, so there is never a button that does nothing. Its visible text and its accessible name are both "Copy email address", and neither changes. A single persistent `role="status"` message, visible and announced, says "Email address copied." on success, or, if the browser refuses the copy (for example permission denied), that it could not copy and that the address is selected so it can be copied by keyboard; in that case the visible email text is selected. The message clears after about 4 seconds. Every attempt, successful or not, adds its message as a new element inside the same status element and restarts the four seconds, so that a repeated, identical message is added to the page again (which is what lets assistive technology announce it) and is not cut short; setting the same text again would change nothing in the page. Real screen-reader speech has not been verified (§19.8). There is no deprecated `execCommand` fallback.
+  - **GitHub and LinkedIn** become secondary buttons showing their brand icons (`BrandIcons.tsx`) and text, as external links (§10.8).
+- A shared `Button` primitive (primary, secondary, icon; §10.4) is used by the hero and Contact.
+
+**Footer** (§8.4, `surface` background, top `border`): "KK" monogram, name and one line ("AI undergraduate · University of Sindh"); navigation links built from the visible sections; email, GitHub and LinkedIn (icon + text); "Back to top"; copyright line; a static decorative three-dot divider echoing the illustration. No placeholder content. The year is a fixed value or the build year, not a client-side date.
+
+**Animation** (CSS-only, D24, §11.7): hero entrance (except `h1`) as a subtle `translateY` rise only, 60ms stagger, total ≤ 800ms, starting on page load, with no opacity animation from zero; the illustration visible immediately with an optional one-time, transform-only entrance; hover and focus transitions of 150ms or less. Under `prefers-reduced-motion: reduce`: no movement, final state shown at once. All page content is visible immediately and with JavaScript disabled. Not built: scroll-triggered section reveals, hidden starting states, any new `IntersectionObserver` or scroll-listener code for animation or reveals, sliding nav indicator, cursor-follow, parallax, looping motion. The existing header scroll spy is unchanged.
+
+**Mobile**: one column; stacked 44px buttons; 12px hero entrance rise; footer groups stacked; long email wraps.
+
+### 20.4 Implementation sequence and acceptance criteria (D28)
+Common gate for every step: `npm run lint && npm run typecheck && npm run format:check && npm run build` all pass; no dependency is added unless the step says so; nothing is committed or pushed without owner approval (CLAUDE.md §6); contrast is recomputed for any new color pair (§5.5). From step 4.1 on, `npm test` (Vitest, D30) is part of the gate: `npm run lint && npm run typecheck && npm run format:check && npm run build && npm test`. `npm test` runs Vitest only and needs no browser, so it may run locally. **Component-test rule (D32):** a step is not complete unless every new React component it introduces has its component test in that same step; tests use accessible role/name or label queries wherever practical, test user-observable behavior, and use no large DOM snapshots. **Rule files:** `.claude/rules/testing.md` and `CLAUDE.md` §9 already include `npm test` (applied in step 4.1, D33). The Playwright and axe updates remain proposals until step 4.6 and are not applied without the owner's approval; until then this gate governs where it is stricter, and each Milestone 4 request for commit approval reports the `npm test` result from step 4.1 on. Automated axe, Playwright and screenshot checks do not exist before step 4.6, so steps 4.1–4.5 are not required to pass them; each of those steps is checked by the criteria below, a manual keyboard review and a code review. From step 4.6 on, the CI browser tests and screenshots are an additional gate. Browsers are installed and run in GitHub Actions only; none is installed or run locally (D29, D30). Every requirement of `.claude/rules/testing.md` is mapped to its coverage in §20.7.
+
+| Step | Scope | Objective acceptance criteria |
+|------|-------|-------------------------------|
+| **4.0** Spec | This document, v0.12 → v0.13 (reviewed), then amended to v0.14 (D29, animation correction), v0.15 (transform-only entrance, `IntersectionObserver` rule, testing standards), v0.16 (D30, testing gap resolved), v0.17 (D31–D34) and v0.18 (immediate role/title regression test, `npm test` permission proposal). Documentation only | `git status` shows only `docs/DESIGN_SPEC.md` modified and nothing staged; version row reads 0.18; changelog rows 0.13 to 0.18 exist; no rule file (`.claude/rules/*`), `CLAUDE.md`, package file or source file is modified; nothing is installed; D21–D34 recorded; the text of D1–D20 is unchanged apart from the amendments named in D23; OD-11 and OD-16 remain Open; OD-17 is resolved by D29 and extended by D30; OD-18 is resolved by D31; the owner approves |
+| **4.1** Foundations | Vitest set up with the D31 stack; `Button` primitive **with its component test, in this step (D32)**; proposed `testing.md` and `CLAUDE.md` §9 updates for Vitest and `npm test` (D33, presented separately, not applied); CSS-only motion utilities from the §11.2 tokens (transform-only hero entrance keyframes, 150ms transitions); site configuration module; **correct the role wording in `src/content/site.ts` from "AI/ML Engineer" to "Aspiring AI/ML Engineer"** (currently in `homeTitle`), **with a focused Vitest regression assertion written in this step (v0.18)**; inspect the permission configuration in `.claude/settings.json` and propose the smallest update `npm test` needs (not applied without the owner's explicit approval) | the only new dependencies are the six D31 dev dependencies (`vitest`, `@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom`, `jsdom`, `@vitejs/plugin-react`) plus their two required peers `vite` and `@testing-library/dom` (an owner-approved addition, eight in all), each explicitly pinned (exact version) to a mutually compatible version, installed without `--force` or `--legacy-peer-deps`, with `npm ls` reporting no peer-dependency errors and the exact versions recorded in §19.5; if no compatible set exists, work stops and the owner is told before the list changes; no browser is downloaded; test files are checked by `npm run lint` and `npm run typecheck`, and the `@/` import alias works inside tests; `npm test` exists, runs without a browser and passes; the `Button` test covers rendering and key interaction (for example that a click is handled, that a disabled button does not fire it, and which element it renders), queries by role or label, and contains no snapshot of a large DOM tree; `Button` documents default, hover, focus-visible, active and disabled states; the built home page `<title>` reads "Kishor Kumar · Aspiring AI/ML Engineer" and the string "AI/ML Engineer" appears in `site.ts` only as part of "Aspiring AI/ML Engineer"; the motion utilities are CSS only, animate `transform` only for entrances (no opacity animation from zero), and are removed under reduced motion; the existing header scroll spy (`src/components/layout/useHeaderState.ts`, which uses `IntersectionObserver`) is not modified; step 4.1 adds no new `IntersectionObserver` or scroll-listener code for scroll-triggered animation, reveal effects or hidden section states, and no section has a hidden starting state; the page is fully visible with JavaScript disabled; the site URL comes from configuration and no domain is hardcoded; **the role/title correction has its regression test in this step, not later:** a focused Vitest assertion checks that the home page title content reads exactly "Kishor Kumar · Aspiring AI/ML Engineer" and that the role content reads "Aspiring AI/ML Engineer", and it fails if the old "AI/ML Engineer"-only wording returns (an owner-directed exception to "no Vitest for unrelated application logic", D30, limited to this one regression test); the browser-level page-title assertion in 4.6 is additional coverage and does not replace it; **settings:** `.claude/settings.json` is left unchanged by default; the step inspects its current permission configuration (today it allows `npm run test:*` but not `npm test`) and presents the smallest necessary update for `npm test` as a proposal in the step report, and the file is changed only after the owner explicitly approves that proposal; the D33 proposals for `.claude/rules/testing.md` and for `CLAUDE.md` §9 are written as two separate documents in the step report for owner review, preserve the existing standards, and neither file is modified before approval |
+| **4.2** Hero + illustration | New hero content (§20.3), signature illustration, hero entrance | D22 text matches exactly; eyebrow reads "Aspiring AI/ML Engineer"; exactly one `h1`; "Get in touch" links to `#contact`; no resume CTA or link exists; the hero fits above the fold at 1280×720 including the whole illustration card, and at 375×667 the text and buttons fit with the illustration below them, and the measured numbers are reported even when something does not fit (nothing is hidden to pass); GitHub and LinkedIn use their recognizable brand marks with accessible names, and the inline paths match their official sources; the SVG has `role="img"`, `<title>`, `<desc>` and a visible two-sentence caption that starts "Illustration:"; no horizontal scroll from 320 to 2560px; CLS < 0.1; hero entrance ≤ 800ms, CSS only and transform only (no opacity animation from zero), with the `h1` not animated; all hero text and the illustration are visible from the first paint; with reduced motion there is no movement and the final state shows at once; manual keyboard and code review finds no accessibility issue (automated axe checks start in 4.6); the illustration component (`NeuralFigure`) has its Vitest component test **in this step (D32)**: it finds the figure by role and accessible name, checks the description and the visible "Illustration" caption, and checks that the description says one path is highlighted; the browser tests added in 4.6 are additional and do not replace it; the brand-icon components have their Vitest test in this step too; a few Hero regression tests cover its essential content, heading and links (an owner-approved exception to D30 item (5), §20.7); the actual compressed JavaScript a modern browser transfers for the home page is measured and reported against the 150KB target |
+| **4.3** Contact | **Contact only** (§20.3; owner decision, v0.21): the email as the focal element, a text-only "Copy email address" control, and GitHub and LinkedIn as secondary buttons with brand icons. About, Skills and Education are **not changed** (their treatments are deferred, §20.3). The now-unused `ExternalLink` component is removed (see criteria) | **Scope and structure:** `About`, `Skills`, `Education` and their content files have no changes; section order, ids and headings are unchanged. **Email:** visible text with a working `mailto:` link in the server-rendered HTML, without JavaScript; it wraps responsively on narrow screens through one optional line-break opportunity (`<wbr>`, no characters added) immediately before the `@`, with no forced break added after it, and nothing overflows at 320px. **Copy control, behavior:** text only, no icon; rendered only after hydration and only when the browser has a working clipboard API (never a dead button; absent from the server HTML); its accessible name stays "Copy email address" and does not change after a click; one persistent `role="status"` message, visible and announced, reports success ("Email address copied.") or failure (could not copy; the address is selected so it can be copied by keyboard), and clears after about 4 seconds; on failure the visible email text is selected; no `execCommand` fallback; Enter and Space work; the 44px target and the global focus ring apply; the control sits in a row of fixed 44px height so nothing moves when it appears. **Copy control, tests (D32), in this step:** a Vitest component test using role or label queries and `user-event` covers: not rendered without a clipboard API; a successful copy (the exact address is written and the status says so); a failed copy (failure message, email text selected); keyboard activation with Enter and Space; the accessible name staying constant; the message clearing after the timeout; and repeated attempts, for successes and for failures (an identical message is added to the page as a new element each time, the timeout restarts on every attempt, and after a second failure the email text is selected again). **Contact regression test:** `Contact.test.tsx` renders the section on the server and checks the visible email, the `mailto:` link, that the email carries one optional break opportunity (`<wbr>`) immediately before the `@` and no forced break (`<br>`), the GitHub and LinkedIn links with safe `rel` and accessible names, and that there is no copy button in the server output; a second check confirms the button appears once mounted in a browser-like environment. Both extra checks are owner-approved and kept; the email-wrap check is recorded here from v0.22 (§19.8). The test is an owner-approved exception to D30 item (5) (§20.7). A real-clipboard browser test in step 4.6 is optional and not required. **Cleanup:** `ExternalLink` has no remaining use after Contact switches to buttons, so it is deleted, and the comment in `Button.tsx` that points to it is corrected; unused code is not kept for future reuse (the 4.4 footer builds what it needs from existing primitives). **JavaScript budget:** the gzipped JavaScript for `/` is measured the same way as in §19.7 (script files requested by a modern browser, and with the inline scripts); an increase above **2.5 KB** is investigated, and the work **stops** and is reported to the owner if the measured total (script files plus inline scripts) exceeds **149.5 KB**; the cheaper options in that case are a native `<button>` instead of the shared `Button` and trimming the status logic. **Other:** no hover lift on non-interactive items; no scroll reveals or hidden starting states; no new dependency; manual keyboard and code review finds no accessibility issue (axe starts in 4.6); contrast table for new pairs recorded in the step 4.3 verification record (§19.8) |
+| **4.4** Footer | Footer component | Exactly one `contentinfo` landmark; email, GitHub, LinkedIn (icon + text), "Back to top" and copyright present; nav links only for visible sections; external links carry `rel="noopener noreferrer"`; targets ≥ 44px (never below 24px); manual keyboard and code review finds no accessibility issue (axe starts in 4.6); the Footer has its Vitest component test **in this step (D32)**: it finds the `contentinfo` landmark by role, checks that the email, GitHub, LinkedIn and "Back to top" links exist by name with the right `href` and `rel`, and that the navigation links match the visible sections; the browser tests added in 4.6 are additional and do not replace it |
+| **4.5** Metadata and SEO | Title/description, Open Graph and Twitter tags, generated 1200×630 share image, icons and manifest, robots, sitemap, JSON-LD, 404 page | Home title is "Kishor Kumar · Aspiring AI/ML Engineer"; description 140–160 characters; share image is 1200×630; JSON-LD parses as valid JSON with `<` escaped and contains no invented data; a preview deployment returns `noindex` and a production build does not (tested by simulating both environments); canonical, sitemap and Open Graph `url` appear only when a site URL is configured; a search of the source finds no hardcoded production domain; the 404 page returns status 404; the JSON-LD serialization (whether a React component or a helper) has a Vitest test in this step covering valid JSON output and the escaping of `<`, U+2028 and U+2029 (a genuine safety need, D25); any other React component added in this step has its component test in this step (D32); the 404 route's browser-level test is written in 4.6, as the owner decided (D32) |
+| **4.6** Security headers + CI + browser tests + screenshots (D29, D30) | Headers in `next.config.ts` (§16.7); GitHub Actions workflow with a quality job and a browser-test job; Playwright and `@axe-core/playwright` as dev dependencies with a Playwright config, an end-to-end test folder and an npm script for the browser tests (separate from `npm test`, which runs Vitest only); the D29 tests; additional end-to-end checks for the illustration and the footer, and the required browser-level test for the 404 route (§20.7), which add to and do not replace the component tests (D32); screenshots at the nine §18.3 widths for both pages (D34); proposed Playwright and axe updates to `.claude/rules/testing.md` and `CLAUDE.md` §9 (D33, presented separately, not applied) | **Security:** all headers in §16.7 present on the production build; the CSP is tested on `/` and the 404 page with zero console violations; any `unsafe-*` source is documented in §16.7 and approved before enforcement. **Workflow:** the quality job runs the four gate commands, `npm test` and `npm audit --omit=dev --audit-level=high`; the browser-test job builds the site and runs the browser tests against the production server; permissions are `contents: read` and action versions are pinned. **Chromium (D34) is installed and run only inside the CI job**; no `package.json` script or install hook downloads a browser, and `npm test` and the gate commands need none (Vitest uses `jsdom`). Exact versions of Playwright and `@axe-core/playwright` are pinned and recorded in §19.5. **Tests (the first six are the D29 minimum):** (1) the homepage loads with exactly one `h1` and the skip link moves focus to `main`; (2) at a mobile width the menu opens, closes with Escape and returns focus to the menu button; (3) anchor navigation reaches the target section; (4) every `target="_blank"` link has `rel` containing `noopener` and `noreferrer`; (5) an unknown URL returns HTTP 404; (6) axe finds 0 violations (WCAG 2.2 A and AA rule tags) on the homepage, on the 404 page, and on the homepage with the mobile menu open; (7) the homepage `<title>` is "Kishor Kumar · Aspiring AI/ML Engineer" (additional browser-level coverage; the immediate regression test is the Vitest assertion written in step 4.1); (8) end-to-end checks for the illustration (visible on load with its caption), the footer (its links and "Back to top" work) and the 404 route (HTTP 404 and a link home, which is the 404 route's required browser-level test, D32); these add to the component tests already written in 4.2 and 4.4. The axe test visits **every page route in the production build** (`/` and the 404 page; the route list is checked in 4.7). Tests query by role, label or text, not by class or test id when avoidable, and contain no snapshot of a large DOM tree. **Screenshots (D30):** full-page captures of every page route (`/` and the 404 page) at 320, 375, 414, 768, 1024, 1280, 1440, 1920 and 2560px wide (18 images) on the production build, uploaded as a workflow artifact **even when a test fails**, with **14-day retention** (D34). An automated check at every one of the 18 page/viewport combinations fails the run if the page has horizontal overflow (document width larger than the viewport). The images are for human visual inspection; **no screenshot baselines are committed** and no image comparison is run (D34). The first CI run is green with all of the above. `.claude/rules/testing.md` and `CLAUDE.md` are **not** edited in this step; the Playwright and axe updates are written as separate proposals (D33), preserve the existing standards, and are applied only after owner review (§20.5) |
+| **4.7** Verification | Run `responsive-testing`, `design-review`, accessibility, performance and code reviews, and `pre-deployment-audit`; record results | No horizontal scroll at 320, 375, 414, 768, 1024, 1280, 1440, 1920 and 2560px; Lighthouse on the production build, mobile: Performance ≥ 90, Accessibility ≥ 95; LCP < 2.5s and CLS < 0.1; first-load JavaScript for `/` < 150KB gzipped (measured and stated); the CI browser-test run on the final commit is green, and its results (the D29 minimum plus the additional tests of step 4.6, including axe on `/`, the 404 page and the open menu) are recorded with the CI run identifier; the Vitest results (`npm test`, including the component test of every new component, each in the step that introduced it) and the screenshot artifact (its name, the run it belongs to, and the 18 images: `/` and the 404 page at nine widths, with the horizontal-overflow check results) are recorded as well; every row of the §20.7 coverage tables is shown as met, or listed as an open issue for the owner; the axe route list is compared with the route list of the production build; a validation record is added in §19.6 style, listing what was **not** tested (for example NVDA, VoiceOver, real browser zoom); the owner approves the result |
+
+### 20.5 Unresolved items (not decided in v0.13)
+- **OD-11 production domain:** still open. How canonical, sitemap and Open Graph URLs behave before a domain exists is proposed in step 4.5 and approved then.
+- **OD-16 resume PDF:** still open; no resume CTA, Resume button or route until a PDF exists.
+- **OD-7** availability line, **OD-8** photo, **OD-6** logo ("KK" is a proposal only), **OD-12** analytics, and **OD-4** status colors: unchanged.
+- **Final CSP directives:** decided by testing in step 4.6 (§16.7).
+- **Remaining details of the browser tests and screenshots (step 4.6):** the folder and script names, and the screenshot viewport heights. The browser (Chromium), the 18 screenshots, the overflow checks, the 14-day artifact retention and the no-baseline rule are settled by D34. OD-17 is resolved by D29.
+- **Testing standards (resolved by D30–D34, mapped in §20.7):** `.claude/rules/testing.md` is unchanged and in force; the Testing Library stack is approved (D31, OD-18 resolved); each new component's test arrives in its own step (D32); nine-width screenshots are in 4.6 (D34).
+- **Exact versions of the D31 packages (resolved in step 4.1):** eight pinned dev dependencies, namely the six packages of D31 plus the two required peers `vite` and `@testing-library/dom` (an owner-approved addition), chosen as mutually compatible at installation, checked with `npm ls`, and recorded in §19.5.
+- **Rule-file and `CLAUDE.md` updates (D33), status checked against the repository history (v0.21):** the last bullet of `testing.md` says that when Vitest (and later Playwright and axe) are introduced, `npm test` and those suites become required merge checks "and this rule is updated". Four separate proposals were planned, two per milestone moment.
+  - **Applied in step 4.1:** the proposals for Vitest and `npm test`, reviewed and approved by the owner. `.claude/rules/testing.md` (the Unit/component, new-component, required-checks and Tests bullets) and `CLAUDE.md` §9 (the `npm test` row, the gate command including `npm test`, and a note that browser tests come in step 4.6) were committed in the step 4.1 documentation commit (`a31e64e`). The permission `Bash(npm test)` was added to `.claude/settings.json`, with the owner's approval, in the step 4.1 implementation commit (`2fb406d`).
+  - **Still pending, for step 4.6:** the proposals for Playwright and axe, for `testing.md` and `CLAUDE.md` §9. They are written in step 4.6, preserve the existing standards, and are applied only after owner review. Until then `testing.md` correctly says that Playwright and axe are not installed yet, and `CLAUDE.md` §9 says that browser tests come in step 4.6.
+  - **Reporting in the meantime:** the stricter gate in §20.4 governs where it is stricter than the rule files; every Milestone 4 request for commit approval reports `npm test` (from step 4.1) and the CI results (from step 4.6).
+- **Share-image design** and the footer wording (§20.3): confirmed when the step that builds them is reviewed. The Contact layout details were reviewed with step 4.3 (§19.8).
+- **Status-message layout shift on narrow screens (found in step 4.3, recorded in §19.8):** while the copy control's message is shown it can wrap and push the GitHub and LinkedIn buttons down (measured: up to 50px at 320px and 375px wide, none at 1280px), and they move back when the message clears after about four seconds. Owner decision (v0.22): a known trade-off, no change in step 4.3, to be reassessed after step 4.4, when the footer is present, by measuring layout shift before deciding whether a change is justified. This entry changes no implementation requirement.
+- **Deferred About, Skills and Education treatments (v0.21):** the lead paragraph, the Skills group icons and the Education card are not part of Milestone 4. Reopening them needs an owner decision; if reopened they would come with their own acceptance criteria (and, for the Skills icons, a content-type change for the icon choice).
+- **Existing code that will change in later steps** (not edited in 4.0): the role wording in `src/content/site.ts` (corrected in step 4.1) and the hero code comment that said "no buttons yet" (corrected in step 4.2). Both are now done.
+
+### 20.6 Conflicts and how they are resolved
+| Conflict | Resolution |
+|----------|------------|
+| §2.5 and §11.4 ban neural-network art and backgrounds, versus the requested illustration | D21: one labeled foreground illustration only; the bans otherwise stand |
+| §5.4 no glow, §11.1 and §11.4 no looping or pulsing | The illustration uses flat fills and a one-time reveal |
+| OD-14 draft wording versus D12 (no overclaiming) | D22 replaces the draft |
+| §9.1 / D18 CTA fallback assumes a resume exists | D23: "Get in touch" is the primary CTA; no resume CTA |
+| D8 names Motion; Milestone 4 wants no extra dependencies | D24: CSS-only for Milestone 4; D8 not revoked; sliding nav indicator not built |
+| `security.md` discourages `dangerouslySetInnerHTML`; static Next.js pages often need inline scripts | D25: one JSON-LD exception with safe serialization; CSP without default `unsafe-*`, tested before enforcement |
+| §14 requires `noindex` on previews, but production must stay indexable, and no domain exists | D26: `noindex` only for positively identified previews; no invented domain |
+| §9.1 eyebrow and §14 title say "AI/ML Engineer" | D27: "Aspiring AI/ML Engineer" everywhere |
+| §11.3 animates the hero name, §11.6 prefers no animation on the LCP element | `h1` not animated (§11.7); consistent with §11.6 |
+| Spotlight and cursor-follow effects common on portfolio sites | Not used (§11.4) |
+| v0.13 §11.7 and §20.3 added an `IntersectionObserver` helper and scroll-triggered section reveals, which contradicted CSS-only animation (D24) and "content visible immediately" | Resolved in v0.14 (no scroll reveals, no hidden starting states; §11.3 "Section content" row not built) and refined in v0.15: `IntersectionObserver` is **not** banned. The existing header scroll spy is unchanged; only new `IntersectionObserver` or scroll-listener code for scroll-triggered animation, reveal effects or hidden section states is prohibited |
+| v0.14 allowed a fade + rise on the hero, but an opacity animation from zero conflicts with "content visible immediately" | Resolved in v0.15: the hero entrance is transform-only (`translateY`), with no opacity animation from zero; the `h1` is not animated; the illustration is visible immediately |
+| D21 says the illustration is "revealed once" | Clarified in §11.7: "revealed once" means a one-time, transform-only entrance, never a fade from zero and never a loop. The text of D21 is unchanged |
+| `.claude/rules/testing.md` asks for axe on every page, screenshots at nine widths and a test for every new component; D29 defines a smaller, selective set for Milestone 4 | v0.15: D29 is the *minimum* automated browser and accessibility coverage, not permission to weaken `.claude/rules/testing.md`; the rule file is unchanged. **Resolved in v0.16 by D30:** nine-width screenshots in CI (4.6), Vitest from 4.1 for components that need it, every `testing.md` requirement mapped in §20.7. Any rule-file or `CLAUDE.md` change is presented separately for review |
+| D29 says no Vitest unless a genuine need arises, but `testing.md` requires a test for every new component and the shared `Button` has interaction states | v0.16 (D30): Vitest is set up in 4.1 for `Button` and components that genuinely need it, and static components were left to browser tests in 4.6. **Superseded in v0.17 by D32:** every new React component gets its component test in the step that introduces it (`Button` 4.1, `NeuralFigure` 4.2, copy-email control 4.3, Footer 4.4); the 404 route's browser-level test is in 4.6 by the owner's decision; Playwright tests are additional and never replace a required component test. Vitest is still not used for unrelated application logic |
+| The last bullet of `testing.md` ("Vitest is not installed yet", "this rule is updated") becomes out of date once Vitest is installed, but rule files may not be edited in a spec step | The rule files are left unchanged in the specification steps. Updates are prepared as separate proposals at 4.1 and 4.6 and applied only after owner review (D33, §20.5). **Status (v0.21):** the 4.1 proposals were reviewed and applied in step 4.1; the 4.6 Playwright and axe proposals are still pending. Until those are approved, the existing rule files and this spec's stricter gates (§20.4) apply together, so nothing is weakened and the gate to follow is stated |
+| D30 allowed the CI browser, screenshot retention and baseline policy to remain open | Settled in v0.17 by D34: Chromium, 18 screenshots, automated overflow checks, upload on failure, 14-day retention, no committed baselines |
+| `testing.md` lists Testing Library as optional and not yet approved | Settled in v0.17 by D31: the six-package stack is approved; `testing.md` line 4 (role/label queries) still governs how tests are written |
+| v0.17 left the regression test for the corrected "Aspiring AI/ML Engineer" wording to the browser tests in 4.6, while `testing.md` line 11 says bug fixes include a regression test and Vitest exists from 4.1 | Resolved in v0.18: a focused Vitest assertion is written in step 4.1 itself (an owner-directed exception to "no Vitest for unrelated application logic", limited to this one test); the 4.6 browser assertion is additional coverage |
+| `npm test` is a required gate from 4.1, but `.claude/settings.json` does not allow it | Resolved in v0.18 without changing the file: step 4.1 inspects the permission configuration and proposes the smallest necessary update; no change without the owner's explicit approval. **Status (v0.21):** done in step 4.1; the one-line permission `Bash(npm test)` was approved by the owner and added in the step 4.1 implementation commit |
+| §20.3 asked for GitHub and LinkedIn icon links, but Lucide (D9) has no brand icons | Resolved in v0.20 (owner decision): small inline SVG marks in `BrandIcons.tsx`, with the paths checked against GitHub's Octicons and Simple Icons; no new dependency; D9 unchanged (§10.1, §19.7) |
+| §20.3 gave an exact caption but also required the caption to say the path is highlighted | Resolved in v0.20 (owner decision): the exact sentence, followed by a second sentence that explains the highlighted path |
+| §20.3 let the layers "settle left to right", but moving layers separately would shear the connecting lines against the nodes | Resolved in v0.20 (owner decision): the whole figure rises once as one unit, transform only |
+| §12.2 said the hero must not exceed the viewport height in landscape mobile, but the approved hero text alone is taller than a 375px-high screen, and the owner ruled that nothing is hidden to pass a measurement | Resolved in v0.20: the hero may scroll in short landscape; the illustration scales down to 256px wide instead of being hidden; §12.2 is amended |
+| §9.1 requires the hero to fit above the fold at 1280×720, but the illustration card at the 5-column width (482px) was 634px tall and ended at 823px | Resolved in v0.20 (owner decision plus a small spacing change): the card is at most about 360px wide and centered, and the hero's top padding is 80px from `md` up (it was 112px at `lg`); measured result in §19.7 |
+| D28 includes step 4.3 "as set out in §20.4", and v0.13–v0.20 listed About, Skills and Education treatments there, but those sections were built in Milestone 3 and the owner does not want them redesigned | Resolved in v0.21 (owner decision): step 4.3 covers Contact only; the three treatments are deferred (§20.3, §20.5). The text of D28 is unchanged: all steps 4.0–4.7 remain in scope, and §20.4 is where step 4.3's content is set out |
+| §9.8 and the D17 decision row call the "Copy email" button optional, §20.3 and step 4.3 now require it, and the JavaScript margin for `/` is only about 2.9 KB (§19.7) | Resolved in v0.21 (owner decision): "optional" in §9.8 and in D17 means "not required for v1", not "forbidden", so including the button does not contradict D17, and the D17 decision row is not modified. The button is included, text-only, as a small client component, and §9.8 now says so. It is required for step 4.3 unless the owner removes it after a JavaScript-budget stop. A measured stop rule (investigate above +2.5 KB; stop above 149.5 KB total) is part of step 4.3's criteria |
+| The frontend rules forbid unused exports, and `ExternalLink` has no use once Contact uses buttons | Resolved in v0.21 (owner decision): delete it in step 4.3 and correct the comment in `Button.tsx`; do not keep code for anticipated reuse |
+| §20.3 and the step 4.3 row called the control "Copy email" but also required its accessible name to stay "Copy email address" | Resolved in v0.22 (owner decision): the visible text is "Copy email address", the same as its accessible name, so the two cannot differ (§9.8, §20.3, §20.4) |
+| v0.21 asked for the email to wrap "with no forced break after the `@`", but the build also adds an optional break opportunity | Documented in v0.22 (owner decision): one optional break opportunity (`<wbr>`, no characters added) immediately before the `@`; no forced break is added after it; `Contact.test.tsx` checks it (§20.3, §20.4, §19.8) |
+| Setting the same text again in one persistent status message changes nothing in the page, so a second identical message was not added to the page again and its timer was not restarted | Resolved in step 4.3 before the commit, documented in v0.22: each attempt adds its message as a new element inside the same status element and restarts the four seconds; four regression tests cover repeated successes and failures. Real screen-reader speech has not been verified (§19.8) |
+
+No conflict with D16 (dark only), D17 (email only), D18 (no Projects section until real projects exist) or D19 (TypeScript content files).
+
+### 20.7 Coverage of `.claude/rules/testing.md` (D30)
+The rule file was read line by line at v0.16, re-checked at v0.17, and is **unchanged**. The table maps each of its requirements (by line) to where this plan meets it.
+
+| `testing.md` line and requirement | How it is met | Where |
+|---|---|---|
+| 3. Tools are introduced gradually; each rule applies once its tool is set up; all must pass before release (§18) | Vitest and its rules apply from step 4.1; Playwright and axe rules from step 4.6; lint, format, type-check and build already apply. All must pass before release | §20.4, §18.7, step 4.7 |
+| 4. Unit/component tests use Vitest; Testing Library is optional and not yet approved; query by role or label | Vitest from 4.1; every new React component gets a component test in its own step (D32). Testing Library is approved (D31). Queries use accessible role/name or label wherever practical | D30, D31, D32; steps 4.1 to 4.5 |
+| 5. E2E with Playwright for critical flows: navigation, external links | D29 tests (1) skip link, (2) mobile menu, (3) anchor navigation, (4) external-link `rel`, (5) HTTP 404 | Step 4.6 |
+| 6. Contact-form tests only if a contact form is approved (conditional) | **Not applicable:** there is no contact form (D17, no OD-10 change). The copy-email control is not a form and gets a component test | Step 4.3 |
+| 7. `@axe-core/playwright` on every page in E2E | Test (6): axe on `/`, the 404 page and the open mobile menu. The route list covers **every page route** of the production build and is compared with the build's routes in 4.7 | Steps 4.6, 4.7 |
+| 8. Playwright screenshots at 320, 375, 414, 768, 1024, 1280, 1440, 1920, 2560 | D30: full-page screenshots of every page route at all nine widths (18 images) uploaded as a CI artifact even on failure, 14-day retention, an automated horizontal-overflow check at every viewport, human inspection, no committed baselines (D34) | Step 4.6; artifact recorded in 4.7 |
+| 9. Test behavior, not implementation; no snapshot tests of large DOM trees | Role, label or text queries; assertions on behavior and accessible names; no DOM-tree snapshot assertions. Screenshots are image artifacts for review, not DOM snapshots | Steps 4.1, 4.3, 4.6 |
+| 10. New components ship with at least one test covering rendering and key interaction | Every new React component has its Vitest component test **in the step that introduces it** (D32); the 404 route's browser-level test is in 4.6; Playwright tests add coverage and do not replace component tests | Table below; §20.4 common gate |
+| 11. Bug fixes include a regression test | Any bug fixed during Milestone 4 gets a regression test in the same step (Vitest) or in 4.6 (browser behavior). The step 4.1 role/title correction has its Vitest regression assertion in 4.1 itself (v0.18), and test (7) in 4.6 is additional browser-level coverage | Steps 4.1, 4.6 |
+| 12. Required checks before merge: lint, type-check, format, build | Unchanged; run at every step and in CI | §20.4 common gate, step 4.6 |
+| 13. When Vitest (and later Playwright and axe) are introduced, `npm test` and those suites become required merge checks, and the rule is updated | `npm test` is in the gate from 4.1; the Playwright, axe and screenshot suites are required CI checks from 4.6. The rule-file updates are prepared as **separate proposals** (D33) at 4.1 (Vitest, `npm test`) and 4.6 (Playwright, axe), reviewed before application, and not made here | §20.4, §20.5 |
+
+**New components and their tests (D32).** Every new React component has its Vitest component test **in the same step that introduces it**. Tests check user-observable behavior, query by accessible role/name or label wherever practical, and use no large DOM snapshots or implementation-detail checks. Browser tests in 4.6 are additional and never replace a component test.
+
+| New component | Step | Component test (same step) | Additional browser coverage (4.6) |
+|---|---|---|---|
+| `Button` (shared primitive) | 4.1 | Vitest: which element it renders, click handling, disabled state does not fire | Used by the hero and Contact, so covered by the homepage, anchor and axe tests |
+| Illustration (`NeuralFigure`) | 4.2 | Vitest: found by role and accessible name; description and visible "Illustration" caption present; the description says one path is highlighted | Visible on load with its caption; axe; screenshots |
+| Brand icons (`GitHubIcon`, `LinkedInIcon`) | 4.2 | Vitest: hidden from screen readers on their own; an icon link takes its accessible name from its label; size can be set | The homepage external-link `rel` test (D29 test 4); axe |
+| Copy-email control | 4.3 | Vitest with `user-event`: not rendered without a clipboard API; successful copy (exact address written, status announced); failed copy (failure message, email text selected); Enter and Space activation; accessible name stays constant; message clears after the timeout; repeated attempts for successes and failures (a new message element each time, the timeout restarts, the email text is selected again after a second failure) | Email stays visible text with a working `mailto:`; axe; screenshots. A real-clipboard browser test is optional, not required |
+| Footer | 4.4 | Vitest: `contentinfo` landmark by role; email, GitHub, LinkedIn and "Back to top" links by name with the right `href` and `rel`; navigation links match the visible sections | Links and "Back to top" work in the browser; external-link `rel` (D29 test 4); axe |
+| JSON-LD serialization (component or helper) | 4.5 | Vitest: valid JSON; `<`, U+2028 and U+2029 escaped (genuine safety need, D25) | Page `<title>` and metadata checks where observable |
+| 404 route | 4.5 | By the owner's decision (D32) its test is browser-level and written in 4.6 | Required in 4.6: HTTP 404, a link home, axe, screenshots |
+| Any further new React component | When created | Vitest in the step that creates it, recorded in the step report | Added to the 4.6 browser tests where it affects a page |
+
+The `Button`, `NeuralFigure`, copy-email and Footer tests are therefore never deferred: a step is not complete without them (§20.4 common gate).
+
+Existing sections that are changed but not new (Hero and Contact) are covered by the homepage, anchor-navigation, axe and screenshot tests, plus the component tests of the new components they contain. Contact also has a small server-render regression test (`Contact.test.tsx`, step 4.3). About, Skills and Education are unchanged in Milestone 4 and have no new tests.
+
+**Regression tests of existing sections, and D30 item (5).** D30 item (5) says Vitest is not added for unrelated application logic without a genuine need. Three sets of Vitest tests check existing, approved content and are **owner-approved, limited exceptions** to it: the title and role regression test (v0.18, step 4.1), the six Hero regression tests (the heading, role and D22 sentence; the credential line and focus areas; Get in touch; the social links; the absence of a resume link; the illustration; step 4.2), and `Contact.test.tsx` (step 4.3: the server-rendered email and `mailto:` link, its single optional break opportunity before the `@`, and the social links, with the two extra checks that there is no copy button in the server output and that it appears once mounted). Each guards essential approved content or links (D12, D22, D23, D27) from silently regressing. They are not a precedent: other application logic still gets no Vitest test without a genuine need.
