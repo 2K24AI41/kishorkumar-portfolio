@@ -35,6 +35,18 @@ export type EducationEntry = {
   current: boolean;
 };
 
+/** Site footer (spec §8.4, §20.3). Contact links come from ContactInfo. */
+export type FooterContent = {
+  /** Decorative "KK" monogram set in Geist Sans (OD-6). Hidden from assistive technology. */
+  monogram: string;
+  /** One line under the name. */
+  tagline: string;
+  /** Name in the copyright line, shown as "© {year} {holder}". */
+  copyrightHolder: string;
+  /** Year in the copyright line: the build year (see src/content/footer.ts). */
+  copyrightYear: number;
+};
+
 /** Contact details (spec §9.8, D17: email only, no form). */
 export type ContactInfo = {
   /** Short invitation shown above the links. */
