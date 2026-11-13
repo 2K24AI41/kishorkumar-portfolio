@@ -5,9 +5,9 @@
 | Field | Value |
 |-------|-------|
 | Owner | Kishor Kumar |
-| Version | 0.22 |
+| Version | 0.23 |
 | Document status | **Draft.** Approved decisions D1–D34 are binding. Everything marked *Proposed* needs owner approval. |
-| Last updated | 2026-11-05 |
+| Last updated | 2026-11-13 |
 
 **Status labels**
 - **Approved (Dn):** binding; recorded in §19. Do not change without owner approval.
@@ -72,7 +72,7 @@ To stand out from generic templates without gimmicks:
 2. **Monospace metadata:** labels, tags, dates, and section indices (e.g. `01 / About`) use the monospace face. These are typographic accents, **not** a fake terminal.
 3. **Single accent line:** a 2px electric-blue rule marks the active nav item, section headings, and the selected project card.
 4. **Real artifacts as imagery:** architecture diagrams, confusion matrices, sample model outputs, and UI screenshots from actual projects.
-5. **Logo/monogram:** "KK" wordmark set in the heading typeface (Open: OD-6).
+5. **Logo/monogram:** "KK" wordmark set in the heading typeface (OD-6, resolved in v0.23: used as the footer monogram, a decorative 40px circular badge; §19.3a, §20.3).
 6. **Signature illustration (Approved, D21):** one labeled, accurate neural-network diagram in the hero, drawn in SVG as a foreground figure. It is not a background and not decoration. Details in §20.3.
 
 ### 2.5 Explicitly avoided
@@ -790,13 +790,15 @@ A release is complete only when every item below passes. The per-step criteria f
 |----|-----------------|---------|------------------|
 | OD-4 | Status colors (success, warning, error) | §5.2 | Not needed in v1 (no contact form, D17); define if a future feature requires them |
 | OD-5 | Featured projects and their order | §9.4 | Owner to provide: 0–3 projects, each with verified content (D18) |
-| OD-6 | Logo / monogram | §2.4 | "KK" wordmark in Geist Sans |
 | OD-7 | Availability line in the hero | §9.1 | Include only if true; wording from owner |
 | OD-8 | Professional photo | §9.1 | Optional |
 | OD-9 | Experience section when there is no professional experience | §9.5 | Hide until real entries exist |
 | OD-11 | Production domain | §14 | Owner to provide |
 | OD-12 | Analytics and Speed Insights | §15 | Vercel Speed Insights only, privacy-friendly |
-| OD-16 | Resume PDF: availability and file | §8.1, §9.1, §16.1 | No resume exists. The Resume button, resume CTA and `/resume.pdf` stay absent until the owner supplies a PDF (< 500KB, §15.6) |OD-11 (production domain) and OD-7 (availability line) also stay open. OD-6 (logo): the "KK" wordmark is the working proposal for the footer and icons, still pending approval.
+| OD-16 | Resume PDF: availability and file | §8.1, §9.1, §16.1 | No resume exists. The Resume button, resume CTA and `/resume.pdf` stay absent until the owner supplies a PDF (< 500KB, §15.6) |
+
+OD-11 (production domain) and OD-7 (availability line) also stay open. OD-6 (logo), which this note listed as the working "KK" proposal for the footer and icons, was resolved in v0.23 (§19.3a).
+
 ### 19.3a Resolved decisions
 | ID | Decision needed | Resolution | Date |
 |----|-----------------|------------|------|
@@ -808,6 +810,7 @@ A release is complete only when every item below passes. The per-step criteria f
 | OD-13 | MDX for case study content | **Resolved by D19.** TypeScript data files for all v1 content; no MDX in v1 | 2026-11-02 |
 | OD-14 | Positioning statement wording | **Resolved by D22.** Exact wording approved by the owner | 2026-11-03 |
 | OD-17 | When Playwright + axe (and Vitest) are introduced | **Resolved by D29.** Selective Playwright and axe tests in Milestone 4, added in step 4.6 and run in GitHub Actions only; no Vitest unless a genuine need arises | 2026-11-03 |
+| OD-6 | Logo / monogram | **Resolved by owner decision in step 4.4 (v0.23).** The monogram is "KK" in Geist Sans. As implemented in the footer (source commit `b17964a`, §19.9): decorative, hidden from assistive technology (`aria-hidden`), not a link, a 40px circular badge. This resolution covers the monogram and its footer treatment; whether it is also used in the site icons is decided when the icons are built (step 4.5) | 2026-11-13 |
 | OD-18 | Vitest tooling and Testing Library approval | **Resolved by D31.** `vitest`, `@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom`, `jsdom` and `@vitejs/plugin-react` approved, explicitly pinned and mutually compatible; exact versions chosen at installation in step 4.1 and recorded in §19.5 | 2026-11-03 |
 
 ### 19.4 Change log
@@ -834,7 +837,8 @@ A release is complete only when every item below passes. The per-step criteria f
 | 0.19 | 2026-11-03 | Step 4.1 record (no decisions changed). §19.5 now lists the eight test dependencies installed in step 4.1 with their exact versions (`vitest` 4.1.12, `@testing-library/react` 16.3.3, `@testing-library/user-event` 14.6.8, `@testing-library/jest-dom` 6.9.1, `jsdom` 29.1.1, `@vitejs/plugin-react` 6.2.1, plus the required peers `vite` 8.3.5 and `@testing-library/dom` 10.4.2, both owner-approved additions to the six-package list of D31), the Node.js requirements for testing (20.19+ locally, 22.13+ in CI; `engines` unchanged), the lockfile platform note and the `npm audit` result. Version 0.18 stays the committed specification checkpoint | Claude | Draft; recorded as required by step 4.1 |
 | 0.20 | 2026-11-04 | Step 4.2 corrections and record (owner decisions; no approved decision D1–D34 changed or reopened). (1) **Desktop fold:** the illustration card is capped at about 360px and centered in its five-column area (7/5 proportions kept), and the hero's top padding is 80px from `md` up (was 112px at `lg`), so the text and the whole card fit above the fold at 1280×720. (2) **Brand icons:** GitHub and LinkedIn use inline SVG brand marks (`BrandIcons.tsx`, no dependency); the GitHub path was corrected to GitHub's official Octicons file, the LinkedIn path matches Simple Icons 16.36.0. §10.1 notes that Lucide has no brand icons. (3) **JavaScript budget:** measured from the browser's own network log: 140.5 KB gzipped for six script files (147.1 KB with inline scripts), so the 150KB target is met with a thin margin. (4) **Spec text corrected to match the implementation:** §9.1 (fold result), §12.2 (short landscape scales down instead of hiding the illustration and the hero may scroll), §20.3 (brand icons, two-sentence caption, whole-figure entrance, equation rendering, card width and padding), §20.4 step 4.2, §20.5, §20.6 (five conflict rows) and §20.7 (brand-icon tests). (5) **New §19.7:** step 4.2 verification record with the final viewport measurements, contrast table, animation, keyboard and JavaScript-transfer results, and what was not verified | Claude | Draft; corrections approved by owner |
 | 0.21 | 2026-11-04 | Step 4.3 scope reconciled with the owner's pre-implementation decisions (documentation only; no decision D1–D34 changed or reopened; the D17 and D28 decision rows are unchanged, byte for byte). (1) **Step 4.3 is Contact only:** §20.4 now describes and tests Contact alone; About, Skills and Education are unchanged, and the treatments v0.13–v0.20 listed for them (lead paragraph, Skills icons, Education card) are deferred (§20.3, §20.5). (2) **Copy email control approved, text-only:** hydration-only rendering when a clipboard API exists, constant accessible name "Copy email address", a persistent `role="status"` message for success and failure, email text selected on failure, message cleared after about 4 seconds, no `execCommand` fallback (§20.3, §20.4). (3) **GitHub and LinkedIn** as secondary buttons with brand icons and text. (4) **Email** as large text with responsive wrapping and no forced break after the `@`. (5) **Tests:** the copy control's six behaviors and a new `Contact.test.tsx` server-render regression (§20.4, §20.7). (6) **JavaScript budget:** investigate an increase above 2.5 KB; stop if the measured total exceeds 149.5 KB (§20.4). (7) **Cleanup:** delete the unused `ExternalLink` and fix the `Button.tsx` comment that mentions it. (8) **§9.8 wording:** the Copy email button is now stated as included in step 4.3; "optional" in §9.8 and in the D17 row means "not required for v1", so D17 is not contradicted and is not modified (clarified in the §20.6 conflict record). (9) **Forward reference removed:** the contrast record is now described as a new verification section added during implementation, not as a numbered section that does not exist yet. (10) **D33 status corrected from the repository history:** the step 4.1 proposals were applied (rule files in `a31e64e`, the `Bash(npm test)` permission in `2fb406d`); only the step 4.6 Playwright and axe proposals are pending; the package count is corrected from six to eight in §20.5 and in the step 4.1 acceptance row; the common-gate "Rule files" sentence and two §20.6 rows are updated to match. (11) **D30 item (5) exceptions recorded:** the title/role, Hero and Contact regression tests are owner-approved, limited exceptions (§20.7). The two extra `Contact.test.tsx` checks are kept, and the real-clipboard browser test stays optional. (12) **Punctuation** fixed in the step 4.0 row. Updated §9.8, §20.3, §20.4 (common gate; steps 4.0, 4.2, 4.3), §20.5, §20.6 (three new rows and three updated rows) and §20.7 | Claude | Draft; scope and corrections approved by owner |
-| 0.22 | 2026-11-05 | Step 4.3 record (owner-reviewed implementation; source commit `06b5390`; no decision D1–D34 changed or reopened, and no new decision is added). (1) **New §19.8:** the step 4.3 verification record: what was built, the repeated-attempt correction made before the commit, email wrapping and overflow, layout stability, the status-message layout shift (recorded as a known trade-off, to be reassessed after step 4.4), keyboard, contrast of the new pairs, behavior in Chrome, the combined JavaScript payload estimate (148.83 KiB, measured as in §19.7), 43 tests in 7 files, and what was not verified. (2) **Spec text corrected to match the implementation:** the control's visible text is "Copy email address", the same as its accessible name (§9.8, §20.3, §20.4); one optional line-break opportunity (`<wbr>`) immediately before the `@`, with no forced break added after it (§20.3, §20.4); every copy attempt, repeated or not, adds its message to the page again and restarts the four seconds (§20.3). (3) Updated §20.4 (step 4.3 row: label, wrapping, test description, record reference), §20.5 (Contact layout reviewed; layout-shift reassessment after step 4.4), §20.6 (three new rows) and §20.7 (copy-control test row; Contact regression sentence). §19.5 and §19.7 are unchanged: no dependency was added, and §19.7 stays a dated record. No token values changed | Claude | Draft; pending owner approval |
+| 0.22 | 2026-11-05 | Step 4.3 record (owner-reviewed implementation; source commit `06b5390`; no decision D1–D34 changed or reopened, and no new decision is added). (1) **New §19.8:** the step 4.3 verification record: what was built, the repeated-attempt correction made before the commit, email wrapping and overflow, layout stability, the status-message layout shift (recorded as a known trade-off, to be reassessed after step 4.4), keyboard, contrast of the new pairs, behavior in Chrome, the combined JavaScript payload estimate (148.83 KiB, measured as in §19.7), 43 tests in 7 files, and what was not verified. (2) **Spec text corrected to match the implementation:** the control's visible text is "Copy email address", the same as its accessible name (§9.8, §20.3, §20.4); one optional line-break opportunity (`<wbr>`) immediately before the `@`, with no forced break added after it (§20.3, §20.4); every copy attempt, repeated or not, adds its message to the page again and restarts the four seconds (§20.3). (3) Updated §20.4 (step 4.3 row: label, wrapping, test description, record reference), §20.5 (Contact layout reviewed; layout-shift reassessment after step 4.4), §20.6 (three new rows) and §20.7 (copy-control test row; Contact regression sentence). §19.5 and §19.7 are unchanged: no dependency was added, and §19.7 stays a dated record. No token values changed | Claude | Draft; record and corrections approved by owner |
+| 0.23 | 2026-11-13 | Step 4.4 record (owner-reviewed implementation; source commit `b17964a`, "feat: add responsive accessible site footer"; no decision D1–D34 changed or reopened, and no new D-numbered decision is added). (1) **New §19.9:** the step 4.4 verification record: the owner's step decisions and the approved refinements, what was built, the corrections made before the commit, responsive, target-size, keyboard, reduced-motion, no-JavaScript and contrast checks in Chrome, the combined JavaScript payload estimate (149.44 KiB, 0.06 KiB below the 149.5 KiB stop line; the script files are unchanged and the increase is inline Flight data, not client JavaScript), the Contact layout-shift reassessment (the 320px difference from §19.8 is explained by classic versus overlay scrollbar width), 52 tests in 8 files, the reviews, and what was not verified. (2) **OD-6 resolved** (owner decision): "KK" in Geist Sans as the footer monogram, decorative, `aria-hidden`, not a link, a 40px circular badge; moved from §19.3 to §19.3a, with §2.4 item 5 and §20.5 updated. (3) **§19.3 formatting:** the note that ran on after the OD-16 row is moved out of the table into its own paragraph, and a blank line now separates the table from §19.3a; the OD-16 row's content is unchanged. (4) **Spec text updated to match the implementation:** §20.3 Footer (confirmed wording, build year, layout and accessibility details), §20.4 (step 4.4 status and record reference; the acceptance criteria are unchanged), §20.5 (footer wording confirmed; layout-shift reassessment result; JavaScript-budget direction for step 4.5) and §20.7 (Footer test row). (5) **§20.3 "Mobile" corrected:** "stacked 44px buttons" replaced by the actual behavior (buttons keep their 44px minimum, sit side by side where they fit and wrap where they do not), with the footer navigation's two columns and the email wrapping stated accurately. (6) **v0.22 status corrected** from "pending owner approval" to "record and corrections approved by owner", matching the owner's approval and its documentation commit (`ff87a80`); the v0.22 row's version, date and change text are unchanged. §19.5, §19.7 and §19.8 are unchanged: no dependency was added, and earlier records stay dated records. No token values changed | Claude | Draft; pending owner approval |
 
 ### 19.5 Pinned dependency versions
 Installed at project initialization (Milestone 1, 2026-11-02) with npm (D13). All direct dependencies are pinned to exact versions (`.npmrc`: `save-exact=true`), and `package-lock.json` records the full dependency tree. Node.js ≥ 20.9.0 (`engines` in `package.json`); verified locally on Node.js 26.13.0 and npm 11.20.0.
@@ -1124,6 +1128,197 @@ In both cases the status element itself is one node that stays in the page (`liv
 
 **Not verified:** speech from NVDA, JAWS, VoiceOver and TalkBack (Chrome's accessibility tree receives a new message node on each attempt, which is what screen readers are told, but this shows nothing about what they say; VoiceOver with Safari is the usual weak spot for repeated identical text, and the usual mitigation would be to clear the region and add the message a frame later, at the cost of an extra timer); Firefox, Safari and Edge; touch devices; a real-device clipboard, and the missing button on a non-secure (`http:`) page in a real browser (covered by a test only); real browser zoom; Windows High Contrast; automated axe (starts in step 4.6); contrast of rendered pixels and of hover states; a manual keyboard-only pass by a person; the layout shift (CLS) of the status message appearing and clearing; the exact transferred size of the HTML response with its inline scripts. The full §5.5 validation remains outstanding.
 
+### 19.9 Verification record: step 4.4 (Footer)
+
+**Status: step 4.4 implemented and verified against its §20.4 criteria** by automated checks and scripted browser checks; the manual and assistive-technology checks listed at the end were **not** done. The §5.5 validation as a whole is still **PARTIAL**. This records what was built and measured for the home page (`/`) in step 4.4 (2026-11-13). It replaces nothing in §19.6, §19.7 or §19.8. Source commit: `b17964acd9a69e36e97009b0b0cb657ab6d9b6d2` (`b17964a`), "feat: add responsive accessible site footer". The owner reviewed the implementation and approved it for its source commit.
+
+**Scope of the commit.** Five files, 325 insertions, no deletions:
+- `src/components/layout/Footer.tsx` (new)
+- `src/components/layout/Footer.test.tsx` (new)
+- `src/content/footer.ts` (new)
+- `src/types/content.ts` (changed: the `FooterContent` type)
+- `src/app/layout.tsx` (changed: renders `<Footer />` after the page content)
+
+Nothing else changed in that commit: not Header, Contact, Button, BrandIcons or the other sections, not the design tokens, the package files, the rule files or `CLAUDE.md`, and not this specification. No dependency was added.
+
+**Owner decisions for this step** (taken at the plan review; none changes D1–D34):
+- **Monogram:** "KK" in Geist Sans, decorative, `aria-hidden`, not a link (OD-6 resolved, §19.3a).
+- **Content:** the tagline "AI undergraduate · University of Sindh" and the copyright line "© {year} Kishor Kumar", with no "All rights reserved". The values are kept in `src/content/footer.ts`, typed by `FooterContent`.
+- **Year:** the build year, read on the server while the pages are statically generated. It is never computed in the browser, and no page becomes dynamic because of it.
+- **Social links:** GitHub and LinkedIn reuse the existing `Button` secondary variant. No new variant.
+- **Navigation:** plain `#id` links, the same as the Header. The Header is unchanged. The behavior of the Header and Footer links on the 404 page is to be fixed together in step 4.5.
+- **Layout:** the `wide` container; no visible group labels; `aria-label="Footer"` on the navigation and `aria-label="Contact links"` on the contact list; an `aria-hidden` ArrowUp icon next to "Back to top".
+- **Contact layout shift:** measure it with the footer present and report; do not change Contact.
+
+Refinements approved after the review: the badge is 40px, round and `font-medium`; the navigation links sit in two columns on phones; negative margins trim the invisible part of the first and last 44px rows, used only because every target stays at least 44×44px with no overlap; from `lg` the contact group is aligned to the right; the column gutter is 24px at desktop and 32px from `2xl` (§7.3). Not changed: the copyright line and "Back to top" still stack on narrow phones, and link transitions were not changed.
+
+**What was built**
+- `Footer` is a **Server Component with no client JavaScript**. It is rendered once in the root layout, directly inside `<body>` after `<main>`, so it is the page's only `contentinfo` landmark. It has a `surface` background with a top `border`.
+- **Brand:** the "KK" badge (40px, round, `aria-hidden`, not a link), the name, and the tagline.
+- **Navigation:** `<nav aria-label="Footer">` built from the visible sections (`visibleSections`, the same source as the Header), so a hidden section never gets a link.
+- **Contact links:** `<ul role="list" aria-label="Contact links">`, which contains:
+  - the email as visible text with a `mailto:` link, a 16px Mail icon, 14px text, and one `<wbr>` immediately before the `@`, with `overflow-wrap: anywhere` kept as a fallback;
+  - GitHub and LinkedIn as secondary `Button` external links, which give a new tab, `rel="noopener noreferrer"`, the arrow icon and a hidden "(opens in new tab)".
+- **Divider:** a static `aria-hidden` line with three dots, the middle one highlighted with the illustration's node classes.
+- **Bottom row:** the copyright line and `<a href="#top">Back to top</a>`.
+- **Links:** every plain link is at least 44×44px (`min-h-11 min-w-11`), and the Button links are 44px high (48px on touch screens). The only transitions are 150ms color changes on hover; nothing animates.
+- **Layout by width:** below 768px the groups are stacked and the navigation links sit in two columns. From 768px the brand spans the full width, with the navigation and the contact links side by side under it. From 1024px there are three columns, with the contact group aligned to the right.
+
+**Corrections made before the commit** (found during verification; all in `Footer.tsx`)
+
+| Found | Correction |
+|---|---|
+| At 320px the email, then 16px, broke inside a word as "kishormenghwar4120@gmail.co" / "m" | Email set at 14px with a 16px icon, plus one `<wbr>` before the `@`. A regression test checks the break hint and the exact email text |
+| The "Skills" link was 35×44px | `min-w-11` on the plain links |
+| From 768px there was a gap of about 50px between the email and the buttons, because the wrapping list stretched to the height of its grid row | `content-start` on the contact list |
+| Accessibility review: Safari can drop the list role, and with it the name, from lists styled with `list-style: none` | `role="list"` on the labelled contact list |
+| Code review: the email split had no guard for an address without a usable "@" | The same guard as in Contact: the address is shown unsplit |
+
+**Method and environment**
+- Chrome 157.0.8103.78, headless, on Windows 11, one instance at a time. It was driven over the DevTools protocol by temporary scripts kept outside the repository, using desktop emulation (no touch) except where overlay scrollbars are stated.
+- The production build (`next build` + `next start`) ran on a local port. Headless Chrome uses classic 15px scrollbars, so a "320px" window has a 305px layout width.
+- Contrast ratios are calculated from the design tokens (WCAG 2.x relative luminance). The rendered colors were read from computed styles and match the tokens; they were not sampled from pixels.
+- These are scripted checks. No person did a manual pass.
+
+**Responsive and target-size checks (final build)**
+- **No horizontal overflow** at any of these viewports:
+  - 320, 375, 414, 768, 1024, 1280, 1440, 1920 and 2560px;
+  - 667×375 and 844×390 landscape;
+  - 1280px emulated at 200% (640 CSS px at device pixel ratio 2) and at 400% (320 CSS px at device pixel ratio 4).
+- No footer element extends past the right edge at the nine widths and at both emulated zoom levels. This was not measured separately at the two landscape sizes, where the page has no horizontal overflow.
+- **Targets:** every footer link is at least 44×44px at all 13 viewports, and no two link boxes overlap. Neighbouring navigation rows touch edge to edge without overlapping.
+- **Email:** one line at 14px at the nine widths and at both emulated zoom levels. The line count was not measured at the two landscape sizes.
+- **Visible gaps on phones** (text edge to text edge, the same at 320, 375 and 414px):
+
+  | Between | Gap |
+  |---|---|
+  | Tagline → navigation | 43px |
+  | Navigation → email | 42px |
+  | Email → buttons | 26px |
+  | Buttons → divider | 40px |
+  | Divider → copyright | 33px |
+
+  Before the negative margins, the first two were about 58px and 70px (the UI review's estimate).
+- **Right edges from 1024px:** the contact group, the divider and "Back to top" end at the same position: 977, 1233, 1361, 1593 and 1913px at 1024, 1280, 1440, 1920 and 2560px.
+- **Text-only enlargement** (root text size 150% and 200% at 320px; this is not browser zoom):
+  - No footer element overflows.
+  - At 200%, even the part of the address before the `@` is longer than the line, so the `overflow-wrap` fallback breaks it inside the local part ("kishormenghwar" / "4120@gmail.com"). This was measured before the final layout refinements, which did not change the email's width on phones.
+  - At 200% the **page** overflows because of the Skills section, which existed before this step and is not changed by it.
+
+**Keyboard** (scripted key presses, starting from the last Contact link)
+- The Tab order is About, Skills, Education, Contact, the email, GitHub, LinkedIn, Back to top. The two-column phone navigation reads row by row, so the screen order matches the Tab order.
+- Once the transition has finished, every stop shows the solid 2px `rgb(96, 165, 250)` ring with a 2px offset. Readings taken within 150ms of a Tab show an in-between color, because `transition-colors` also animates the outline color.
+- Once scrolling has settled, every stop is fully on screen at 1280×800 and 320×568.
+- At 375×667, Chrome scrolls About, Skills and Back to top into view flush with the bottom edge of the screen. The link itself is fully visible, but the outer 4px of the ring (2px ring, 2px offset) can be cut off by the screen edge. This is the browser's default scroll-into-view placement. A possible fix, `scroll-padding-bottom` in `globals.css`, is outside this step and has not been decided.
+- **Enter on "Back to top"** scrolls to 0 (smoothly at 1280px; instantly at 375px with reduced motion). Focus returns to the document, and the next Tab lands on "Get in touch" in the hero. One early run was invalid: Enter was pressed while a previous smooth scroll was still running. The check then passed 3 times out of 3.
+- **On the 404 route** (HTTP 404, no element with `id="top"`), "Back to top" scrolled from 791 to 0, because `#top` scrolls to the top of a page that has no such element. This was checked on the build before the final layout refinements, which did not change the link.
+- **Unchanged parts still work:** the mobile menu opens with Enter, closes with Escape and returns focus to its button. The hero is unchanged: at 375×667 the buttons end at 639px (the illustration sits below them, as designed), and at 1280×720 the illustration card ends at 706px.
+
+**Reduced motion.** With and without `prefers-reduced-motion: reduce` there are 0 animations in the footer. The link transitions are 0.15s, which is the §11.5 limit. Smooth scrolling is on only without reduced motion (`scroll-behavior: auto` with it).
+
+**Without JavaScript.** With scripts disabled at 375px, the footer is complete in the server HTML: one footer, all eight links (About, Skills, Education, Contact, the email, GitHub, LinkedIn, Back to top), and no overflow. "© 2026 Kishor Kumar" is in the static HTML of both `/` and the 404 page.
+
+**Contrast on `surface` `#101827`** (calculated; rendered colors confirmed)
+
+| Pair as used | Ratio | Required | Result |
+|---|---|---|---|
+| Name and monogram `text` | 16.98:1 | 4.5:1 | Pass |
+| Tagline, navigation links, copyright, Back to top `text-muted` | 6.93:1 | 4.5:1 | Pass |
+| Email link `accent-highlight` | 6.99:1 | 4.5:1 | Pass |
+| GitHub and LinkedIn text `text` | 16.98:1 | 4.5:1 | Pass |
+| Button border `border-strong` | 3.73:1 | 3:1 | Pass |
+| Focus ring `accent-highlight` | 6.99:1 | 3:1 | Pass |
+| Hover (calculated only): `text` on `surface` | 16.98:1 | 4.5:1 | Pass |
+| Hover (calculated only): `text` on `surface-elevated` (buttons) | 15.05:1 | 4.5:1 | Pass |
+| Hover (calculated only): `border-strong` on `surface-elevated` | 3.31:1 | 3:1 | Pass (smallest margin) |
+
+The top border, the divider line, the dots and the badge outline are decorative.
+
+**JavaScript payload for `/` (combined estimate, the §19.7 and §19.8 method)**
+- **Method:** a cold load in Chrome (cache off, 6s idle, local `next start` with gzip). Script files are measured from Chrome's network log (bytes transferred), excluding the one `noModule` file. The inline `<script>` tags are extracted from the HTML, joined and compressed on their own with gzip (Node.js `zlib`, default level). As in §19.8, the total is a combined estimate, not a single measured transfer. Units are KiB.
+- **Seven script files:** 2.31, 7.86, 70.5, 45.77, 4.2, 9.77 and 1.64 KiB, **145,459 bytes in total: byte for byte the same as in step 4.3.** The footer adds no client JavaScript.
+- **Inline scripts:** 19 tags, 44.96 KiB raw, **7.39 KiB** compressed (7,565 bytes); step 4.3 had 18 tags and 6.8 KiB.
+- **Combined estimate: 149.44 KiB.** Step 4.3 was 148.83 KiB; the first step 4.4 build, before the refinements, was 149.41 KiB.
+- **Where the increase comes from:** all of it is the inline scripts. They carry Next.js's inline Flight data, the serialized server-rendered tree that now includes the footer markup and its class names. It is not executable JavaScript added by the footer.
+- **Budget:** 0.06 KiB below the 149.5 KiB stop line and 0.56 KiB below the 150KB target (§15.1). The work did not stop.
+- **Owner direction:** nothing was removed to reduce the figure. Step 4.5 is to measure the same way, but report executable JavaScript, the inline Flight data and the JSON-LD structured data separately (§20.5).
+
+**Contact status-message layout shift, reassessed with the footer present (§20.5; Contact unchanged)**
+
+The Contact source was not modified in step 4.4. The measurement was repeated with the footer mounted, at four widths, for a successful and a failed copy. Failure was produced in two ways, which gave the same results: by replacing the clipboard `writeText` with one that rejects, and by denying the clipboard-write permission over the DevTools protocol.
+
+How the shift is counted:
+- **Appearing:** the move when the message appears comes right after the click, so Chrome marks it as caused by recent input, and it is not counted in CLS.
+- **Clearing:** the move back when the message clears, about four seconds later, is counted.
+- The footer now moves by the same amount as the GitHub and LinkedIn buttons.
+
+| Width, outcome | Overlay scrollbars (as phone browsers normally use) | Classic 15px scrollbars | §19.8 (step 4.3) |
+|---|---|---|---|
+| 320px, success | +29px; counted shift 0.0132 | +29px; 0.0132 | +29px |
+| 375px and 414px, success; 1280px, success | 0 | 0 | 0 (375, 1280) |
+| 320px, failure | **+50px; 0.0250** | **+71px; 0.0373** | +50px |
+| 375px, failure | +50px; 0.0251 | +50px; 0.0251 | +50px |
+| 414px, failure | +50px; 0.0239 | +50px; 0.0238 | not measured |
+| 1280px, failure | 0 | 0 | 0 |
+
+- **Why 320px differs:**
+  - The cause is the scrollbar width, not the footer and not the failure method.
+  - With classic scrollbars the 320px layout is 305px wide, so the failure message wraps onto three lines (+71px).
+  - With overlay scrollbars the layout is a full 320px wide and the message takes two lines (+50px). The Contact email then ends at 304px, exactly as in the §19.8 email table, and both the +50px and +29px figures match §19.8.
+  - Removing the footer from the page in the browser did not change the result at either width.
+  - Phone browsers normally use overlay scrollbars, so +50px is the expected figure on phones; this was not checked on a real phone. +71px applies to a 320px desktop window with classic scrollbars.
+- **CLS:** the worst counted shift is **0.0373**, below the 0.05 aim and the 0.1 budget (§15.1). Page-load CLS was 0 in every run.
+- **Owner decision still to be taken:** whether a change to Contact is justified. Nothing was changed.
+
+**Tests and gate.**
+- `npm test` passes **52 tests in 8 files**: the 43 of step 4.3, plus 9 new Footer tests:
+  1. exactly one `contentinfo` landmark;
+  2. the email link by name with its `mailto:` address;
+  3. a preferred email break opportunity before the `@` (the exact email text, one `<wbr>` immediately before the `@`, no `<br>`); this test does not claim that a break inside a word is impossible, because `overflow-wrap: anywhere` stays as the fallback;
+  4. GitHub and LinkedIn by name, with `href`, `target="_blank"` and a `rel` containing `noopener` and `noreferrer`;
+  5. "Back to top" → `#top`;
+  6. the navigation links equal the visible sections, in order, with `#id` targets;
+  7. the name, the tagline and the copyright line, with no "All rights reserved";
+  8. the monogram hidden and not a link, and no `img` role in the footer;
+  9. the build year: with the clock fixed in 2031 and the modules reloaded, the footer shows "© 2031 Kishor Kumar".
+- The tests query by role, name or text and contain no DOM snapshots.
+- Lint, type-check, format check, the production build (`/` and `/_not-found` both static) and `git diff --check` also pass.
+
+**Reviews** (read-only reviewers; findings were handled before the commit)
+- **Code review: approve with minor findings.**
+  - The missing "@" guard was fixed.
+  - The `<wbr>` split now exists in both Footer and Contact. Sharing one helper needs a Contact change, so it is a follow-up.
+  - `underline-offset-[3px]` is a raw value, but the same one is already used in the Header and Contact.
+  - The build-year approach and its test were judged sound.
+- **Accessibility review: no WCAG 2.2 AA failures found** in the code.
+  - The `role="list"` suggestion was applied.
+  - Not changed: the inconsistent pronunciation of "·" (owner-approved wording, also used in the hero), and an optional `tabIndex={-1}` on the hero section, to be considered only if screen-reader testing shows the reading position does not move after "Back to top".
+- **UI/UX review: nothing critical.**
+  - The approved refinements above were applied.
+  - Not adopted, by owner decision: keeping the copyright line and "Back to top" on one row on phones, and changing link transitions.
+  - The review's claim that "Back to top" would do nothing on the 404 page was checked and found wrong (see Keyboard).
+
+**Known follow-ups** (not decided; none blocks step 4.4)
+1. A shared email-break helper for Footer and Contact (needs a Contact change).
+2. An underline-offset token for the three uses.
+3. The Skills section overflowing at 200% text-only enlargement.
+4. `scroll-padding-bottom`, so the focus ring is never cut off at the bottom of the screen.
+5. The Header and Footer `#id` links on the 404 page, to be fixed in step 4.5 (owner decision).
+
+**Not verified:**
+- Speech from NVDA, JAWS, VoiceOver and TalkBack, including how the "Footer" navigation, the "Contact links" list, "©" and "·" are announced, and whether the reading position moves after "Back to top".
+- Firefox, Safari and Edge, including whether Safari keeps the list role.
+- Touch devices and real phones.
+- Real browser zoom (only emulated zoom and text-size changes were checked).
+- Windows High Contrast and forced colors.
+- The WCAG 1.4.12 text-spacing override.
+- Automated axe (it starts in step 4.6).
+- Contrast of rendered pixels and of hover states.
+- A manual keyboard-only pass by a person.
+- The exact transferred size of the HTML response with its inline scripts.
+
+The full §5.5 validation remains outstanding.
+
 ---
 
 ## 20. Milestone 4: Premium Visual Identity and Portfolio Polish
@@ -1173,10 +1368,28 @@ D21 illustration · D22 positioning statement · D23 hero CTA · D24 CSS-only an
 - A shared `Button` primitive (primary, secondary, icon; §10.4) is used by the hero and Contact.
 
 **Footer** (§8.4, `surface` background, top `border`): "KK" monogram, name and one line ("AI undergraduate · University of Sindh"); navigation links built from the visible sections; email, GitHub and LinkedIn (icon + text); "Back to top"; copyright line; a static decorative three-dot divider echoing the illustration. No placeholder content. The year is a fixed value or the build year, not a client-side date.
+- **Confirmed and built in step 4.4** (owner decisions; source commit `b17964a`; record in §19.9). This wording is confirmed:
+  - the tagline "AI undergraduate · University of Sindh";
+  - the copyright line "© {build year} Kishor Kumar", with no "All rights reserved";
+  - the values in `src/content/footer.ts` (`FooterContent`).
+- The year is the **build year**, read on the server during static generation; it is never computed in the browser.
+- The monogram is "KK" in Geist Sans (OD-6 resolved): a decorative 40px circular badge, `aria-hidden`, not a link.
+- **Navigation:** `<nav aria-label="Footer">` with plain `#id` links, like the header.
+- **Contact links:** `<ul aria-label="Contact links">` with:
+  - the email as visible text with `mailto:`, 14px, with one `<wbr>` before the `@` and `overflow-wrap: anywhere` as a fallback;
+  - GitHub and LinkedIn as the shared secondary `Button`.
+- **Back to top:** `href="#top"` with an `aria-hidden` ArrowUp icon.
+- **Behavior:** a Server Component with no client JavaScript. Every link is at least 44×44px. Nothing animates; the only transitions are 150ms color changes.
+- **Layout:**
+  - `wide` container, with no visible group labels;
+  - below 768px, the groups are stacked and the navigation links sit in two columns;
+  - from 768px, two columns of groups;
+  - from 1024px, three columns, with the contact group aligned to the right, a 24px gutter, and 32px from `2xl` (§7.3);
+  - the copyright line and "Back to top" stack on narrow phones.
 
 **Animation** (CSS-only, D24, §11.7): hero entrance (except `h1`) as a subtle `translateY` rise only, 60ms stagger, total ≤ 800ms, starting on page load, with no opacity animation from zero; the illustration visible immediately with an optional one-time, transform-only entrance; hover and focus transitions of 150ms or less. Under `prefers-reduced-motion: reduce`: no movement, final state shown at once. All page content is visible immediately and with JavaScript disabled. Not built: scroll-triggered section reveals, hidden starting states, any new `IntersectionObserver` or scroll-listener code for animation or reveals, sliding nav indicator, cursor-follow, parallax, looping motion. The existing header scroll spy is unchanged.
 
-**Mobile**: one column; stacked 44px buttons; 12px hero entrance rise; footer groups stacked; long email wraps.
+**Mobile**: one column; buttons keep their 44px minimum height (48px on touch screens) and sit side by side where they fit, wrapping onto the next line where they do not (for example the footer's GitHub and LinkedIn buttons sit side by side at 375px and wrap onto two lines at 320px, where the pair, about 301px wide, does not fit); 12px hero entrance rise; footer groups stacked, with the footer navigation links in two columns; the long Contact email wraps before the `@`, and the footer email fits on one line at 14px, with a break hint before the `@` as a fallback.
 
 ### 20.4 Implementation sequence and acceptance criteria (D28)
 Common gate for every step: `npm run lint && npm run typecheck && npm run format:check && npm run build` all pass; no dependency is added unless the step says so; nothing is committed or pushed without owner approval (CLAUDE.md §6); contrast is recomputed for any new color pair (§5.5). From step 4.1 on, `npm test` (Vitest, D30) is part of the gate: `npm run lint && npm run typecheck && npm run format:check && npm run build && npm test`. `npm test` runs Vitest only and needs no browser, so it may run locally. **Component-test rule (D32):** a step is not complete unless every new React component it introduces has its component test in that same step; tests use accessible role/name or label queries wherever practical, test user-observable behavior, and use no large DOM snapshots. **Rule files:** `.claude/rules/testing.md` and `CLAUDE.md` §9 already include `npm test` (applied in step 4.1, D33). The Playwright and axe updates remain proposals until step 4.6 and are not applied without the owner's approval; until then this gate governs where it is stricter, and each Milestone 4 request for commit approval reports the `npm test` result from step 4.1 on. Automated axe, Playwright and screenshot checks do not exist before step 4.6, so steps 4.1–4.5 are not required to pass them; each of those steps is checked by the criteria below, a manual keyboard review and a code review. From step 4.6 on, the CI browser tests and screenshots are an additional gate. Browsers are installed and run in GitHub Actions only; none is installed or run locally (D29, D30). Every requirement of `.claude/rules/testing.md` is mapped to its coverage in §20.7.
@@ -1187,7 +1400,7 @@ Common gate for every step: `npm run lint && npm run typecheck && npm run format
 | **4.1** Foundations | Vitest set up with the D31 stack; `Button` primitive **with its component test, in this step (D32)**; proposed `testing.md` and `CLAUDE.md` §9 updates for Vitest and `npm test` (D33, presented separately, not applied); CSS-only motion utilities from the §11.2 tokens (transform-only hero entrance keyframes, 150ms transitions); site configuration module; **correct the role wording in `src/content/site.ts` from "AI/ML Engineer" to "Aspiring AI/ML Engineer"** (currently in `homeTitle`), **with a focused Vitest regression assertion written in this step (v0.18)**; inspect the permission configuration in `.claude/settings.json` and propose the smallest update `npm test` needs (not applied without the owner's explicit approval) | the only new dependencies are the six D31 dev dependencies (`vitest`, `@testing-library/react`, `@testing-library/user-event`, `@testing-library/jest-dom`, `jsdom`, `@vitejs/plugin-react`) plus their two required peers `vite` and `@testing-library/dom` (an owner-approved addition, eight in all), each explicitly pinned (exact version) to a mutually compatible version, installed without `--force` or `--legacy-peer-deps`, with `npm ls` reporting no peer-dependency errors and the exact versions recorded in §19.5; if no compatible set exists, work stops and the owner is told before the list changes; no browser is downloaded; test files are checked by `npm run lint` and `npm run typecheck`, and the `@/` import alias works inside tests; `npm test` exists, runs without a browser and passes; the `Button` test covers rendering and key interaction (for example that a click is handled, that a disabled button does not fire it, and which element it renders), queries by role or label, and contains no snapshot of a large DOM tree; `Button` documents default, hover, focus-visible, active and disabled states; the built home page `<title>` reads "Kishor Kumar · Aspiring AI/ML Engineer" and the string "AI/ML Engineer" appears in `site.ts` only as part of "Aspiring AI/ML Engineer"; the motion utilities are CSS only, animate `transform` only for entrances (no opacity animation from zero), and are removed under reduced motion; the existing header scroll spy (`src/components/layout/useHeaderState.ts`, which uses `IntersectionObserver`) is not modified; step 4.1 adds no new `IntersectionObserver` or scroll-listener code for scroll-triggered animation, reveal effects or hidden section states, and no section has a hidden starting state; the page is fully visible with JavaScript disabled; the site URL comes from configuration and no domain is hardcoded; **the role/title correction has its regression test in this step, not later:** a focused Vitest assertion checks that the home page title content reads exactly "Kishor Kumar · Aspiring AI/ML Engineer" and that the role content reads "Aspiring AI/ML Engineer", and it fails if the old "AI/ML Engineer"-only wording returns (an owner-directed exception to "no Vitest for unrelated application logic", D30, limited to this one regression test); the browser-level page-title assertion in 4.6 is additional coverage and does not replace it; **settings:** `.claude/settings.json` is left unchanged by default; the step inspects its current permission configuration (today it allows `npm run test:*` but not `npm test`) and presents the smallest necessary update for `npm test` as a proposal in the step report, and the file is changed only after the owner explicitly approves that proposal; the D33 proposals for `.claude/rules/testing.md` and for `CLAUDE.md` §9 are written as two separate documents in the step report for owner review, preserve the existing standards, and neither file is modified before approval |
 | **4.2** Hero + illustration | New hero content (§20.3), signature illustration, hero entrance | D22 text matches exactly; eyebrow reads "Aspiring AI/ML Engineer"; exactly one `h1`; "Get in touch" links to `#contact`; no resume CTA or link exists; the hero fits above the fold at 1280×720 including the whole illustration card, and at 375×667 the text and buttons fit with the illustration below them, and the measured numbers are reported even when something does not fit (nothing is hidden to pass); GitHub and LinkedIn use their recognizable brand marks with accessible names, and the inline paths match their official sources; the SVG has `role="img"`, `<title>`, `<desc>` and a visible two-sentence caption that starts "Illustration:"; no horizontal scroll from 320 to 2560px; CLS < 0.1; hero entrance ≤ 800ms, CSS only and transform only (no opacity animation from zero), with the `h1` not animated; all hero text and the illustration are visible from the first paint; with reduced motion there is no movement and the final state shows at once; manual keyboard and code review finds no accessibility issue (automated axe checks start in 4.6); the illustration component (`NeuralFigure`) has its Vitest component test **in this step (D32)**: it finds the figure by role and accessible name, checks the description and the visible "Illustration" caption, and checks that the description says one path is highlighted; the browser tests added in 4.6 are additional and do not replace it; the brand-icon components have their Vitest test in this step too; a few Hero regression tests cover its essential content, heading and links (an owner-approved exception to D30 item (5), §20.7); the actual compressed JavaScript a modern browser transfers for the home page is measured and reported against the 150KB target |
 | **4.3** Contact | **Contact only** (§20.3; owner decision, v0.21): the email as the focal element, a text-only "Copy email address" control, and GitHub and LinkedIn as secondary buttons with brand icons. About, Skills and Education are **not changed** (their treatments are deferred, §20.3). The now-unused `ExternalLink` component is removed (see criteria) | **Scope and structure:** `About`, `Skills`, `Education` and their content files have no changes; section order, ids and headings are unchanged. **Email:** visible text with a working `mailto:` link in the server-rendered HTML, without JavaScript; it wraps responsively on narrow screens through one optional line-break opportunity (`<wbr>`, no characters added) immediately before the `@`, with no forced break added after it, and nothing overflows at 320px. **Copy control, behavior:** text only, no icon; rendered only after hydration and only when the browser has a working clipboard API (never a dead button; absent from the server HTML); its accessible name stays "Copy email address" and does not change after a click; one persistent `role="status"` message, visible and announced, reports success ("Email address copied.") or failure (could not copy; the address is selected so it can be copied by keyboard), and clears after about 4 seconds; on failure the visible email text is selected; no `execCommand` fallback; Enter and Space work; the 44px target and the global focus ring apply; the control sits in a row of fixed 44px height so nothing moves when it appears. **Copy control, tests (D32), in this step:** a Vitest component test using role or label queries and `user-event` covers: not rendered without a clipboard API; a successful copy (the exact address is written and the status says so); a failed copy (failure message, email text selected); keyboard activation with Enter and Space; the accessible name staying constant; the message clearing after the timeout; and repeated attempts, for successes and for failures (an identical message is added to the page as a new element each time, the timeout restarts on every attempt, and after a second failure the email text is selected again). **Contact regression test:** `Contact.test.tsx` renders the section on the server and checks the visible email, the `mailto:` link, that the email carries one optional break opportunity (`<wbr>`) immediately before the `@` and no forced break (`<br>`), the GitHub and LinkedIn links with safe `rel` and accessible names, and that there is no copy button in the server output; a second check confirms the button appears once mounted in a browser-like environment. Both extra checks are owner-approved and kept; the email-wrap check is recorded here from v0.22 (§19.8). The test is an owner-approved exception to D30 item (5) (§20.7). A real-clipboard browser test in step 4.6 is optional and not required. **Cleanup:** `ExternalLink` has no remaining use after Contact switches to buttons, so it is deleted, and the comment in `Button.tsx` that points to it is corrected; unused code is not kept for future reuse (the 4.4 footer builds what it needs from existing primitives). **JavaScript budget:** the gzipped JavaScript for `/` is measured the same way as in §19.7 (script files requested by a modern browser, and with the inline scripts); an increase above **2.5 KB** is investigated, and the work **stops** and is reported to the owner if the measured total (script files plus inline scripts) exceeds **149.5 KB**; the cheaper options in that case are a native `<button>` instead of the shared `Button` and trimming the status logic. **Other:** no hover lift on non-interactive items; no scroll reveals or hidden starting states; no new dependency; manual keyboard and code review finds no accessibility issue (axe starts in 4.6); contrast table for new pairs recorded in the step 4.3 verification record (§19.8) |
-| **4.4** Footer | Footer component | Exactly one `contentinfo` landmark; email, GitHub, LinkedIn (icon + text), "Back to top" and copyright present; nav links only for visible sections; external links carry `rel="noopener noreferrer"`; targets ≥ 44px (never below 24px); manual keyboard and code review finds no accessibility issue (axe starts in 4.6); the Footer has its Vitest component test **in this step (D32)**: it finds the `contentinfo` landmark by role, checks that the email, GitHub, LinkedIn and "Back to top" links exist by name with the right `href` and `rel`, and that the navigation links match the visible sections; the browser tests added in 4.6 are additional and do not replace it |
+| **4.4** Footer | Footer component | Exactly one `contentinfo` landmark; email, GitHub, LinkedIn (icon + text), "Back to top" and copyright present; nav links only for visible sections; external links carry `rel="noopener noreferrer"`; targets ≥ 44px (never below 24px); manual keyboard and code review finds no accessibility issue (axe starts in 4.6); the Footer has its Vitest component test **in this step (D32)**: it finds the `contentinfo` landmark by role, checks that the email, GitHub, LinkedIn and "Back to top" links exist by name with the right `href` and `rel`, and that the navigation links match the visible sections; the browser tests added in 4.6 are additional and do not replace it. **Status (v0.23):** implemented in source commit `b17964a` and verified against these criteria by automated and scripted browser checks; manual and assistive-technology checks are not done; verification record in §19.9 |
 | **4.5** Metadata and SEO | Title/description, Open Graph and Twitter tags, generated 1200×630 share image, icons and manifest, robots, sitemap, JSON-LD, 404 page | Home title is "Kishor Kumar · Aspiring AI/ML Engineer"; description 140–160 characters; share image is 1200×630; JSON-LD parses as valid JSON with `<` escaped and contains no invented data; a preview deployment returns `noindex` and a production build does not (tested by simulating both environments); canonical, sitemap and Open Graph `url` appear only when a site URL is configured; a search of the source finds no hardcoded production domain; the 404 page returns status 404; the JSON-LD serialization (whether a React component or a helper) has a Vitest test in this step covering valid JSON output and the escaping of `<`, U+2028 and U+2029 (a genuine safety need, D25); any other React component added in this step has its component test in this step (D32); the 404 route's browser-level test is written in 4.6, as the owner decided (D32) |
 | **4.6** Security headers + CI + browser tests + screenshots (D29, D30) | Headers in `next.config.ts` (§16.7); GitHub Actions workflow with a quality job and a browser-test job; Playwright and `@axe-core/playwright` as dev dependencies with a Playwright config, an end-to-end test folder and an npm script for the browser tests (separate from `npm test`, which runs Vitest only); the D29 tests; additional end-to-end checks for the illustration and the footer, and the required browser-level test for the 404 route (§20.7), which add to and do not replace the component tests (D32); screenshots at the nine §18.3 widths for both pages (D34); proposed Playwright and axe updates to `.claude/rules/testing.md` and `CLAUDE.md` §9 (D33, presented separately, not applied) | **Security:** all headers in §16.7 present on the production build; the CSP is tested on `/` and the 404 page with zero console violations; any `unsafe-*` source is documented in §16.7 and approved before enforcement. **Workflow:** the quality job runs the four gate commands, `npm test` and `npm audit --omit=dev --audit-level=high`; the browser-test job builds the site and runs the browser tests against the production server; permissions are `contents: read` and action versions are pinned. **Chromium (D34) is installed and run only inside the CI job**; no `package.json` script or install hook downloads a browser, and `npm test` and the gate commands need none (Vitest uses `jsdom`). Exact versions of Playwright and `@axe-core/playwright` are pinned and recorded in §19.5. **Tests (the first six are the D29 minimum):** (1) the homepage loads with exactly one `h1` and the skip link moves focus to `main`; (2) at a mobile width the menu opens, closes with Escape and returns focus to the menu button; (3) anchor navigation reaches the target section; (4) every `target="_blank"` link has `rel` containing `noopener` and `noreferrer`; (5) an unknown URL returns HTTP 404; (6) axe finds 0 violations (WCAG 2.2 A and AA rule tags) on the homepage, on the 404 page, and on the homepage with the mobile menu open; (7) the homepage `<title>` is "Kishor Kumar · Aspiring AI/ML Engineer" (additional browser-level coverage; the immediate regression test is the Vitest assertion written in step 4.1); (8) end-to-end checks for the illustration (visible on load with its caption), the footer (its links and "Back to top" work) and the 404 route (HTTP 404 and a link home, which is the 404 route's required browser-level test, D32); these add to the component tests already written in 4.2 and 4.4. The axe test visits **every page route in the production build** (`/` and the 404 page; the route list is checked in 4.7). Tests query by role, label or text, not by class or test id when avoidable, and contain no snapshot of a large DOM tree. **Screenshots (D30):** full-page captures of every page route (`/` and the 404 page) at 320, 375, 414, 768, 1024, 1280, 1440, 1920 and 2560px wide (18 images) on the production build, uploaded as a workflow artifact **even when a test fails**, with **14-day retention** (D34). An automated check at every one of the 18 page/viewport combinations fails the run if the page has horizontal overflow (document width larger than the viewport). The images are for human visual inspection; **no screenshot baselines are committed** and no image comparison is run (D34). The first CI run is green with all of the above. `.claude/rules/testing.md` and `CLAUDE.md` are **not** edited in this step; the Playwright and axe updates are written as separate proposals (D33), preserve the existing standards, and are applied only after owner review (§20.5) |
 | **4.7** Verification | Run `responsive-testing`, `design-review`, accessibility, performance and code reviews, and `pre-deployment-audit`; record results | No horizontal scroll at 320, 375, 414, 768, 1024, 1280, 1440, 1920 and 2560px; Lighthouse on the production build, mobile: Performance ≥ 90, Accessibility ≥ 95; LCP < 2.5s and CLS < 0.1; first-load JavaScript for `/` < 150KB gzipped (measured and stated); the CI browser-test run on the final commit is green, and its results (the D29 minimum plus the additional tests of step 4.6, including axe on `/`, the 404 page and the open menu) are recorded with the CI run identifier; the Vitest results (`npm test`, including the component test of every new component, each in the step that introduced it) and the screenshot artifact (its name, the run it belongs to, and the 18 images: `/` and the 404 page at nine widths, with the horizontal-overflow check results) are recorded as well; every row of the §20.7 coverage tables is shown as met, or listed as an open issue for the owner; the axe route list is compared with the route list of the production build; a validation record is added in §19.6 style, listing what was **not** tested (for example NVDA, VoiceOver, real browser zoom); the owner approves the result |
@@ -1195,7 +1408,7 @@ Common gate for every step: `npm run lint && npm run typecheck && npm run format
 ### 20.5 Unresolved items (not decided in v0.13)
 - **OD-11 production domain:** still open. How canonical, sitemap and Open Graph URLs behave before a domain exists is proposed in step 4.5 and approved then.
 - **OD-16 resume PDF:** still open; no resume CTA, Resume button or route until a PDF exists.
-- **OD-7** availability line, **OD-8** photo, **OD-6** logo ("KK" is a proposal only), **OD-12** analytics, and **OD-4** status colors: unchanged.
+- **OD-7** availability line, **OD-8** photo, **OD-12** analytics, and **OD-4** status colors: unchanged. **OD-6** logo was resolved in step 4.4 (v0.23, §19.3a): "KK" as the decorative footer monogram; whether it is also used in the site icons is decided with the icons in step 4.5.
 - **Final CSP directives:** decided by testing in step 4.6 (§16.7).
 - **Remaining details of the browser tests and screenshots (step 4.6):** the folder and script names, and the screenshot viewport heights. The browser (Chromium), the 18 screenshots, the overflow checks, the 14-day artifact retention and the no-baseline rule are settled by D34. OD-17 is resolved by D29.
 - **Testing standards (resolved by D30–D34, mapped in §20.7):** `.claude/rules/testing.md` is unchanged and in force; the Testing Library stack is approved (D31, OD-18 resolved); each new component's test arrives in its own step (D32); nine-width screenshots are in 4.6 (D34).
@@ -1204,8 +1417,18 @@ Common gate for every step: `npm run lint && npm run typecheck && npm run format
   - **Applied in step 4.1:** the proposals for Vitest and `npm test`, reviewed and approved by the owner. `.claude/rules/testing.md` (the Unit/component, new-component, required-checks and Tests bullets) and `CLAUDE.md` §9 (the `npm test` row, the gate command including `npm test`, and a note that browser tests come in step 4.6) were committed in the step 4.1 documentation commit (`a31e64e`). The permission `Bash(npm test)` was added to `.claude/settings.json`, with the owner's approval, in the step 4.1 implementation commit (`2fb406d`).
   - **Still pending, for step 4.6:** the proposals for Playwright and axe, for `testing.md` and `CLAUDE.md` §9. They are written in step 4.6, preserve the existing standards, and are applied only after owner review. Until then `testing.md` correctly says that Playwright and axe are not installed yet, and `CLAUDE.md` §9 says that browser tests come in step 4.6.
   - **Reporting in the meantime:** the stricter gate in §20.4 governs where it is stricter than the rule files; every Milestone 4 request for commit approval reports `npm test` (from step 4.1) and the CI results (from step 4.6).
-- **Share-image design** and the footer wording (§20.3): confirmed when the step that builds them is reviewed. The Contact layout details were reviewed with step 4.3 (§19.8).
+- **Share-image design** and the footer wording (§20.3): confirmed when the step that builds them is reviewed. The Contact layout details were reviewed with step 4.3 (§19.8). The footer wording was confirmed in step 4.4 (v0.23, §20.3, §19.9); the share-image design is still to be confirmed in step 4.5.
 - **Status-message layout shift on narrow screens (found in step 4.3, recorded in §19.8):** while the copy control's message is shown it can wrap and push the GitHub and LinkedIn buttons down (measured: up to 50px at 320px and 375px wide, none at 1280px), and they move back when the message clears after about four seconds. Owner decision (v0.22): a known trade-off, no change in step 4.3, to be reassessed after step 4.4, when the footer is present, by measuring layout shift before deciding whether a change is justified. This entry changes no implementation requirement.
+  - **Reassessed in step 4.4 (v0.23, §19.9)**, with Contact unchanged:
+    - With overlay scrollbars, as phone browsers normally use (emulated, not checked on a real phone), a failed copy moves the buttons and the footer by +50px at 320, 375 and 414px, and a successful copy by +29px at 320px. These match §19.8.
+    - In a 320px window with classic 15px scrollbars, the layout is 305px wide and the failure message wraps onto three lines (+71px). That scrollbar difference is the whole cause of the 320px difference.
+    - The move when the message appears follows the click, so it is not counted in CLS. The move back when it clears is counted: at most **0.0373**, below the 0.05 aim.
+    - Whether a change to Contact is justified is still the owner's decision.
+- **JavaScript budget going into step 4.5 (owner direction, v0.23):**
+  - The combined estimate for `/` is 149.44 KiB, 0.06 KiB below the 149.5 KiB stop line (§19.9). The script files are unchanged from step 4.3; the step 4.4 increase is inline Flight data.
+  - No functionality or content is removed to reduce the figure, and no client JavaScript is added.
+  - Step 4.5 measures the same way and reports executable JavaScript, the inline Flight data and the JSON-LD structured data separately.
+  - If the same measurement exceeds the 149.5 KiB stop line, the work stops and the cause is reported to the owner; no feature is removed without the owner's decision.
 - **Deferred About, Skills and Education treatments (v0.21):** the lead paragraph, the Skills group icons and the Education card are not part of Milestone 4. Reopening them needs an owner decision; if reopened they would come with their own acceptance criteria (and, for the Skills icons, a content-type change for the icon choice).
 - **Existing code that will change in later steps** (not edited in 4.0): the role wording in `src/content/site.ts` (corrected in step 4.1) and the hero code comment that said "no buttons yet" (corrected in step 4.2). Both are now done.
 
@@ -1271,7 +1494,7 @@ The rule file was read line by line at v0.16, re-checked at v0.17, and is **unch
 | Illustration (`NeuralFigure`) | 4.2 | Vitest: found by role and accessible name; description and visible "Illustration" caption present; the description says one path is highlighted | Visible on load with its caption; axe; screenshots |
 | Brand icons (`GitHubIcon`, `LinkedInIcon`) | 4.2 | Vitest: hidden from screen readers on their own; an icon link takes its accessible name from its label; size can be set | The homepage external-link `rel` test (D29 test 4); axe |
 | Copy-email control | 4.3 | Vitest with `user-event`: not rendered without a clipboard API; successful copy (exact address written, status announced); failed copy (failure message, email text selected); Enter and Space activation; accessible name stays constant; message clears after the timeout; repeated attempts for successes and failures (a new message element each time, the timeout restarts, the email text is selected again after a second failure) | Email stays visible text with a working `mailto:`; axe; screenshots. A real-clipboard browser test is optional, not required |
-| Footer | 4.4 | Vitest: `contentinfo` landmark by role; email, GitHub, LinkedIn and "Back to top" links by name with the right `href` and `rel`; navigation links match the visible sections | Links and "Back to top" work in the browser; external-link `rel` (D29 test 4); axe |
+| Footer | 4.4 | Vitest: `contentinfo` landmark by role; email, GitHub, LinkedIn and "Back to top" links by name with the right `href` and `rel`; navigation links match the visible sections. Also written in step 4.4 (`Footer.test.tsx`, 9 tests, §19.9): the preferred email break opportunity before the `@` (regression test for the 320px mid-word break; it does not claim a break inside a word is impossible); the name, tagline and copyright line; the decorative monogram; and the build year, checked with a fixed clock | Links and "Back to top" work in the browser; external-link `rel` (D29 test 4); axe |
 | JSON-LD serialization (component or helper) | 4.5 | Vitest: valid JSON; `<`, U+2028 and U+2029 escaped (genuine safety need, D25) | Page `<title>` and metadata checks where observable |
 | 404 route | 4.5 | By the owner's decision (D32) its test is browser-level and written in 4.6 | Required in 4.6: HTTP 404, a link home, axe, screenshots |
 | Any further new React component | When created | Vitest in the step that creates it, recorded in the step report | Added to the 4.6 browser tests where it affects a page |
